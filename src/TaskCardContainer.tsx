@@ -12,17 +12,18 @@ const TaskCardContainer: React.FC<{
   story: IStory
 }> = ({state, story}) => {
   const outerStyle = {
-    backgroundColor: '#eee',
-    padding: '8px',
+    backgroundColor: '#e8e8e8',
+    padding: '4px 8px',
     borderRadius: '4px'
   }
 
   const addTaskStyle: CSSProperties = {
     margin: '4px', 
-    padding: '16px',
+    padding: '12px 16px',
     borderRadius: '4px',
     backgroundColor: 'white',
-    textAlign: "center"
+    textAlign: "center",
+    border: '1px solid #d9d9d9'
   }
 
   const [, drop] = useDrop({
@@ -78,9 +79,11 @@ const TaskCardContainer: React.FC<{
       ).map(
         (task: ITask) => <TaskCard story={story} task={task}/>
       )}
-      <div style={addTaskStyle} onClick={addTask}>
-        <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
-      </div>
+      {state === 'todo' ? (
+        <div style={addTaskStyle} onClick={addTask}>
+          <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
+        </div>
+      ) : <></>}
     </div>
   );
 };

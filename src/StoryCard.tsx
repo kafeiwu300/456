@@ -8,7 +8,8 @@ import ActionType from "./ActionType";
 const StoryCard: React.FC<{story: IStory}> = ({story}) => {
   let storyForm: any = undefined;
 
-  const removeStory = () => {
+  const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.stopPropagation();
     Modal.confirm({
       content: '确定要删除这个故事吗？',
       okText: '确定',
@@ -23,7 +24,8 @@ const StoryCard: React.FC<{story: IStory}> = ({story}) => {
     })
   }
 
-  const modifyStory = () => {
+  const modifyStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.stopPropagation();
     Modal.confirm({
       okText: '保存',
       cancelText: '取消',
@@ -48,14 +50,14 @@ const StoryCard: React.FC<{story: IStory}> = ({story}) => {
   }
 
   return (
-    <Collapse expandIconPosition='right'>
-      <Collapse.Panel key={1} header={story.title} extra={
+    <Collapse expandIconPosition='right' style={{backgroundColor: '#e8e8e8'}}>
+      <Collapse.Panel key={story.id!} header={story.title} style={{backgroundColor: '#e8e8e8'}} extra={
         <>
-          <Icon type="edit" onClick={modifyStory}/>
+          <Icon type="edit" onClick={modifyStory} style={{marginRight: '12px'}}/>
           <Icon type="delete" onClick={removeStory}/>
         </>
       }>
-        <Descriptions size='small'>
+        <Descriptions size='small' colon={false}>
           <Descriptions.Item label='描述' span={3}>{story.description}</Descriptions.Item>
           <Descriptions.Item label='状态'>{story.state}</Descriptions.Item>
           <Descriptions.Item label='故事点'>{story.storyPoint}</Descriptions.Item>

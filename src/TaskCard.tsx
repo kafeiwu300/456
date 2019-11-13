@@ -1,5 +1,5 @@
-import React from 'react';
-import { Modal, Icon } from 'antd';
+import React, { useRef } from 'react';
+import { Modal, Icon, Collapse, Descriptions } from 'antd';
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
 import store from './store';
@@ -14,7 +14,8 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
 
   let taskForm: any = undefined;
 
-  const showInfo = () => {
+  const modifyTask = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.stopPropagation();
     Modal.confirm({
       okText: '保存',
       cancelText: '取消',
@@ -46,7 +47,8 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
     })
   });
 
-  const removeTask = () => {
+  const removeTask = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.stopPropagation();
     Modal.confirm({
       content: '确定要删除这个任务吗？',
       okText: '确定',
@@ -64,25 +66,22 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   }
 
   return (
-    <div ref={drag} style={{
-      margin: '4px', 
-      padding: '16px',
-      borderRadius: '4px',
-      backgroundColor: 'white',
-      display: 'flex'
-    }}>
-      <div style={{
-        display: 'inline-block', 
-        fontSize: '14px', 
-        fontWeight: 'bold', 
-        flex: 'auto',
-        cursor: 'pointer'
-      }} onClick={showInfo}>
-        {task.title}
-      </div>
-      <div style={{float: 'right', flex: 'initial'}}>
-        <Icon type="delete" onClick={removeTask} />
-      </div>
+    <div ref={drag} style={{margin: '4px 0'}}>
+      <Collapse expandIconPosition='right'>
+        <Collapse.Panel key={task.id!} header={task.title} extra={
+          <>
+            <Icon type="edit" onClick={modifyTask} style={{marginRight: '12px'}}/>
+            <Icon type="delete" onClick={removeTask}/>
+          </>
+        }>
+          <Descriptions size='small' colon={false}>
+            <Descriptions.Item label='描述' span={3}>{task.description}</Descriptions.Item>
+            <Descriptions.Item label='状态'>{task.state}</Descriptions.Item>
+            <Descriptions.Item label='任务点'>{task.taskPoint}</Descriptions.Item>
+            <Descriptions.Item label='估算工时'>{task.estimatedHours}</Descriptions.Item>
+          </Descriptions>
+        </Collapse.Panel>
+      </Collapse>
     </div>
   );
 }

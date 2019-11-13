@@ -10,14 +10,15 @@ import ActionType from './ActionType';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
-    backgroundColor: '#eee',
-    padding: '16px',
+    backgroundColor: '#e8e8e8',
+    padding: '12px 16px',
     borderRadius: '4px'
   }
 
   const addStoryStyle: CSSProperties = {
     ...outerStyle,
-    textAlign: 'center'
+    textAlign: 'center',
+    border: '1px solid #d9d9d9'
   }
 
   const headerStyle: CSSProperties = {
