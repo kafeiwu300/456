@@ -1,0 +1,132 @@
+故事看板
+
+基本对象
+
+Task
+
+{
+    String id;
+    String title;
+    String description;
+    Boolean hasFile;
+    String leader;
+    Integer priority; //优先级，目前支持1,2,3三级
+    Double estimatedHours; //预计工时
+    Double actualHours; //实际工时
+    Integer taskPoint;
+    String taskType; //任务类型，用户自定
+    String status;//任务状态，由项目决定
+    Date startTime;
+    Date endTime;
+    Date createTime;
+    Date modifyTime;
+    String createUser;
+    String modifyUser;
+    Story story; //所属故事
+    Iteration iteration; //所属迭代
+    Project project; //所属项目
+}
+
+Test
+
+{
+    String id;
+    String name;
+    String leader;
+    Integer level; //测试用例的等级，最高3级
+    String precondition; //前置条件
+    String description; //测试描述
+    Boolean hasFile;
+    String result; //测试结果记录
+    Date startTime;
+    Date endTime;
+    Date createTime;
+    Date modifyTime;
+    String createUser;
+    String modifyUser;
+    Story story; //所属用户故事
+    Project project; //所属项目
+}
+
+Story
+
+{
+    String id;
+    String title;
+    String description;
+    Integer priority; //优先级，目前支持1,2,3三级
+    Double estimatedHours; //预计工时
+    Double actualHours; //实际工时
+    String status; //用户故事状态，目前为backlog(未进入迭代)、
+		doing（正在迭代）、done（已经完成）
+    Boolean hasFile;
+    String leader;
+    Integer storyPoint;
+    Date startTime;
+    Date endTime;
+    Date createTime;
+    Date modifyTime;
+    String createUser;
+    String modifyUser;
+    Epic epic; //所属史诗故事
+    Iteration iteration; //所属迭代
+    Project project; //所属项目
+    List<Task> taskList = new ArrayList<>(); //包含的任务
+    List<Test> testList = new ArrayList<>(); //包含的测试
+}
+
+Epic
+
+{
+    String id;
+    String title;
+    String description;
+    Date createTime;
+    Date modifyTime;
+    String createUser;
+    String modifyUser;
+    Boolean hasFile;
+    Project project; //所属项目
+    List<Story> storyList = new ArrayList<>(); //包含的用户故事
+}
+
+Iteration
+
+{
+    String id;
+    String title;
+    String leader; //负责人
+    String target; //迭代目标
+    Boolean isActive; //是否是当前激活的迭代
+    Date startTime;
+    Date endTime;
+    Date createTime;
+    Date modifyTime;
+    String createUser;
+    String modifyUser;
+    Project project; //所属项目
+    List<Task> taskList = new ArrayList<>(); //包含的任务
+    List<Story> storyList = new ArrayList<>(); //包含的用户故事
+}
+
+Project
+
+{
+    String id;
+    String name;
+    List<String> storyStatusList = new ArrayList<>();
+    List<String> taskStatusList = new ArrayList<>();
+    Date createTime;
+    Date modifyTime;
+    String createUser;
+    String modifyUser;
+    Iteration currentIteration;
+    List<Task> taskList = new ArrayList<>();
+    List<Epic> epicList = new ArrayList<>();
+    List<Story> storyList = new ArrayList<>();
+    List<Iteration> iterationList = new ArrayList<>();
+    List<Test> testList = new ArrayList<>();
+}
+
+接口
+
