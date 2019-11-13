@@ -39,9 +39,16 @@ class BaseForm extends React.Component<FormComponentProps> {
             )
           }
         </Form.Item>
-        <Form.Item label='优先级' labelCol={{span: 4}} wrapperCol={{span: 16}}>
+        <Form.Item label='优先级' labelCol={{span: 4}} wrapperCol={{span: 4}}>
           {
-            this.props.form.getFieldDecorator('priority', {})(<InputNumber/>)
+            this.props.form.getFieldDecorator('priority', {})(
+              <Select>
+                <Select.Option value='very high'>very high</Select.Option>
+                <Select.Option value='high'>high</Select.Option>
+                <Select.Option value='middle'>middle</Select.Option>
+                <Select.Option value='low'>low</Select.Option>
+              </Select>
+            )
           }
         </Form.Item>
         <Form.Item label={(isTask ? '任务' : '故事') + '点'} labelCol={{span: 4}} wrapperCol={{span: 16}}>

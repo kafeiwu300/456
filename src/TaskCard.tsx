@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Modal, Icon, Collapse, Descriptions } from 'antd';
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
@@ -79,6 +79,8 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
             <Descriptions.Item label='状态'>{task.state}</Descriptions.Item>
             <Descriptions.Item label='任务点'>{task.taskPoint}</Descriptions.Item>
             <Descriptions.Item label='估算工时'>{task.estimatedHours}</Descriptions.Item>
+            <Descriptions.Item label='负责人'>{task.leader}</Descriptions.Item>
+            <Descriptions.Item label='优先级'>{task.priority}</Descriptions.Item>
           </Descriptions>
         </Collapse.Panel>
       </Collapse>

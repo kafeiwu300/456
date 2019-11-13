@@ -62,6 +62,8 @@ const StoryCard: React.FC<{story: IStory}> = ({story}) => {
           <Descriptions.Item label='状态'>{story.state}</Descriptions.Item>
           <Descriptions.Item label='故事点'>{story.storyPoint}</Descriptions.Item>
           <Descriptions.Item label='估算工时'>{story.estimatedHours}</Descriptions.Item>
+          <Descriptions.Item label='负责人'>{story.leader}</Descriptions.Item>
+          <Descriptions.Item label='优先级'>{story.priority}</Descriptions.Item>
         </Descriptions>
       </Collapse.Panel>
     </Collapse>
