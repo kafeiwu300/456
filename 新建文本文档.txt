@@ -130,3 +130,110 @@ Project
 
 接口
 
+创建用户故事
+
+url:/api/agile/story/create
+method:POST
+params:{
+    String title;
+    String description;
+    Integer priority; //优先级，目前支持1,2,3三级
+    Double estimatedHours; //预计工时
+    String leader;
+    File agileFile;
+    Integer storyPoint;
+    Date startTime;
+    Date endTime;
+    String epicId; //所属史诗故事
+    String iterationId; //所属迭代
+    String projectId; //所属项目
+}
+return Story;
+
+修改用户故事
+
+url:/api/agile/story/modify
+method:PUT
+params:{
+    String id;
+    String title;
+    String description;
+    Integer priority; //优先级，目前支持1,2,3三级
+    Double estimatedHours; //预计工时
+    Double actualHours; //实际工时
+    String status; //用户故事状态，目前为backlog(未进入迭代)、
+		doing（正在迭代）、done（已经完成）
+	//再讨论如何控制用户故事状态
+    File agileFile;
+    String leader;
+    Integer storyPoint;
+    Date startTime;
+    Date endTime;
+    String epicId; //所属史诗故事
+    String iterationId; //所属迭代
+    String projectId; //所属项目
+}
+return Story;
+
+删除用户故事
+
+url:/api/agile/story/delete
+method:DELETE
+params:{
+    String id;
+}
+return Boolean isSuccess;
+
+创建任务
+
+url:/api/agile/task/create
+method:POST
+params:{
+    String title;
+    String description;
+    File agileFile;
+    Integer priority; //优先级，目前支持1,2,3三级
+    String leader;
+    Double estimatedHours; //预计工时
+    Integer taskPoint;
+    String taskType; //任务类型，用户自定
+    Date startTime;
+    Date endTime;
+    String storyId; //所属故事
+    String iterationId; //所属迭代
+    String projectId; //所属项目
+}
+return Task;
+
+修改任务/完成任务
+
+url:/api/agile/task/modify
+method:PUT
+params:{
+    String id;
+    String title;
+    String description;
+    File agileFile;
+    String leader;
+    Integer priority; //优先级，目前支持1,2,3三级
+    Double estimatedHours; //预计工时
+    Double actualHours; //实际工时
+    Integer taskPoint;
+    String taskType; //任务类型，用户自定
+    String status;//任务状态，由项目决定
+    Date startTime;
+    Date endTime;
+    String storyId; //所属故事
+    String iterationId; //所属迭代
+    String projectId; //所属项目
+}
+return Task;
+
+删除任务
+
+url:/api/agile/task/delete
+method:DELETE
+params:{
+    String id;
+}
+return Boolean isSuccess;
