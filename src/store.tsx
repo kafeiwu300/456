@@ -5,7 +5,8 @@ import { IStory, IAction } from "./interfaces";
 let initState: IStory[] = [
   {
     id: '0',
-    title: '作为一个求职者，我期望我可以按照城市来搜索职位信息。',
+    title: '搜索职位信息',
+    description: '作为一个求职者，我期望我可以按照城市来搜索职位信息。',
     tasks: [
       {
         id: '0',
@@ -77,7 +78,8 @@ let initState: IStory[] = [
   },
   {
     id: '1',
-    title: '作为公司的HR，我可以发布一个招聘职位。',
+    title: '发布招聘职位',
+    description: '作为公司的HR，我可以发布一个招聘职位。',
     tasks: [
       {
         id: '8',

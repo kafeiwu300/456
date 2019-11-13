@@ -1,19 +1,11 @@
 import { IStory } from "./interfaces";
 import React from "react";
-import { Modal, Icon } from "antd";
+import { Modal, Icon, Collapse, Descriptions } from "antd";
 import StoryForm from "./StoryForm";
 import store from "./store";
 import ActionType from "./ActionType";
 
 const StoryCard: React.FC<{story: IStory}> = ({story}) => {
-  const outerStyle = {
-    backgroundColor: '#eee',
-    padding: '16px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    display: 'flex'
-  }
-
   let storyForm: any = undefined;
 
   const removeStory = () => {
@@ -31,7 +23,7 @@ const StoryCard: React.FC<{story: IStory}> = ({story}) => {
     })
   }
 
-  const showInfo = () => {
+  const modifyStory = () => {
     Modal.confirm({
       okText: '保存',
       cancelText: '取消',
@@ -56,20 +48,21 @@ const StoryCard: React.FC<{story: IStory}> = ({story}) => {
   }
 
   return (
-    <div style={outerStyle}>
-      <div style={{
-        display: 'inline-block', 
-        fontSize: '14px', 
-        fontWeight: 'bold', 
-        flex: 'auto',
-        cursor: 'pointer'
-      }} onClick={showInfo}>
-        {story.title}
-      </div>
-      <div style={{float: 'right', flex: 'initial'}}>
-        <Icon type="delete" onClick={removeStory}/>
-      </div>
-    </div>
+    <Collapse expandIconPosition='right'>
+      <Collapse.Panel key={1} header={story.title} extra={
+        <>
+          <Icon type="edit" onClick={modifyStory}/>
+          <Icon type="delete" onClick={removeStory}/>
+        </>
+      }>
+        <Descriptions size='small'>
+          <Descriptions.Item label='描述' span={3}>{story.description}</Descriptions.Item>
+          <Descriptions.Item label='状态'>{story.state}</Descriptions.Item>
+          <Descriptions.Item label='故事点'>{story.storyPoint}</Descriptions.Item>
+          <Descriptions.Item label='估算工时'>{story.estimatedHours}</Descriptions.Item>
+        </Descriptions>
+      </Collapse.Panel>
+    </Collapse>
   );
 }
 

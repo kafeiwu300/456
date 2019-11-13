@@ -13,7 +13,7 @@ const TaskCardContainer: React.FC<{
 }> = ({state, story}) => {
   const outerStyle = {
     backgroundColor: '#eee',
-    padding: '16px',
+    padding: '8px',
     borderRadius: '4px'
   }
 
