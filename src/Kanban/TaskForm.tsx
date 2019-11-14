@@ -1,6 +1,6 @@
 import { Form } from 'antd';
 import { FormCreateOption } from 'antd/lib/form/Form';
-import { ITaskFormComponentProps } from './interfaces';
+import { ITaskFormComponentProps } from '../interfaces';
 import BaseForm from './BaseForm';
 
 const formCreateOption: FormCreateOption<ITaskFormComponentProps> = {

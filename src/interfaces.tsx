@@ -1,12 +1,12 @@
 import { DragObjectWithType } from "react-dnd";
 import { Action } from "redux";
-import ActionType from "./ActionType";
+import { ActionType, State } from "./Kanban/enums";
 import { FormComponentProps } from "antd/lib/form/Form";
 
 export interface ITask {
   id?: string,
   title?: string,
-  state?: 'todo' | 'doing' | 'done',
+  state?: State,
   description?: string,
   priority?: number,
   estimatedHours?: number,
@@ -33,7 +33,7 @@ export interface IDragObject extends DragObjectWithType {
 export interface IAction extends Action<ActionType> {
   task?: ITask,
   story: IStory,
-  state?: 'todo' | 'doing' | 'done'
+  state?: State
 }
 
 export interface ITaskFormComponentProps extends FormComponentProps<ITask> {

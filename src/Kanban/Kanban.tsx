@@ -2,11 +2,11 @@ import React, { CSSProperties } from 'react';
 import {Row, Col, Icon, Modal} from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';
-import { IStory } from './interfaces';
+import { IStory } from '../interfaces';
 import StoryCard from './StoryCard';
 import StoryForm from './StoryForm';
 import store, { guid } from './store';
-import ActionType from './ActionType';
+import { ActionType, State } from "./enums";
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
@@ -55,32 +55,40 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
 
   return (
     <div>
-      <Row gutter={[16, 16]}>
-        <Col span={6}><div style={headerStyle}>story</div></Col>
-        <Col span={6}><div style={headerStyle}>todo</div></Col>
-        <Col span={6}><div style={headerStyle}>doing</div></Col>
-        <Col span={6}><div style={headerStyle}>done</div></Col>
+      <Row gutter={[8, 16]}>
+        <Col span={4}><div style={headerStyle}>story</div></Col>
+        <Col span={4}><div style={headerStyle}>todo</div></Col>
+        <Col span={4}><div style={headerStyle}>doing</div></Col>
+        <Col span={4}><div style={headerStyle}>test</div></Col>
+        <Col span={4}><div style={headerStyle}>deploy</div></Col>
+        <Col span={4}><div style={headerStyle}>done</div></Col>
       </Row>
       {stories.map((story: IStory) => {
         return (
-          <Row style={{marginBottom: '8px'}} gutter={16}>
-            <Col span={6}>
+          <Row style={{marginBottom: '8px'}} gutter={8}>
+            <Col span={4}>
               <StoryCard story={story}/>
             </Col>
-            <Col span={6}>
-              <TaskCardContainer story={story} state="todo"/>
+            <Col span={4}>
+              <TaskCardContainer story={story} state={State.todo}/>
             </Col>
-            <Col span={6}>
-              <TaskCardContainer story={story} state="doing"/>
+            <Col span={4}>
+              <TaskCardContainer story={story} state={State.doing}/>
             </Col>
-            <Col span={6}>
-              <TaskCardContainer story={story} state="done"/>
+            <Col span={4}>
+              <TaskCardContainer story={story} state={State.test}/>
+            </Col>
+            <Col span={4}>
+              <TaskCardContainer story={story} state={State.deploy}/>
+            </Col>
+            <Col span={4}>
+              <TaskCardContainer story={story} state={State.done}/>
             </Col>
           </Row>
         )
       })}
-      <Row gutter={16}>
-        <Col span={6}>
+      <Row gutter={8}>
+        <Col span={4}>
           <div style={addStoryStyle} onClick={addStory}>
             <span style={{cursor: 'pointer'}}><Icon type="plus" />添加故事</span>
           </div>

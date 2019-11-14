@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
-import ActionType from "./ActionType";
-import { IStory, IAction, ITask } from "./interfaces";
+import { ActionType } from "./enums";
+import { IStory, IAction, ITask } from "../interfaces";
 
 export const reducer: Reducer<IStory[], IAction> = (prevState, action) => {
   let state: IStory[] = prevState ? [...prevState] : [];

@@ -2,13 +2,13 @@ import React, { CSSProperties } from 'react';
 import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
-import { IStory, IDragObject, ITask } from './interfaces';
+import { IStory, IDragObject, ITask } from '../interfaces';
 import store, { guid } from './store';
-import ActionType from './ActionType';
+import { ActionType, State } from "./enums";
 import TaskForm from './TaskForm';
 
 const TaskCardContainer: React.FC<{
-  state: 'todo' | 'doing' | 'done',
+  state: State,
   story: IStory
 }> = ({state, story}) => {
   const outerStyle = {
@@ -18,7 +18,6 @@ const TaskCardContainer: React.FC<{
   }
 
   const addTaskStyle: CSSProperties = {
-    margin: '4px', 
     padding: '12px 16px',
     borderRadius: '4px',
     backgroundColor: 'white',
@@ -79,7 +78,7 @@ const TaskCardContainer: React.FC<{
       ).map(
         (task: ITask) => <TaskCard story={story} task={task}/>
       )}
-      {state === 'todo' ? (
+      {state === State.todo ? (
         <div style={addTaskStyle} onClick={addTask}>
           <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
         </div>

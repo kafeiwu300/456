@@ -1,4 +1,4 @@
-enum ActionType {
+export enum ActionType {
   moveTask,
   addTask,
   removeTask,
@@ -8,4 +8,10 @@ enum ActionType {
   modifyStory
 }
 
-export default ActionType;
+export enum State {
+  todo,
+  doing,
+  test,
+  deploy,
+  done
+}

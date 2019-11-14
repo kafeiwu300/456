@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal, Icon, Collapse, Descriptions } from 'antd';
 import { useDrag } from 'react-dnd';
-import { ITask, IDragObject, IStory } from './interfaces';
+import { ITask, IDragObject, IStory } from '../interfaces';
 import store from './store';
-import ActionType from './ActionType';
+import { ActionType } from "./enums";
 import TaskForm from './TaskForm';
 
 const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
@@ -75,12 +75,12 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
           </>
         }>
           <Descriptions size='small' colon={false}>
-            <Descriptions.Item label='描述' span={3}>{task.description}</Descriptions.Item>
-            <Descriptions.Item label='状态'>{task.state}</Descriptions.Item>
-            <Descriptions.Item label='任务点'>{task.taskPoint}</Descriptions.Item>
-            <Descriptions.Item label='估算工时'>{task.estimatedHours}</Descriptions.Item>
-            <Descriptions.Item label='负责人'>{task.leader}</Descriptions.Item>
-            <Descriptions.Item label='优先级'>{task.priority}</Descriptions.Item>
+            <Descriptions.Item label='描述' span={4}>{task.description}</Descriptions.Item>
+            <Descriptions.Item label='状态' span={4}>{task.state}</Descriptions.Item>
+            <Descriptions.Item label='任务点' span={4}>{task.taskPoint}</Descriptions.Item>
+            <Descriptions.Item label='估算工时' span={4}>{task.estimatedHours}</Descriptions.Item>
+            <Descriptions.Item label='负责人' span={4}>{task.leader}</Descriptions.Item>
+            <Descriptions.Item label='优先级' span={4}>{task.priority}</Descriptions.Item>
           </Descriptions>
         </Collapse.Panel>
       </Collapse>
