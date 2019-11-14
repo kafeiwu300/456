@@ -8,7 +8,7 @@ export interface ITask {
   title?: string,
   state?: State,
   description?: string,
-  priority?: number,
+  priority?: 'very high' | 'high' | 'middle' | 'low',
   estimatedHours?: number,
   taskPoint?: number,
   leader?: string

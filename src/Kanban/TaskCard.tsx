@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Icon, Collapse, Descriptions } from 'antd';
+import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button } from 'antd';
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from '../interfaces';
 import store from './store';
@@ -67,20 +67,20 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
 
   return (
     <div ref={drag} style={{margin: '4px 0'}}>
-      <Collapse expandIconPosition='right'>
-        <Collapse.Panel key={task.id!} header={task.title} extra={
+      <Collapse>
+        <Collapse.Panel showArrow={false} key={task.id!} header={task.title} style={{position: 'relative'}} extra={
           <>
-            <Icon type="edit" onClick={modifyTask} style={{marginRight: '12px'}}/>
-            <Icon type="delete" onClick={removeTask}/>
+            <Button onClick={modifyTask} type='link' size='small' icon='edit' ghost/>
+            <Button onClick={removeTask} type='link' size='small' icon='delete' ghost/>
           </>
         }>
+          {task.priority ? <Tag color='#fa8c16' title="优先级">{task.priority}</Tag> : <></>}
+          {task.leader ? <span title={task.leader}><Avatar shape="square" icon="user"/></span> : <></>}
+          {task.taskPoint ? <Badge count={task.taskPoint} title="任务点" style={{backgroundColor: '#bfbfbf'}} offset={task.leader ? [8, 0] : [0, 0]}/> : <></>}
           <Descriptions size='small' colon={false}>
-            <Descriptions.Item label='描述' span={4}>{task.description}</Descriptions.Item>
-            <Descriptions.Item label='状态' span={4}>{task.state}</Descriptions.Item>
-            <Descriptions.Item label='任务点' span={4}>{task.taskPoint}</Descriptions.Item>
-            <Descriptions.Item label='估算工时' span={4}>{task.estimatedHours}</Descriptions.Item>
-            <Descriptions.Item label='负责人' span={4}>{task.leader}</Descriptions.Item>
-            <Descriptions.Item label='优先级' span={4}>{task.priority}</Descriptions.Item>
+            <Descriptions.Item label='' span={4}>{task.description}</Descriptions.Item>
+            {/* <Descriptions.Item label='状态' span={4}>{task.state}</Descriptions.Item> */}
+            {/* <Descriptions.Item label='估算工时' span={4}>{task.estimatedHours}</Descriptions.Item> */}
           </Descriptions>
         </Collapse.Panel>
       </Collapse>

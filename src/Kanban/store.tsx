@@ -14,7 +14,7 @@ let initState: IStory[] = [
         title: '移动端UI开发',
         state: State.todo,
         description: '移动端UI开发',
-        priority: 3,
+        priority: 'very high',
         estimatedHours: 2,
         leader: 'Lucy'
       },
@@ -23,7 +23,7 @@ let initState: IStory[] = [
         title: '城市列表UI开发',
         state: State.todo,
         description: '城市列表UI开发',
-        priority: 2,
+        priority: 'high',
         estimatedHours: 2,
         taskPoint: 6
       },
@@ -55,7 +55,7 @@ let initState: IStory[] = [
         title: '搜索服务接口开发',
         state: State.doing,
         description: '搜索服务接口开发',
-        priority: 6,
+        priority: 'very high',
         taskPoint: 6,
         leader: 'Lucy'
       },

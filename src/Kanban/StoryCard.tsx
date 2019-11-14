@@ -1,6 +1,6 @@
 import { IStory } from "../interfaces";
 import React from "react";
-import { Modal, Icon, Collapse, Descriptions } from "antd";
+import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button } from "antd";
 import StoryForm from "./StoryForm";
 import store from "./store";
 import { ActionType } from "./enums";
@@ -50,20 +50,24 @@ const StoryCard: React.FC<{story: IStory}> = ({story}) => {
   }
 
   return (
-    <Collapse style={{backgroundColor: '#e8e8e8'}}>
-      <Collapse.Panel key={story.id!} header={story.title} style={{backgroundColor: '#e8e8e8'}} extra={
+    <Collapse>
+      <Collapse.Panel key={story.id!} header={story.title} showArrow={false} extra={
         <>
-          <Icon type="edit" onClick={modifyStory} style={{marginRight: '12px'}}/>
-          <Icon type="delete" onClick={removeStory}/>
+          <Button onClick={modifyStory} type='link' size='small' icon='edit' ghost/>
+          <Button onClick={removeStory} type='link' size='small' icon='delete' ghost/>
         </>
-      } showArrow={false}>
+      }>
+        {story.priority ? <Tag color='#fa8c16' title="优先级">{story.priority}</Tag> : <></>}
+        {story.state ? <Tag color='#2db7f5' title="状态">{story.state}</Tag> : <></>}
+        {story.leader ? <span title={story.leader}><Avatar shape="square" icon="user"/></span> : <></>}
+        {story.storyPoint ? <Badge title="故事点" count={story.storyPoint} style={{backgroundColor: '#bfbfbf'}} offset={story.leader ? [8, 0] : [0, 0]}/> : <></>}
         <Descriptions size='small' colon={false}>
-          <Descriptions.Item label='描述' span={4}>{story.description}</Descriptions.Item>
-          <Descriptions.Item label='状态' span={4}>{story.state}</Descriptions.Item>
-          <Descriptions.Item label='故事点' span={4}>{story.storyPoint}</Descriptions.Item>
-          <Descriptions.Item label='估算工时' span={4}>{story.estimatedHours}</Descriptions.Item>
-          <Descriptions.Item label='负责人' span={4}>{story.leader}</Descriptions.Item>
-          <Descriptions.Item label='优先级' span={4}>{story.priority}</Descriptions.Item>
+          <Descriptions.Item label='' span={4}>{story.description}</Descriptions.Item>
+          {/* <Descriptions.Item label='状态' span={4}>{story.state}</Descriptions.Item> */}
+          {/* <Descriptions.Item label='故事点' span={4}>{story.storyPoint}</Descriptions.Item> */}
+          {/* <Descriptions.Item label='估算工时' span={4}>{story.estimatedHours}</Descriptions.Item> */}
+          {/* <Descriptions.Item label='负责人' span={4}>{story.leader}</Descriptions.Item> */}
+          {/* <Descriptions.Item label='优先级' span={4}>{story.priority}</Descriptions.Item> */}
         </Descriptions>
       </Collapse.Panel>
     </Collapse>

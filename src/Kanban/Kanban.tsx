@@ -10,7 +10,8 @@ import { ActionType, State } from "./enums";
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
-    backgroundColor: '#e8e8e8',
+    // backgroundColor: '#e8e8e8',
+    backgroundColor: '#fff',
     padding: '12px 16px',
     borderRadius: '4px'
   }
