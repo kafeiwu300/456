@@ -12,7 +12,7 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIterationWithSt
     borderRadius: '4px'
   }
 
-  const addTaskStyle: CSSProperties = {
+  const addStoryStyle: CSSProperties = {
     padding: '12px 16px',
     borderRadius: '4px',
     backgroundColor: 'white',
@@ -84,6 +84,7 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIterationWithSt
           .filter((story: IStoryInEpic) => story.epicId === epic.id)
           .map((story: IStoryInEpic) => <div style={{margin: '4px 0'}}><StoryCard story={story}/></div>)
       }
+      <div style={addStoryStyle}><Icon type="plus"/>添加故事</div>
     </div>
   );
 };

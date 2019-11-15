@@ -1,4 +1,4 @@
-import { IIteration, IEpic, IEpicInfo, IIterationWithStory } from "./interfaces";
+import { IEpicInfo, IIterationWithStory } from "./interfaces";
 
 let epics: IEpicInfo[] = [
   {
@@ -28,11 +28,13 @@ let iterations: IIterationWithStory[] = [
       {
         id: '1',
         title: '添加期望商品',
+        description: '消费者在浏览商品详情时，将期望购买的商品添加到购物车，以方便批量购买。',
         epicId: '0'
       },
       {
         id: '6',
         title: '查看商品清单',
+        description: '',
         epicId: '1'
       },
       {
@@ -75,11 +77,13 @@ let iterations: IIterationWithStory[] = [
       {
         id: '2',
         title: '添加配搭商品',
+        description: '消费者在查看购物车清单的时候，可以顺便将相关的配搭商品添加到购物车，以便用户进行快捷的配搭。',
         epicId: '0'
       },
       {
         id: '3',
         title: '添加促销商品',
+        description: '消费者可以在促销页将商品直接添加到购物车，以便消费者快捷购买。',
         epicId: '0'
       },
       {
@@ -173,4 +177,4 @@ let iterations: IIterationWithStory[] = [
   }
 ];
 
-export default {epics, iterations};
+export const storyMapData = {epics, iterations};

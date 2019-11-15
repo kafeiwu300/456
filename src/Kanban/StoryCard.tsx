@@ -2,8 +2,7 @@ import { IStory, IStoryInfo } from "./interfaces";
 import React from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button } from "antd";
 import StoryForm from "./StoryForm";
-import store from "./store";
-import { ActionType } from "./enums";
+import { store } from "../store";
 
 const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
   let storyForm: any = undefined;
@@ -17,7 +16,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
       width:  600,
       onOk: () => {
         store.dispatch({
-          type: ActionType.removeStory,
+          type: 'removeStory',
           story
         });
       }
@@ -40,7 +39,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
             ...storyForm.props.form.getFieldsValue()
           };
           store.dispatch({
-            type: ActionType.modifyStory,
+            type: 'modifyStory',
             story: s
           })
         }

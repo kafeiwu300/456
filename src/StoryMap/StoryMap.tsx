@@ -2,8 +2,8 @@ import React, { CSSProperties } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import { Row, Col, Icon } from 'antd';
-import storyMapData from './store';
-import { IIteration, IEpic, IEpicInfo, IIterationWithStory } from './interfaces';
+import { storyMapData } from './store';
+import { IEpicInfo, IIterationWithStory } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 
 const StoryMap: React.FC = () => {
@@ -27,7 +27,6 @@ const StoryMap: React.FC = () => {
     border: '1px solid #d9d9d9'
   }
 
-  const addEpicStyle = addIterationStyle;
 
   return (
     <DndProvider backend={HTML5Backend}>

@@ -1,42 +1,48 @@
 import { Reducer } from "redux";
-import { ActionType } from "./enums";
 import { IStory, ITask, IStoryAction, ITaskAction } from "./interfaces";
 
-export const reducer: Reducer<IStory[], IStoryAction | ITaskAction> = (prevState, action) => {
+const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
   let state: IStory[] = prevState ? [...prevState] : [];
   let story: IStory | undefined;
   let task: ITask | undefined;
-  const taskAction = action as ITaskAction;
-  const storyAction = action as IStoryAction;
   switch (action.type) {
-    case ActionType.moveTask:
-      story = state.find((s: IStory) => s.id === taskAction.story.id);
-      task = story!.tasks.find((t: ITask) => t.id === taskAction.task.id);
+    case 'moveTask':
+      story = state.find((s: IStory) => s.id === action.story.id);
+      task = story!.tasks.find((t: ITask) => t.id === action.task.id);
       task!.state = action.state;
       break;
-    case ActionType.addTask:
-      story = state.find((s: IStory) => s.id === taskAction.story.id);
-      story!.tasks.push(taskAction.task);
-      break;
-    case ActionType.removeTask:
+    case 'addTask':
       story = state.find((s: IStory) => s.id === action.story.id);
-      story!.tasks = story!.tasks.filter((task: ITask) => task.id !== taskAction.task.id);
+      story!.tasks.push(action.task);
       break;
-    case ActionType.modifyTask:
+    case 'removeTask':
       story = state.find((s: IStory) => s.id === action.story.id);
-      story!.tasks = story!.tasks.map((t: ITask) => t.id === taskAction.task!.id ? taskAction.task : t) as ITask[];
+      story!.tasks = story!.tasks.filter((task: ITask) => task.id !== action.task.id);
       break;
-    case ActionType.addStory:
-      state.push({...storyAction.story, tasks: []});
+    case 'modifyTask':
+      story = state.find((s: IStory) => s.id === action.story.id);
+      story!.tasks = story!.tasks.map((t: ITask) => t.id === action.task!.id ? action.task : t) as ITask[];
       break;
-    case ActionType.removeStory:
-      state = state.filter((s: IStory) => s.id !== action.story.id);
-      break;
-    case ActionType.modifyStory:
-      state = state.map((s: IStory) => s.id === action.story.id ? {...storyAction.story, tasks: s.tasks} : s);
-      break;
-    default:
-      state = prevState || [];
   }
   return state;
+}
+
+const storyReducer: Reducer<IStory[], IStoryAction> = (prevState, action) => {
+  let state: IStory[] = prevState ? [...prevState] : [];
+  switch (action.type) {
+    case 'addStory':
+      state.push({...action.story, tasks: []});
+      break;
+    case 'removeStory':
+      state = state.filter((s: IStory) => s.id !== action.story.id);
+      break;
+    case 'modifyStory':
+      state = state.map((s: IStory) => s.id === action.story.id ? {...action.story, tasks: s.tasks} : s);
+      break;
+  }
+  return state;
+}
+
+export const kanbanReducer: Reducer<IStory[], IStoryAction | ITaskAction> = (prevState, action) => {
+  return (action as ITaskAction ? taskReducer(prevState, action as ITaskAction) : storyReducer(prevState, action as IStoryAction));
 }

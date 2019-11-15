@@ -1,9 +1,6 @@
-import { createStore } from "redux";
-import { reducer } from "./reducer";
-import { IStory, IStoryAction, ITaskAction } from "./interfaces";
-import { State } from "./enums";
+import { IStory } from "./interfaces";
 
-let kanbanData: IStory[] = [
+export let kanbanData: IStory[] = [
   {
     id: '0',
     title: '搜索职位信息',
@@ -12,7 +9,7 @@ let kanbanData: IStory[] = [
       {
         id: '0',
         title: '移动端UI开发',
-        state: State.todo,
+        state: 'todo',
         description: '移动端UI开发',
         priority: 'very high',
         estimatedHours: 2,
@@ -21,7 +18,7 @@ let kanbanData: IStory[] = [
       {
         id: '1',
         title: '城市列表UI开发',
-        state: State.todo,
+        state: 'todo',
         description: '城市列表UI开发',
         priority: 'high',
         estimatedHours: 2,
@@ -30,7 +27,7 @@ let kanbanData: IStory[] = [
       {
         id: '2',
         title: '测试案例',
-        state: State.todo,
+        state: 'todo',
         description: '测试案例',
         estimatedHours: 2,
         leader: 'Lucy'
@@ -38,7 +35,7 @@ let kanbanData: IStory[] = [
       {
         id: '3',
         title: '自动化脚本',
-        state: State.todo,
+        state: 'todo',
         description: '自动化脚本',
         estimatedHours: 2,
         taskPoint: 6
@@ -46,14 +43,14 @@ let kanbanData: IStory[] = [
       {
         id: '4',
         title: 'PC web端UI开发',
-        state: State.doing,
+        state: 'doing',
         description: 'PC web端UI开发',
         estimatedHours: 2
       },
       {
         id: '5',
         title: '搜索服务接口开发',
-        state: State.doing,
+        state: 'doing',
         description: '搜索服务接口开发',
         priority: 'very high',
         taskPoint: 6,
@@ -62,7 +59,7 @@ let kanbanData: IStory[] = [
       {
         id: '6',
         title: '城市列表数据库设计',
-        state: State.done,
+        state: 'done',
         description: '城市列表数据库设计',
         estimatedHours: 2,
         taskPoint: 6
@@ -70,7 +67,7 @@ let kanbanData: IStory[] = [
       {
         id: '7',
         title: '职位列表分页',
-        state: State.done,
+        state: 'done',
         description: '职位列表分页',
         estimatedHours: 2,
         leader: 'Lucy'
@@ -85,7 +82,7 @@ let kanbanData: IStory[] = [
       {
         id: '8',
         title: '招聘发布后台服务',
-        state: State.todo,
+        state: 'todo',
         description: '招聘发布后台服务',
         estimatedHours: 2,
         taskPoint: 6,
@@ -94,7 +91,7 @@ let kanbanData: IStory[] = [
       {
         id: '9',
         title: '招聘发布测试案例',
-        state: State.todo,
+        state: 'todo',
         description: '招聘发布测试案例',
         estimatedHours: 2,
         taskPoint: 6
@@ -102,21 +99,21 @@ let kanbanData: IStory[] = [
       {
         id: '10',
         title: '移动的发布前端开发',
-        state: State.todo,
+        state: 'todo',
         description: '移动的发布前端开发',
         estimatedHours: 2
       },
       {
         id: '11',
         title: '招聘信息数据结构',
-        state: State.doing,
+        state: 'doing',
         description: '招聘信息数据结构',
         leader: 'Lucy'
       },
       {
         id: '12',
         title: '招聘信息页面UI开发',
-        state: State.doing,
+        state: 'doing',
         description: '招聘信息页面UI开发',
         estimatedHours: 2,
         taskPoint: 6
@@ -124,7 +121,7 @@ let kanbanData: IStory[] = [
       {
         id: '13',
         title: '招聘发布自动化脚本',
-        state: State.done,
+        state: 'done',
         description: '招聘发布自动化脚本'
       }
     ]
@@ -136,7 +133,7 @@ let kanbanData: IStory[] = [
   //     {
   //       id: '14',
   //       title: '邮箱绑定',
-  //       state: State.todo,
+  //       state: 'todo',
   //       description: '邮箱绑定',
   //       estimatedHours: 2,
   //       leader: 'Lucy'
@@ -144,7 +141,7 @@ let kanbanData: IStory[] = [
   //     {
   //       id: '15',
   //       title: '手机绑定',
-  //       state: State.todo,
+  //       state: 'todo',
   //       description: '手机绑定',
   //       estimatedHours: 2,
   //       taskPoint: 6
@@ -152,7 +149,7 @@ let kanbanData: IStory[] = [
   //     {
   //       id: '16',
   //       title: '测试案例',
-  //       state: State.todo,
+  //       state: 'todo',
   //       description: '测试案例',
   //       taskPoint: 6,
   //       leader: 'Lucy'
@@ -160,7 +157,7 @@ let kanbanData: IStory[] = [
   //     {
   //       id: '17',
   //       title: '自动化脚本',
-  //       state: State.todo,
+  //       state: 'todo',
   //       description: '自动化脚本',
   //       estimatedHours: 2,
   //       taskPoint: 6
@@ -168,7 +165,7 @@ let kanbanData: IStory[] = [
   //     {
   //       id: '18',
   //       title: '第三方登录UI开发及前端脚本',
-  //       state: State.doing,
+  //       state: 'doing',
   //       description: '第三方登录UI开发及前端脚本',
   //       estimatedHours: 2,
   //       leader: 'Lucy'
@@ -176,7 +173,7 @@ let kanbanData: IStory[] = [
   //     {
   //       id: '19',
   //       title: '微信登陆接口对接后台开发',
-  //       state: State.doing,
+  //       state: 'doing',
   //       description: '微信登陆接口对接后台开发',
   //       taskPoint: 6,
   //       leader: 'Lucy'
@@ -184,7 +181,7 @@ let kanbanData: IStory[] = [
   //     {
   //       id: '20',
   //       title: 'QQ第三方登陆接口对接后台开发',
-  //       state: State.done,
+  //       state: 'done',
   //       description: 'QQ第三方登陆接口对接后台开发',
   //       estimatedHours: 2,
   //       leader: 'Lucy'
@@ -193,13 +190,9 @@ let kanbanData: IStory[] = [
   // },
 ];
 
-let store = createStore<IStory[], IStoryAction | ITaskAction, IStory[], unknown>(reducer, kanbanData);
-
 export function guid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       let r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
   });
 }
-
-export default store;

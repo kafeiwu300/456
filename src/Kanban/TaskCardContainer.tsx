@@ -3,9 +3,10 @@ import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
 import { IStory, IDragObject, ITask } from './interfaces';
-import store, { guid } from './store';
-import { ActionType, State } from "./enums";
+import { State } from "./enums";
 import TaskForm from './TaskForm';
+import { store } from '../store';
+import { guid } from './store';
 
 const TaskCardContainer: React.FC<{
   state: State,
@@ -33,7 +34,7 @@ const TaskCardContainer: React.FC<{
     },
     drop: (item: IDragObject) => {
       store.dispatch({
-        type: ActionType.moveTask,
+        type: 'moveTask',
         story,
         task: item.task,
         state
@@ -58,7 +59,7 @@ const TaskCardContainer: React.FC<{
       onOk: () => {
         if (taskForm && taskForm.props) {
           store.dispatch({
-            type: ActionType.addTask,
+            type: 'addTask',
             story,
             task: {
               ...taskForm.props.form.getFieldsValue(),
@@ -78,7 +79,7 @@ const TaskCardContainer: React.FC<{
       ).map(
         (task: ITask) => <TaskCard story={story} task={task}/>
       )}
-      {state === State.todo ? (
+      {state === 'todo' ? (
         <div style={addTaskStyle} onClick={addTask}>
           <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
         </div>

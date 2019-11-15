@@ -2,9 +2,8 @@ import React from 'react';
 import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button } from 'antd';
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
-import store from './store';
-import { ActionType } from "./enums";
 import TaskForm from './TaskForm';
+import { store } from '../store';
 
 const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   const dragObject: IDragObject = {
@@ -30,7 +29,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
             ...taskForm.props.form.getFieldsValue()
           };
           store.dispatch({
-            type: ActionType.modifyTask,
+            type: 'modifyTask',
             story,
             task: t,
             state: task.state
@@ -56,7 +55,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
       width:  600,
       onOk: () => {
         store.dispatch({
-          type: ActionType.removeTask,
+          type: 'removeTask',
           story,
           task,
           state: task.state

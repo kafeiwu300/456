@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Select, Input, InputNumber, Row, Col } from "antd";
 import { FormComponentProps } from "antd/lib/form";
-import { State } from "./enums";
 
 class BaseForm extends React.Component<FormComponentProps> {
   render () {
@@ -23,11 +22,11 @@ class BaseForm extends React.Component<FormComponentProps> {
               {
                 this.props.form.getFieldDecorator('state', {})(
                   <Select>
-                    <Select.Option value={State.todo}>todo</Select.Option>
-                    <Select.Option value={State.doing}>doing</Select.Option>
-                    <Select.Option value={State.test}>test</Select.Option>
-                    <Select.Option value={State.deploy}>deploy</Select.Option>
-                    <Select.Option value={State.done}>done</Select.Option>
+                    <Select.Option value='todo'>todo</Select.Option>
+                    <Select.Option value='doing'>doing</Select.Option>
+                    <Select.Option value='test'>test</Select.Option>
+                    <Select.Option value='deploy'>deploy</Select.Option>
+                    <Select.Option value='done'>done</Select.Option>
                   </Select>
                 )
               }

@@ -4,9 +4,9 @@ import Kanban from './Kanban/Kanban';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import Home from './Home';
-import store from './Kanban/store';
 import { Provider } from 'react-redux';
 import StoryMap from './StoryMap/StoryMap';
+import { store } from './store';
 
 const App: React.FC = () => {
   return (  

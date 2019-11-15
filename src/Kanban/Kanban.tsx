@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { IStory } from './interfaces';
 import StoryCard from './StoryCard';
 import StoryForm from './StoryForm';
-import store, { guid } from './store';
-import { ActionType, State } from "./enums";
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
+import { store } from '../store';
+import { guid } from './store';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
@@ -44,7 +44,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       onOk: () => {
         if (storyForm && storyForm.props) {
           store.dispatch({
-            type: ActionType.addStory,
+            type: 'addStory',
             story: {
               tasks: [],
               ...storyForm.props.form.getFieldsValue()
@@ -73,19 +73,19 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
               <StoryCard story={story}/>
             </Col>
             <Col span={4}>
-              <TaskCardContainer story={story} state={State.todo}/>
+              <TaskCardContainer story={story} state='todo'/>
             </Col>
             <Col span={4}>
-              <TaskCardContainer story={story} state={State.doing}/>
+              <TaskCardContainer story={story} state='doing'/>
             </Col>
             <Col span={4}>
-              <TaskCardContainer story={story} state={State.test}/>
+              <TaskCardContainer story={story} state='test'/>
             </Col>
             <Col span={4}>
-              <TaskCardContainer story={story} state={State.deploy}/>
+              <TaskCardContainer story={story} state='deploy'/>
             </Col>
             <Col span={4}>
-              <TaskCardContainer story={story} state={State.done}/>
+              <TaskCardContainer story={story} state='done'/>
             </Col>
           </Row>
         )
