@@ -44,5 +44,5 @@ const storyReducer: Reducer<IStory[], IStoryAction> = (prevState, action) => {
 }
 
 export const kanbanReducer: Reducer<IStory[], IStoryAction | ITaskAction> = (prevState, action) => {
-  return (action as ITaskAction ? taskReducer(prevState, action as ITaskAction) : storyReducer(prevState, action as IStoryAction));
+  return storyReducer(taskReducer(prevState, action as ITaskAction), action as IStoryAction);
 }
