@@ -3,13 +3,13 @@ import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
 import { IStory, IDragObject, ITask } from './interfaces';
-import { State } from "./enums";
+import { KanbanState } from "../enums";
 import TaskForm from './TaskForm';
 import { store } from '../store';
 import { guid } from './store';
 
 const TaskCardContainer: React.FC<{
-  state: State,
+  state: KanbanState,
   story: IStory
 }> = ({state, story}) => {
   const outerStyle = {
@@ -34,7 +34,7 @@ const TaskCardContainer: React.FC<{
     },
     drop: (item: IDragObject) => {
       store.dispatch({
-        type: 'moveTask',
+        type: 'kanban-moveTask',
         story,
         task: item.task,
         state
@@ -59,7 +59,7 @@ const TaskCardContainer: React.FC<{
       onOk: () => {
         if (taskForm && taskForm.props) {
           store.dispatch({
-            type: 'addTask',
+            type: 'kanban-addTask',
             story,
             task: {
               ...taskForm.props.form.getFieldsValue(),

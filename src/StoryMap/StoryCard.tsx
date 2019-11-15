@@ -1,13 +1,26 @@
-import { IStory, IStoryInfo } from "./interfaces";
 import React, { useState } from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button } from "antd";
-import StoryForm from "./StoryForm";
 import { store } from "../store";
+import StoryForm from "../Kanban/StoryForm";
+import { IDragObject, IStoryInEpic } from "./interfaces";
+import { useDrag } from "react-dnd";
 
-const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
+const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
   let storyForm: any = undefined;
 
   const [ghost, setGhost] = useState<boolean>(true);
+
+  const dragObject: IDragObject = {
+    type: 'storyCard',
+    story
+  };
+
+  const [, drag] = useDrag({
+    item: dragObject,
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    })
+  });
 
   const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
@@ -18,7 +31,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
       width:  600,
       onOk: () => {
         store.dispatch({
-          type: 'kanban-removeStory',
+          type: 'storyMap-removeStory',
           story
         });
       }
@@ -36,12 +49,13 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
       content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={story}/>,
       onOk: () => {
         if (storyForm && storyForm.props) {
-          const s: IStory = {
+          const s: IStoryInEpic = {
             id: story.id,
+            epicId: story.epicId,
             ...storyForm.props.form.getFieldsValue()
           };
           store.dispatch({
-            type: 'kanban-modifyStory',
+            type: 'storyMap-modifyStory',
             story: s
           })
         }
@@ -50,7 +64,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
   }
 
   return (
-    <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
+    <div ref={drag} style={{margin: '4px 0'}} onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
       <Collapse>
         <Collapse.Panel key={story.id!} header={story.title} showArrow={false} extra={
           <>

@@ -9,6 +9,7 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import { store } from '../store';
 import { guid } from './store';
+import { IState } from '../interfaces';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
@@ -44,7 +45,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       onOk: () => {
         if (storyForm && storyForm.props) {
           store.dispatch({
-            type: 'addStory',
+            type: 'kanban-addStory',
             story: {
               tasks: [],
               ...storyForm.props.form.getFieldsValue()
@@ -102,4 +103,4 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   )
 }
 
-export default connect((state: IStory[]) => ({stories: state}))(Kanban);
+export default connect((state: IState) => ({stories: state.kanbanData}))(Kanban);

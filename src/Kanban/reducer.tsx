@@ -1,25 +1,25 @@
 import { Reducer } from "redux";
-import { IStory, ITask, IStoryAction, ITaskAction } from "./interfaces";
+import { IStory, ITask, IStoryAction, ITaskAction, IKanbanAction } from "./interfaces";
 
 const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
   let state: IStory[] = prevState ? [...prevState] : [];
   let story: IStory | undefined;
   let task: ITask | undefined;
   switch (action.type) {
-    case 'moveTask':
+    case 'kanban-moveTask':
       story = state.find((s: IStory) => s.id === action.story.id);
       task = story!.tasks.find((t: ITask) => t.id === action.task.id);
       task!.state = action.state;
       break;
-    case 'addTask':
+    case 'kanban-addTask':
       story = state.find((s: IStory) => s.id === action.story.id);
-      story!.tasks.push(action.task);
+      story!.tasks = story!.tasks.concat(action.task);
       break;
-    case 'removeTask':
+    case 'kanban-removeTask':
       story = state.find((s: IStory) => s.id === action.story.id);
       story!.tasks = story!.tasks.filter((task: ITask) => task.id !== action.task.id);
       break;
-    case 'modifyTask':
+    case 'kanban-modifyTask':
       story = state.find((s: IStory) => s.id === action.story.id);
       story!.tasks = story!.tasks.map((t: ITask) => t.id === action.task!.id ? action.task : t) as ITask[];
       break;
@@ -30,19 +30,19 @@ const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
 const storyReducer: Reducer<IStory[], IStoryAction> = (prevState, action) => {
   let state: IStory[] = prevState ? [...prevState] : [];
   switch (action.type) {
-    case 'addStory':
-      state.push({...action.story, tasks: []});
+    case 'kanban-addStory':
+      state = state.concat({...action.story, tasks: []});
       break;
-    case 'removeStory':
+    case 'kanban-removeStory':
       state = state.filter((s: IStory) => s.id !== action.story.id);
       break;
-    case 'modifyStory':
+    case 'kanban-modifyStory':
       state = state.map((s: IStory) => s.id === action.story.id ? {...action.story, tasks: s.tasks} : s);
       break;
   }
   return state;
 }
 
-export const kanbanReducer: Reducer<IStory[], IStoryAction | ITaskAction> = (prevState, action) => {
+export const kanbanReducer: Reducer<IStory[], IKanbanAction> = (prevState, action) => {
   return storyReducer(taskReducer(prevState, action as ITaskAction), action as IStoryAction);
 }

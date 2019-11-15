@@ -1,4 +1,4 @@
-import { IEpicInfo, IIterationWithStory } from "./interfaces";
+import { IEpicInfo, IIteration } from "./interfaces";
 
 let epics: IEpicInfo[] = [
   {
@@ -19,11 +19,12 @@ let epics: IEpicInfo[] = [
   }
 ];
 
-let iterations: IIterationWithStory[] = [
+let iterations: IIteration[] = [
   {
     id: '0',
     index: 1,
     title: '最小可行的购物车',
+    isActive: false,
     stories: [
       {
         id: '1',
@@ -73,6 +74,7 @@ let iterations: IIterationWithStory[] = [
     id: '1',
     index: 2,
     title: '增强版的购物车',
+    isActive: true,
     stories: [
       {
         id: '2',
@@ -127,6 +129,7 @@ let iterations: IIterationWithStory[] = [
     id: '2',
     index: 3,
     title: '豪华版的购物车',
+    isActive: false,
     stories: [
       {
         id: '4',

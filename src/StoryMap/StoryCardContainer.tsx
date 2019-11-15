@@ -1,10 +1,11 @@
 import React, { CSSProperties } from 'react';
 import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
-import { IEpic, IIteration, IStoryInIteration, IEpicInfo, IIterationWithStory, IStoryInEpic } from './interfaces';
-import StoryCard from '../Kanban/StoryCard';
+import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
+import StoryCard from './StoryCard';
+import { store } from '../store';
 
-const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIterationWithStory}> = ({epic, iteration}) => {
+const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = ({epic, iteration}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#FFFFFF',
@@ -20,26 +21,23 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIterationWithSt
     border: '1px solid #d9d9d9'
   }
 
-  // const [, drop] = useDrop({
-  //   accept: 'taskCard',
-  //   canDrop: (item: IDragObject) => {
-  //     return !!story.tasks.find((task: ITask) => item.task === task);
-  //   },
-  //   drop: (item: IDragObject) => {
-  //     store.dispatch({
-  //       type: ActionType.moveTask,
-  //       story,
-  //       task: item.task,
-  //       state
-  //     })
-  //   },
-  //   collect: monitor => ({
-  //     isOver: monitor.isOver(),
-  //     canDrop: monitor.canDrop()
-  //   })
-  // });
-
-  let taskForm: any = undefined;
+  const [, drop] = useDrop({
+    accept: 'storyCard',
+    canDrop: (item: IDragObject) => {
+      return true;
+    },
+    drop: (item: IDragObject) => {
+      store.dispatch({
+        type: 'storyMap-moveStory',
+        story: {...item.story, epicId: epic.id},
+        iteration
+      })
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    })
+  });
 
   // const addTask = () => {
   //   Modal.confirm({
@@ -66,23 +64,11 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIterationWithSt
   // };
 
   return (
-    // <div ref={drop} style={outerStyle}>
-    //   {story.tasks.filter(
-    //     (task: ITask) => task.state === state
-    //   ).map(
-    //     (task: ITask) => <TaskCard story={story} task={task}/>
-    //   )}
-    //   {state === State.todo ? (
-    //     <div style={addTaskStyle} onClick={addTask}>
-    //       <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
-    //     </div>
-    //   ) : <></>}
-    // </div>
-    <div style={outerStyle}>
+    <div style={outerStyle} ref={drop}>
       {
         iteration.stories
           .filter((story: IStoryInEpic) => story.epicId === epic.id)
-          .map((story: IStoryInEpic) => <div style={{margin: '4px 0'}}><StoryCard story={story}/></div>)
+          .map((story: IStoryInEpic) => <StoryCard story={story}/>)
       }
       <div style={addStoryStyle}><Icon type="plus"/>添加故事</div>
     </div>

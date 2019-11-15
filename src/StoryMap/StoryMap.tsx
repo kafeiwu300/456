@@ -1,12 +1,16 @@
 import React, { CSSProperties } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
-import { Row, Col, Icon } from 'antd';
-import { storyMapData } from './store';
-import { IEpicInfo, IIterationWithStory } from './interfaces';
+import { Row, Col, Icon, Tag } from 'antd';
+import { IEpicInfo, IIteration } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
+import { connect } from 'react-redux';
+import { IState } from '../interfaces';
 
-const StoryMap: React.FC = () => {
+const StoryMap: React.FC<{storyMapData: {
+  epics: IEpicInfo[];
+  iterations: IIteration[];
+}}> = ({storyMapData}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#fff',
@@ -39,11 +43,14 @@ const StoryMap: React.FC = () => {
       </Row>
       {
         storyMapData.iterations
-          .sort((a: IIterationWithStory, b: IIterationWithStory) => a.index - b.index)
-          .map((iteration: IIterationWithStory) => (
+          .sort((a: IIteration, b: IIteration) => a.index - b.index)
+          .map((iteration: IIteration) => (
             <Row style={{marginBottom: '8px'}} gutter={8}>
               <Col span={4}>
-                <div style={outerStyle}>{`迭代${iteration.index} - ${iteration.title}`}</div>
+                <div style={outerStyle}>
+                  {`迭代${iteration.index} - ${iteration.title} `}
+                  {iteration.isActive ? <Tag color="#87d068">已完成</Tag> : <></>}
+                </div>
               </Col>
               {
                 storyMapData.epics.map((epic: IEpicInfo) => (
@@ -64,4 +71,4 @@ const StoryMap: React.FC = () => {
   )
 }
 
-export default StoryMap;
+export default connect((state: IState) => ({storyMapData: state.storyMapData}))(StoryMap);
