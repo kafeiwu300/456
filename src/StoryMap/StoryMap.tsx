@@ -1,9 +1,10 @@
 import React, { CSSProperties } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
-import { Row, Col } from 'antd';
+import { Row, Col, Icon } from 'antd';
 import storyMapData from './store';
-import { IIteration, IEpic, IStoryInIteration } from './interfaces';
+import { IIteration, IEpic, IEpicInfo, IIterationWithStory } from './interfaces';
+import StoryCardContainer from './StoryCardContainer';
 
 const StoryMap: React.FC = () => {
   const outerStyle = {
@@ -20,40 +21,46 @@ const StoryMap: React.FC = () => {
     borderRadius: '4px'
   }
 
+  const addIterationStyle: CSSProperties = {
+    ...outerStyle,
+    textAlign: 'center',
+    border: '1px solid #d9d9d9'
+  }
+
+  const addEpicStyle = addIterationStyle;
+
   return (
     <DndProvider backend={HTML5Backend}>
       <Row style={{marginBottom: '8px'}} gutter={8}>
         <Col span={4}><div style={headerStyle}>Iteration</div></Col>
         {
-          storyMapData.epics.map((epic: IEpic) => <Col span={4}><div style={headerStyle}>{epic.title}</div></Col>)
+          storyMapData.epics.map((epic: IEpicInfo) => <Col span={4}><div style={headerStyle}>{epic.title}</div></Col>)
         }
+        <Col span={4}><div style={addIterationStyle}><Icon type="plus"/>添加史诗故事</div></Col>
       </Row>
       {
         storyMapData.iterations
-          .sort((a: IIteration, b: IIteration) => a.index - b.index)
-          .map((iteration: IIteration) => (
+          .sort((a: IIterationWithStory, b: IIterationWithStory) => a.index - b.index)
+          .map((iteration: IIterationWithStory) => (
             <Row style={{marginBottom: '8px'}} gutter={8}>
               <Col span={4}>
                 <div style={outerStyle}>{`迭代${iteration.index} - ${iteration.title}`}</div>
               </Col>
               {
-                storyMapData.epics.map((epic: IEpic) => (
+                storyMapData.epics.map((epic: IEpicInfo) => (
                   <Col span={4}>
-                    <div style={outerStyle}>
-                      {
-                        epic.stories
-                          .filter((story: IStoryInIteration) => story.iterationId === iteration.id)
-                          .map((story: IStoryInIteration) => (
-                            <div style={outerStyle}>{story.title}</div>
-                          ))
-                      }
-                    </div>
+                    <StoryCardContainer epic={epic} iteration={iteration}/>
                   </Col>
                 ))
               }
             </Row>
           ))
       }
+      <Row gutter={8}>
+        <Col span={4}>
+          <div style={addIterationStyle}><Icon type="plus"/>添加迭代</div>
+        </Col>
+      </Row>
     </DndProvider>
   )
 }
