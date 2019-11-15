@@ -1,9 +1,9 @@
 import { createStore } from "redux";
 import { reducer } from "./reducer";
-import { IStory, IAction } from "../interfaces";
+import { IStory, IStoryAction, ITaskAction } from "./interfaces";
 import { State } from "./enums";
 
-let initState: IStory[] = [
+let kanbanData: IStory[] = [
   {
     id: '0',
     title: '搜索职位信息',
@@ -193,7 +193,7 @@ let initState: IStory[] = [
   // },
 ];
 
-let store = createStore<IStory[], IAction, IStory[], unknown>(reducer, initState);
+let store = createStore<IStory[], IStoryAction | ITaskAction, IStory[], unknown>(reducer, kanbanData);
 
 export function guid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

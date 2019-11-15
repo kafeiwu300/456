@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button } from 'antd';
 import { useDrag } from 'react-dnd';
-import { ITask, IDragObject, IStory } from '../interfaces';
+import { ITask, IDragObject, IStory } from './interfaces';
 import store from './store';
 import { ActionType } from "./enums";
 import TaskForm from './TaskForm';

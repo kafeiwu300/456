@@ -1,4 +1,4 @@
-import { IStory } from "../interfaces";
+import { IStory } from "./interfaces";
 import React from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button } from "antd";
 import StoryForm from "./StoryForm";

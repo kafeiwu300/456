@@ -1,6 +1,6 @@
 import { Form } from 'antd';
 import { FormCreateOption } from 'antd/lib/form/Form';
-import { IStoryFormComponentProps } from '../interfaces';
+import { IStoryFormComponentProps } from './interfaces';
 import BaseForm from './BaseForm';
 
 const formCreateOption: FormCreateOption<IStoryFormComponentProps> = {

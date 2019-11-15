@@ -2,11 +2,13 @@ import React, { CSSProperties } from 'react';
 import {Row, Col, Icon, Modal} from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';
-import { IStory } from '../interfaces';
+import { IStory } from './interfaces';
 import StoryCard from './StoryCard';
 import StoryForm from './StoryForm';
 import store, { guid } from './store';
 import { ActionType, State } from "./enums";
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from "react-dnd-html5-backend";
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
@@ -37,14 +39,13 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       cancelText: '取消',
       icon: <></>,
       width: 600,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{description: '作为……，\n我希望……，\n以便于……', tasks: []}}/>,
+      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid(), description: '作为……，\n我希望……，\n以便于……', tasks: []}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {
           store.dispatch({
             type: ActionType.addStory,
             story: {
-              id: guid(),
               tasks: [],
               ...storyForm.props.form.getFieldsValue()
             }
@@ -55,7 +56,8 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   }
 
   return (
-    <div>
+    // <Provider store={store}>
+    <DndProvider backend={HTML5Backend}>
       <Row gutter={[8, 16]}>
         <Col span={4}><div style={headerStyle}>story</div></Col>
         <Col span={4}><div style={headerStyle}>todo</div></Col>
@@ -95,7 +97,8 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
           </div>
         </Col>
       </Row>
-    </div>
+    </DndProvider>
+    // </Provider>
   )
 }
 

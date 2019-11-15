@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
-import { IStory, IDragObject, ITask } from '../interfaces';
+import { IStory, IDragObject, ITask } from './interfaces';
 import store, { guid } from './store';
 import { ActionType, State } from "./enums";
 import TaskForm from './TaskForm';
@@ -53,7 +53,7 @@ const TaskCardContainer: React.FC<{
       cancelText: '取消',
       icon: <></>,
       width: 600,
-      content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={{state}}/>,
+      content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={{id: guid(), state}}/>,
       centered: true,
       onOk: () => {
         if (taskForm && taskForm.props) {
@@ -61,7 +61,6 @@ const TaskCardContainer: React.FC<{
             type: ActionType.addTask,
             story,
             task: {
-              id: guid(),
               ...taskForm.props.form.getFieldsValue(),
               state
             },
