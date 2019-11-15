@@ -39,7 +39,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       cancelText: '取消',
       icon: <></>,
       width: 600,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid(), description: '作为……，\n我希望……，\n以便于……', tasks: []}}/>,
+      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid(), description: '作为……，\n我希望……，\n以便于……'}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {

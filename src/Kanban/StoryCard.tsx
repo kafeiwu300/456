@@ -1,11 +1,11 @@
-import { IStory } from "./interfaces";
+import { IStory, IStoryInfo } from "./interfaces";
 import React from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button } from "antd";
 import StoryForm from "./StoryForm";
 import store from "./store";
 import { ActionType } from "./enums";
 
-const StoryCard: React.FC<{story: IStory}> = ({story}) => {
+const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
   let storyForm: any = undefined;
 
   const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -37,7 +37,6 @@ const StoryCard: React.FC<{story: IStory}> = ({story}) => {
         if (storyForm && storyForm.props) {
           const s: IStory = {
             id: story.id,
-            tasks: story.tasks,
             ...storyForm.props.form.getFieldsValue()
           };
           store.dispatch({

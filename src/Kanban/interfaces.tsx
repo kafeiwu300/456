@@ -49,5 +49,5 @@ export interface ITaskFormComponentProps extends FormComponentProps<ITask> {
 }
 
 export interface IStoryFormComponentProps extends FormComponentProps<IStory> {
-  story?: IStory;
+  story?: IStoryInfo;
 }
