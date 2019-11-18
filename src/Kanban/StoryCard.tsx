@@ -12,6 +12,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
   const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
     Modal.confirm({
+      title: '删除故事',
       content: '确定要删除这个故事吗？',
       okText: '确定',
       cancelText: '取消',
@@ -28,6 +29,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
   const modifyStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
     Modal.confirm({
+      title: '修改故事',
       okText: '保存',
       cancelText: '取消',
       icon: <></>,

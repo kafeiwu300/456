@@ -50,6 +50,7 @@ const TaskCardContainer: React.FC<{
 
   const addTask = () => {
     Modal.confirm({
+      title: '添加任务',
       okText: '保存',
       cancelText: '取消',
       icon: <></>,
@@ -62,8 +63,8 @@ const TaskCardContainer: React.FC<{
             type: 'kanban-addTask',
             story,
             task: {
+              ...taskForm.props.task,
               ...taskForm.props.form.getFieldsValue(),
-              state
             },
             state
           });

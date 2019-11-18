@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import {Row, Col, Icon, Modal} from 'antd';
+import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';
 import { IStory } from './interfaces';
@@ -36,6 +36,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
 
   const addStory = () => {
     Modal.confirm({
+      title: '添加故事',
       okText: '保存',
       cancelText: '取消',
       icon: <></>,
@@ -48,6 +49,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
             type: 'kanban-addStory',
             story: {
               tasks: [],
+              ...storyForm.props.story,
               ...storyForm.props.form.getFieldsValue()
             }
           });

@@ -18,6 +18,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   const modifyTask = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
     Modal.confirm({
+      title: '修改任务',
       okText: '保存',
       cancelText: '取消',
       icon: <></>,
@@ -51,6 +52,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   const removeTask = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
     Modal.confirm({
+      title: '删除任务',
       content: '确定要删除这个任务吗？',
       okText: '确定',
       cancelText: '取消',
