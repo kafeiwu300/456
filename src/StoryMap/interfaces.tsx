@@ -2,6 +2,7 @@ import { IStoryInfo } from "../Kanban/interfaces";
 import { DragObjectWithType } from "react-dnd";
 import { Action } from "dnd-core";
 import { ActionType } from "../enums";
+import { FormComponentProps } from "antd/lib/form";
 
 export interface IDragObject extends DragObjectWithType {
   story: IStoryInEpic;
@@ -42,6 +43,8 @@ export interface IIterationInfo {
   id: string,
   index: number,
   title?: string,
+  target?: string,
+  leader?: string,
   isActive: boolean
 }
 
@@ -51,4 +54,12 @@ export interface IIteration extends IIterationInfo {
 
 export interface IStoryInIteration extends IStoryInfo {
   iterationId: string
+}
+
+export interface IIterationFormComponentProps extends FormComponentProps<IIteration> {
+  iteration: IIterationInfo
+}
+
+export interface IEpicFormComponentProps extends FormComponentProps<IEpic> {
+  epic: IEpicInfo
 }

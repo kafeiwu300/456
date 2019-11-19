@@ -11,19 +11,19 @@ const storyReducer: Reducer<{
     iterations: []
   };
   switch (action.type) {
-    case 'storyMap-moveStory':
+    case 'storyMap-moveStory': {
       state.iterations.forEach((iteration: IIteration) => iteration.stories = iteration.stories.filter((story: IStoryInEpic) => story.id !== action.story.id));
       const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration.id);
       if (iteration) {
         iteration.stories = iteration.stories.concat(action.story);
       }
-      break;
-    case 'storyMap-addStory':
-      // const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration.id);
-      // if (iteration) {
-      //   iteration.stories = iteration.stories.concat(action.story);
-      // }
-      break;
+    } break;
+    case 'storyMap-addStory': {
+      const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration.id);
+      if (iteration) {
+        iteration.stories = iteration.stories.concat(action.story);
+      }
+    } break;
     case 'storyMap-removeStory':
       state.iterations.forEach((iteration: IIteration) => iteration.stories = iteration.stories.filter((story: IStoryInEpic) => story.id !== action.story.id));
       break;

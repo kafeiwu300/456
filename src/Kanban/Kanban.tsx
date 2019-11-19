@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import {Row, Col, Icon, Modal} from 'antd';
+import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';
 import { IStory } from './interfaces';
@@ -36,9 +36,10 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
 
   const addStory = () => {
     Modal.confirm({
+      title: '添加故事',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="plus-circle"/>,
       width: 600,
       content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid(), description: '作为……，\n我希望……，\n以便于……'}}/>,
       centered: true,
@@ -48,6 +49,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
             type: 'kanban-addStory',
             story: {
               tasks: [],
+              ...storyForm.props.story,
               ...storyForm.props.form.getFieldsValue()
             }
           });
@@ -59,40 +61,40 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   return (
     // <Provider store={store}>
     <DndProvider backend={HTML5Backend}>
-      <Row gutter={[8, 16]}>
-        <Col span={4}><div style={headerStyle}>story</div></Col>
-        <Col span={4}><div style={headerStyle}>todo</div></Col>
-        <Col span={4}><div style={headerStyle}>doing</div></Col>
-        <Col span={4}><div style={headerStyle}>test</div></Col>
-        <Col span={4}><div style={headerStyle}>deploy</div></Col>
-        <Col span={4}><div style={headerStyle}>done</div></Col>
+      <Row style={{display: 'flex', marginBottom: '8px'}} gutter={8}>
+        <Col style={{flex: '0 0 260px', width: '260px'}} span={4}><div style={headerStyle}>story</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>todo</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>doing</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>test</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>deploy</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>done</div></Col>
       </Row>
       {stories.map((story: IStory) => {
         return (
-          <Row style={{marginBottom: '8px'}} gutter={8}>
-            <Col span={4}>
+          <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <StoryCard story={story}/>
             </Col>
-            <Col span={4}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='todo'/>
             </Col>
-            <Col span={4}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='doing'/>
             </Col>
-            <Col span={4}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='test'/>
             </Col>
-            <Col span={4}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='deploy'/>
             </Col>
-            <Col span={4}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='done'/>
             </Col>
           </Row>
         )
       })}
-      <Row gutter={8}>
-        <Col span={4}>
+      <Row style={{display: 'flex'}} gutter={8}>
+        <Col style={{flex: '0 0 260px', width: '260px'}}>
           <div style={addStoryStyle} onClick={addStory}>
             <span style={{cursor: 'pointer'}}><Icon type="plus" />添加故事</span>
           </div>
