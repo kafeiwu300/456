@@ -7,6 +7,7 @@ import Home from './Home';
 import { Provider } from 'react-redux';
 import StoryMap from './StoryMap/StoryMap';
 import { store } from './store';
+import Bug from './Bug/Bug';
 
 const App: React.FC = () => {
   return (  
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/story-map" component={StoryMap}/>
           <Route path="/kanban" component={Kanban}/>
+          <Route path="/bug" component={Bug}/>
           <Route path="/" component={Home}/>
         </Switch>
       </Router>
