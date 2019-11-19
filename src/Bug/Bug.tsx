@@ -78,4 +78,4 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
   );
 };
 
-export default connect((state: IState) => ({bugs: state.kanbanData}))(Bug);
+export default Bug;
