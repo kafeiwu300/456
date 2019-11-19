@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Button, Tag, Avatar, Descriptions, Modal } from 'antd';
+import { Collapse, Button, Tag, Avatar, Descriptions, Modal, Icon } from 'antd';
 import { IIterationInfo } from './interfaces';
 import IterationForm from './IterationForm';
 import { store } from '../store';
@@ -15,7 +15,7 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
       title: '修改迭代',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="edit"/>,
       width: 600,
       content: <IterationForm wrappedComponentRef={(form: any) => iterationForm = form} iteration={iteration}/>,
       centered: true,
@@ -40,9 +40,9 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
       title: '删除迭代',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
       width: 600,
       content: '确定要删除这个迭代吗？',
+      icon: <Icon type="delete" />,
       onOk: () => {
         store.dispatch({
           type: 'storyMap-removeIteration',
@@ -58,12 +58,12 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
         <Collapse.Panel showArrow={false} key={iteration.id} header={
           <>
             迭代{iteration.index} - {iteration.title}
-            {iteration.isActive ? <Tag color="#87d068">进行中</Tag> : <></>}
+            {/* {iteration.isActive ? <Tag color="#87d068">进行中</Tag> : <></>} */}
           </>
-          } style={{position: 'relative'}} extra={
+          } style={{wordWrap: 'break-word'}} extra={
           <>
-            <Button onClick={modifyIteration} size='small' icon='edit' ghost={ghost} style={{border: 'none'}}/>
-            <Button onClick={removeIteration} size='small' icon='delete' ghost={ghost} style={{border: 'none'}}/>
+            <Button onClick={modifyIteration} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
+            <Button onClick={removeIteration} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
           </>
         }>
           {iteration.leader ? <span title={iteration.leader}><Avatar shape="square" icon="user"/></span> : <></>}

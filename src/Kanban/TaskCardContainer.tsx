@@ -53,7 +53,7 @@ const TaskCardContainer: React.FC<{
       title: '添加任务',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="plus-circle"/>,
       width: 600,
       content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={{id: guid(), state}}/>,
       centered: true,

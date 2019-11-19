@@ -45,7 +45,7 @@ const StoryMap: React.FC<{storyMapData: {
       title: '添加迭代',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="plus-circle"/>,
       width: 600,
       content: <IterationForm wrappedComponentRef={(form: any) => iterationForm = form} iteration={{id: guid(), index: 4, isActive: false}}/>,
       centered: true,
@@ -68,7 +68,7 @@ const StoryMap: React.FC<{storyMapData: {
       title: '添加史诗故事',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="plus-circle"/>,
       width: 600,
       content: <EpicForm wrappedComponentRef={(form: any) => epicForm = form} epic={{id: guid()}}/>,
       centered: true,
@@ -89,23 +89,23 @@ const StoryMap: React.FC<{storyMapData: {
   return (
     <DndProvider backend={HTML5Backend}>
       <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
-        <Col style={{flex: '0 0 260px'}}><div style={headerStyle}>Iteration</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
         {
-          storyMapData.epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px'}}><EpicCard epic={epic}/></Col>)
+          storyMapData.epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
         }
-        <Col style={{flex: '0 0 260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
       </Row>
       {
         storyMapData.iterations
           .sort((a: IIteration, b: IIteration) => a.index - b.index)
           .map((iteration: IIteration) => (
             <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
-              <Col style={{flex: '0 0 260px'}}>
+              <Col style={{flex: '0 0 260px', width: '260px'}}>
                 <IterationCard iteration={iteration}/>
               </Col>
               {
                 storyMapData.epics.map((epic: IEpicInfo) => (
-                  <Col style={{flex: '0 0 260px'}}>
+                  <Col style={{flex: '0 0 260px', width: '260px'}}>
                     <StoryCardContainer epic={epic} iteration={iteration}/>
                   </Col>
                 ))
@@ -114,7 +114,7 @@ const StoryMap: React.FC<{storyMapData: {
           ))
       }
       <Row style={{display: 'flex'}} gutter={8}>
-        <Col style={{flex: '0 0 260px'}}>
+        <Col style={{flex: '0 0 260px', width: '260px'}}>
           <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
         </Col>
       </Row>

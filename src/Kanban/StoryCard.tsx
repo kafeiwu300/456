@@ -1,6 +1,6 @@
 import { IStory, IStoryInfo } from "./interfaces";
 import React, { useState } from "react";
-import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button } from "antd";
+import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button, Icon } from "antd";
 import StoryForm from "./StoryForm";
 import { store } from "../store";
 
@@ -17,6 +17,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
       okText: '确定',
       cancelText: '取消',
       width:  600,
+      icon: <Icon type="delete" />,
       onOk: () => {
         store.dispatch({
           type: 'kanban-removeStory',
@@ -32,7 +33,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
       title: '修改故事',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="edit" />,
       width: 600,
       centered: true,
       content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={story}/>,
@@ -54,10 +55,10 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
       <Collapse>
-        <Collapse.Panel key={story.id!} header={story.title} showArrow={false} extra={
+        <Collapse.Panel style={{wordBreak: 'break-word'}} key={story.id!} header={story.title} showArrow={false} extra={
           <>
-            <Button onClick={modifyStory} size='small' icon='edit' ghost={ghost} style={{border: 'none'}}/>
-            <Button onClick={removeStory} size='small' icon='delete' ghost={ghost} style={{border: 'none'}}/>
+            <Button onClick={modifyStory} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
+            <Button onClick={removeStory} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
           </>
         }>
           {story.priority ? <Tag color='#fa8c16' title="优先级">{story.priority}</Tag> : <></>}

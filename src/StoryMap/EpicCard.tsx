@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Button, Descriptions, Modal } from 'antd';
+import { Collapse, Button, Descriptions, Modal, Icon } from 'antd';
 import { IEpicInfo } from './interfaces';
 import { store } from '../store';
 import EpicForm from './EpicForm';
@@ -40,7 +40,7 @@ const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
       title: '删除史诗故事',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="delete" />,
       width: 600,
       content: '确定要删除这个史诗故事吗？',
       onOk: () => {
@@ -55,10 +55,10 @@ const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
       <Collapse>
-        <Collapse.Panel showArrow={false} key={epic.id} header={epic.title} style={{position: 'relative'}} extra={
+        <Collapse.Panel showArrow={false} key={epic.id} header={epic.title} style={{wordBreak: 'break-word'}} extra={
           <>
-            <Button onClick={modifyEpic} size='small' icon='edit' ghost={ghost} style={{border: 'none'}}/>
-            <Button onClick={removeEpic} size='small' icon='delete' ghost={ghost} style={{border: 'none'}}/>
+            <Button onClick={modifyEpic} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
+            <Button onClick={removeEpic} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
           </>
         }>
           <Descriptions size='small' colon={false}>

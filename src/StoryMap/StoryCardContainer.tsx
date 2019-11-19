@@ -48,7 +48,7 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
       title: '添加用户故事',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="plus-circle"/>,
       width: 600,
       content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid()}}/>,
       centered: true,

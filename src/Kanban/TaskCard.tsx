@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button } from 'antd';
+import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button, Icon } from 'antd';
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
 import TaskForm from './TaskForm';
@@ -21,7 +21,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
       title: '修改任务',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="edit"/>,
       width: 600,
       content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={task}/>,
       centered: true,
@@ -57,6 +57,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
       okText: '确定',
       cancelText: '取消',
       width:  600,
+      icon: <Icon type="delete" />,
       onOk: () => {
         store.dispatch({
           type: 'kanban-removeTask',
@@ -71,10 +72,10 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   return (
     <div ref={drag} style={{margin: '4px 0'}} onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
       <Collapse>
-        <Collapse.Panel showArrow={false} key={task.id!} header={task.title} style={{position: 'relative'}} extra={
+        <Collapse.Panel showArrow={false} key={task.id!} header={task.title} style={{wordBreak: 'break-word'}} extra={
           <>
-            <Button onClick={modifyTask} size='small' icon='edit' ghost={ghost} style={{border: 'none'}}/>
-            <Button onClick={removeTask} size='small' icon='delete' ghost={ghost} style={{border: 'none'}}/>
+            <Button onClick={modifyTask} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
+            <Button onClick={removeTask} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
           </>
         }>
           {task.priority ? <Tag color='#fa8c16' title="优先级">{task.priority}</Tag> : <></>}

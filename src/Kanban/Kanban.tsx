@@ -39,7 +39,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       title: '添加故事',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="plus-circle"/>,
       width: 600,
       content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid(), description: '作为……，\n我希望……，\n以便于……'}}/>,
       centered: true,
@@ -62,39 +62,39 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
     // <Provider store={store}>
     <DndProvider backend={HTML5Backend}>
       <Row style={{display: 'flex', marginBottom: '8px'}} gutter={8}>
-        <Col style={{flex: '0 0 260px'}} span={4}><div style={headerStyle}>story</div></Col>
-        <Col style={{flex: '0 0 260px'}}><div style={headerStyle}>todo</div></Col>
-        <Col style={{flex: '0 0 260px'}}><div style={headerStyle}>doing</div></Col>
-        <Col style={{flex: '0 0 260px'}}><div style={headerStyle}>test</div></Col>
-        <Col style={{flex: '0 0 260px'}}><div style={headerStyle}>deploy</div></Col>
-        <Col style={{flex: '0 0 260px'}}><div style={headerStyle}>done</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}} span={4}><div style={headerStyle}>story</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>todo</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>doing</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>test</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>deploy</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>done</div></Col>
       </Row>
       {stories.map((story: IStory) => {
         return (
           <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
-            <Col style={{flex: '0 0 260px'}}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <StoryCard story={story}/>
             </Col>
-            <Col style={{flex: '0 0 260px'}}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='todo'/>
             </Col>
-            <Col style={{flex: '0 0 260px'}}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='doing'/>
             </Col>
-            <Col style={{flex: '0 0 260px'}}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='test'/>
             </Col>
-            <Col style={{flex: '0 0 260px'}}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='deploy'/>
             </Col>
-            <Col style={{flex: '0 0 260px'}}>
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} state='done'/>
             </Col>
           </Row>
         )
       })}
       <Row style={{display: 'flex'}} gutter={8}>
-        <Col style={{flex: '0 0 260px'}}>
+        <Col style={{flex: '0 0 260px', width: '260px'}}>
           <div style={addStoryStyle} onClick={addStory}>
             <span style={{cursor: 'pointer'}}><Icon type="plus" />添加故事</span>
           </div>
