@@ -14,6 +14,7 @@ const Home: React.FC = () => {
     <>
       <Button><Link to={`/${projectId}/kanban`}>sprint backlog</Link></Button>
       <Button><Link to={`/${projectId}/story-map`}>story map</Link></Button>
+      <Button><Link to="bug">bug map</Link></Button>
     </>
   );
 }
