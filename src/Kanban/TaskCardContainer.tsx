@@ -24,7 +24,8 @@ const TaskCardContainer: React.FC<{
     borderRadius: '4px',
     backgroundColor: 'white',
     textAlign: "center",
-    border: '1px solid #d9d9d9'
+    border: '1px solid #d9d9d9',
+    margin: '4px 0'
   }
 
   const [, drop] = useDrop({

@@ -9,6 +9,7 @@
     "@types/react-dom": "16.9.3",
     "@types/react-redux": "^7.1.5",
     "@types/react-router-dom": "^5.1.2",
+    "@types/superagent": "^4.1.4",
     "antd": "^3.25.0",
     "rc-form": "^2.4.9",
     "rc-form-hooks": "^0.0.1-alpha.22",
@@ -20,7 +21,9 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
-    "typescript": "3.6.4"
+    "superagent": "^5.1.0",
+    "typescript": "3.6.4",
+    "use-react-router": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",

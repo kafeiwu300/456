@@ -55,7 +55,7 @@ const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
       <Collapse>
-        <Collapse.Panel showArrow={false} key={epic.id} header={epic.title} style={{wordBreak: 'break-word'}} extra={
+        <Collapse.Panel showArrow={false} key={epic.id} header={epic.title} style={{wordBreak: 'break-word', fontSize: '18px', fontWeight: 'bold'}} extra={
           <>
             <Button onClick={modifyEpic} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
             <Button onClick={removeEpic} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>

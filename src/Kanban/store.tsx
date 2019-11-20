@@ -126,68 +126,69 @@ export let kanbanData: IStory[] = [
       }
     ]
   },
-  // {
-  //   id: '2',
-  //   title: '作为一个求职者，我可以通过QQ和微信登录求职网站。',
-  //   tasks: [
-  //     {
-  //       id: '14',
-  //       title: '邮箱绑定',
-  //       state: 'todo',
-  //       description: '邮箱绑定',
-  //       estimatedHours: 2,
-  //       leader: 'Lucy'
-  //     },
-  //     {
-  //       id: '15',
-  //       title: '手机绑定',
-  //       state: 'todo',
-  //       description: '手机绑定',
-  //       estimatedHours: 2,
-  //       taskPoint: 6
-  //     },
-  //     {
-  //       id: '16',
-  //       title: '测试案例',
-  //       state: 'todo',
-  //       description: '测试案例',
-  //       taskPoint: 6,
-  //       leader: 'Lucy'
-  //     },
-  //     {
-  //       id: '17',
-  //       title: '自动化脚本',
-  //       state: 'todo',
-  //       description: '自动化脚本',
-  //       estimatedHours: 2,
-  //       taskPoint: 6
-  //     },
-  //     {
-  //       id: '18',
-  //       title: '第三方登录UI开发及前端脚本',
-  //       state: 'doing',
-  //       description: '第三方登录UI开发及前端脚本',
-  //       estimatedHours: 2,
-  //       leader: 'Lucy'
-  //     },
-  //     {
-  //       id: '19',
-  //       title: '微信登陆接口对接后台开发',
-  //       state: 'doing',
-  //       description: '微信登陆接口对接后台开发',
-  //       taskPoint: 6,
-  //       leader: 'Lucy'
-  //     },
-  //     {
-  //       id: '20',
-  //       title: 'QQ第三方登陆接口对接后台开发',
-  //       state: 'done',
-  //       description: 'QQ第三方登陆接口对接后台开发',
-  //       estimatedHours: 2,
-  //       leader: 'Lucy'
-  //     },
-  //   ]
-  // },
+  {
+    id: '2',
+    title: '登录求职网站',
+    description: '作为一个求职者，我可以通过QQ和微信登录求职网站。',
+    tasks: [
+      {
+        id: '14',
+        title: '邮箱绑定',
+        state: 'todo',
+        description: '邮箱绑定',
+        estimatedHours: 2,
+        leader: 'Lucy'
+      },
+      {
+        id: '15',
+        title: '手机绑定',
+        state: 'todo',
+        description: '手机绑定',
+        estimatedHours: 2,
+        taskPoint: 6
+      },
+      {
+        id: '16',
+        title: '测试案例',
+        state: 'todo',
+        description: '测试案例',
+        taskPoint: 6,
+        leader: 'Lucy'
+      },
+      {
+        id: '17',
+        title: '自动化脚本',
+        state: 'todo',
+        description: '自动化脚本',
+        estimatedHours: 2,
+        taskPoint: 6
+      },
+      {
+        id: '18',
+        title: '第三方登录UI开发及前端脚本',
+        state: 'doing',
+        description: '第三方登录UI开发及前端脚本',
+        estimatedHours: 2,
+        leader: 'Lucy'
+      },
+      {
+        id: '19',
+        title: '微信登陆接口对接后台开发',
+        state: 'doing',
+        description: '微信登陆接口对接后台开发',
+        taskPoint: 6,
+        leader: 'Lucy'
+      },
+      {
+        id: '20',
+        title: 'QQ第三方登陆接口对接后台开发',
+        state: 'done',
+        description: 'QQ第三方登陆接口对接后台开发',
+        estimatedHours: 2,
+        leader: 'Lucy'
+      },
+    ]
+  },
 ];
 
 export function guid() {

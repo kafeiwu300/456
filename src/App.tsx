@@ -13,9 +13,9 @@ const App: React.FC = () => {
     <Provider store={store}>
       <Router history={createBrowserHistory()}>
         <Switch>
-          <Route path="/story-map" component={StoryMap}/>
-          <Route path="/kanban" component={Kanban}/>
-          <Route path="/" component={Home}/>
+          <Route path="/:projectId/:iterationId/story-map" component={StoryMap}/>
+          <Route path="/:projectId/kanban" component={Kanban}/>
+          <Route path="/:projectId" component={Home}/>
         </Switch>
       </Router>
     </Provider>

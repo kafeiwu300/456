@@ -14,9 +14,11 @@ import { IState } from '../interfaces';
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
-    backgroundColor: '#fff',
-    padding: '12px 16px',
-    borderRadius: '4px'
+    backgroundColor: '#fafafa',
+    padding: '12px 16px 12px 12px',
+    borderRadius: '4px',
+    border: '1px solid #d9d9d9',
+    lineHeight: '22px',
   }
 
   const addStoryStyle: CSSProperties = {

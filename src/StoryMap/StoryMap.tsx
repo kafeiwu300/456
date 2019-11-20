@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
-import { Row, Col, Icon, Modal } from 'antd';
+import { Row, Col, Icon, Modal, Typography } from 'antd';
 import { IEpicInfo, IIteration } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
@@ -13,15 +13,19 @@ import IterationCard from './IterationCard';
 import EpicCard from './EpicCard';
 import EpicForm from './EpicForm';
 
+const { Title } = Typography;
+
 const StoryMap: React.FC<{storyMapData: {
   epics: IEpicInfo[];
   iterations: IIteration[];
 }}> = ({storyMapData}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
-    backgroundColor: '#fff',
-    padding: '12px 16px',
-    borderRadius: '4px'
+    backgroundColor: '#fafafa',
+    padding: '12px 16px 12px 12px',
+    borderRadius: '4px',
+    border: '1px solid #d9d9d9',
+    lineHeight: '22px',
   }
   
   const headerStyle: CSSProperties = {
@@ -34,7 +38,7 @@ const StoryMap: React.FC<{storyMapData: {
   const addIterationStyle: CSSProperties = {
     ...outerStyle,
     textAlign: 'center',
-    border: '1px solid #d9d9d9'
+    border: '1px solid #d9d9d9',
   }
 
   let iterationForm: any = undefined;

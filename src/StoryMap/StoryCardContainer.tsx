@@ -20,7 +20,8 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
     borderRadius: '4px',
     backgroundColor: 'white',
     textAlign: "center",
-    border: '1px solid #d9d9d9'
+    border: '1px solid #d9d9d9',
+    margin: '4px 0'
   }
 
   let storyForm: any = undefined;
