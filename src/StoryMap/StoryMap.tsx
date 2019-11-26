@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
-import { Row, Col, Icon, Modal, Typography } from 'antd';
+import { Row, Col, Icon, Modal, Typography, Affix } from 'antd';
 import { IEpicInfo, IIteration } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
@@ -92,13 +92,15 @@ const StoryMap: React.FC<{storyMapData: {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
-        {
-          storyMapData.epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
-        }
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
-      </Row>
+      <Affix>
+        <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
+          <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
+          {
+            storyMapData.epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
+          }
+          <Col style={{flex: '0 0 260px', width: '260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
+        </Row>
+      </Affix>
       {
         storyMapData.iterations
           .sort((a: IIteration, b: IIteration) => a.index - b.index)
