@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Icon, Modal } from 'antd';
+import { Icon, Modal, Empty } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
 import { IStory, IDragObject, ITask } from './interfaces';
@@ -76,11 +76,14 @@ const TaskCardContainer: React.FC<{
 
   return (
     <div ref={drop} style={outerStyle}>
-      {story.tasks.filter(
-        (task: ITask) => task.state === state
-      ).map(
-        (task: ITask) => <TaskCard story={story} task={task}/>
-      )}
+      {(() => {
+        const list = story.tasks.filter(
+          (task: ITask) => task.state === state
+        ).map(
+          (task: ITask) => <TaskCard story={story} task={task}/>
+        )
+        return list.length === 0 ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无任务</div> : list;
+      })()}
       {state === 'todo' ? (
         <div style={addTaskStyle} onClick={addTask}>
           <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
