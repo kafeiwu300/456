@@ -1,8 +1,8 @@
 import React, { CSSProperties, useState } from 'react';
-import { DndProvider } from 'react-dnd';
+import { DndProvider, useDrop } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import { Row, Col, Icon, Modal, Typography, Affix, Drawer, Button, Tag } from 'antd';
-import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
+import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
 import { IState } from '../interfaces';
@@ -13,6 +13,8 @@ import IterationCard from './IterationCard';
 import EpicCard from './EpicCard';
 import EpicForm from './EpicForm';
 import StoryCard from './StoryCard';
+import StoryForm from '../Kanban/StoryForm';
+import UnplannedStoryCardContainer from './UnplannedStoryCardContainer';
 
 const { Title } = Typography;
 
@@ -92,7 +94,6 @@ const StoryMap: React.FC<{
     });
   }
 
-  const [showUnplanned, setShowUnplanned] = useState<boolean>(false);
   const [bottomHeight, setBottomHeight] = useState<number>(0);
 
   return (
@@ -132,16 +133,7 @@ const StoryMap: React.FC<{
           setBottomHeight(ref.clientHeight);
         }
       }} style={{position: 'fixed', bottom: '0', width: '100%'}}>
-        <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>        
-        <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}>
-          {
-            unplannedStories.map((story: IStoryInEpic) => (
-              <Col span={4} style={{padding: '0 4px'}}>
-                <StoryCard story={story}/>
-              </Col>
-            ))
-          }
-        </Row>
+        <UnplannedStoryCardContainer unplannedStories={unplannedStories}/>
       </div>
     </DndProvider>
   )

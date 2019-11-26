@@ -16,23 +16,33 @@ const storyReducer: Reducer<{
     case 'storyMap-moveStory': {
       state.iterations.forEach((iteration: IIteration) => iteration.stories = iteration.stories.filter((story: IStoryInEpic) => story.id !== action.story.id));
       state.unplannedStories = state.unplannedStories.filter((story: IStoryInEpic) => story.id !== action.story.id);
-      const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration.id);
-      if (iteration) {
-        iteration.stories = iteration.stories.concat(action.story);
+      if (action.iteration) {
+        const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration!.id);
+        if (iteration) {
+          iteration.stories = iteration.stories.concat(action.story);
+        }
+      } else {
+        state.unplannedStories = state.unplannedStories.concat(action.story);
       }
     } break;
     case 'storyMap-addStory': {
-      const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration.id);
-      if (iteration) {
-        iteration.stories = iteration.stories.concat(action.story);
+      if (action.iteration) {
+        const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration!.id);
+        if (iteration) {
+          iteration.stories = iteration.stories.concat(action.story);
+        }
+      } else {
+        state.unplannedStories = state.unplannedStories.concat(action.story);
       }
     } break;
-    case 'storyMap-removeStory':
+    case 'storyMap-removeStory': {
       state.iterations.forEach((iteration: IIteration) => iteration.stories = iteration.stories.filter((story: IStoryInEpic) => story.id !== action.story.id));
-      break;
-    case 'storyMap-modifyStory':
+      state.unplannedStories = state.unplannedStories.filter((story: IStoryInEpic) => story.id !== action.story.id);
+    } break;
+    case 'storyMap-modifyStory': {
       state.iterations.forEach((iteration: IIteration) => iteration.stories = iteration.stories.map((story: IStoryInEpic) => story.id === action.story.id ? action.story : story));
-      break;
+      state.unplannedStories = state.unplannedStories.map((story: IStoryInEpic) => story.id === action.story.id ? action.story : story);
+    } break;
   }
   return state;
 }

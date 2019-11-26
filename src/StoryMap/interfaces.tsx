@@ -22,7 +22,7 @@ export interface IEpicAction extends IStoryMapAction {
 
 export interface IStoryAction extends IStoryMapAction {
   story: IStoryInEpic;
-  iteration: IIteration;
+  iteration?: IIteration;
 }
 
 export interface IEpicInfo {
