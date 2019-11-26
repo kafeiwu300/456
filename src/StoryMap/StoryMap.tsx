@@ -131,10 +131,10 @@ const StoryMap: React.FC<{storyMapData: {
       <Affix offsetBottom={0}>
         <>
           <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>        
-          <Row style={{borderTop: '4px #87d068 solid', minHeight: '100px', backgroundColor: 'white', display: showUnplanned ? 'flex' : 'none'}}>
+          <Row style={{borderTop: '4px #87d068 solid', minHeight: '100px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}>
             {
               storyMapData.unplannedStories.map((story: IStoryInEpic) => (
-                <Col style={{flex: '0 0 260px', width: '260px', padding: '0 4px'}}>
+                <Col span={4} style={{padding: '0 4px'}}>
                   <StoryCard story={story}/>
                 </Col>
               ))
