@@ -18,6 +18,7 @@ const App: React.FC = () => {
           <Route path="/:projectId/kanban" component={Kanban}/>
           <Route path="/bug" component={Bug}/>
           <Route path="/:projectId" component={Home}/>
+          <Route path="/" component={Home}/>
         </Switch>
       </Router>
     </Provider>

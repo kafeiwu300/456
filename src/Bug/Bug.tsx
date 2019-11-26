@@ -6,6 +6,7 @@ import { DndProvider } from "react-dnd";
 import BugCard from "./BugCard";
 import { connect } from "react-redux";
 import { IState } from "../interfaces";
+import BugCardContainer from "./BugCardContainer";
 
 const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
   const outerStyle = {
@@ -50,32 +51,28 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
           <div style={headerStyle}>Closed</div>
         </Col>
       </Row>
-      {bugs.map((bug: IBug) => {
-        return (
-          <Row style={{ marginBottom: "8px" }} gutter={8}>
-            <Col span={4}>
-              <BugCard bug={bug} />
-            </Col>
-            <Col span={4}>
-              <BugCard bug={bug} />
-            </Col>
-            <Col span={4}>
-              <BugCard bug={bug} />
-            </Col>
-            <Col span={4}>
-              <BugCard bug={bug} />
-            </Col>
-            <Col span={4}>
-              <BugCard bug={bug} />
-            </Col>
-            <Col span={4}>
-              <BugCard bug={bug} />
-            </Col>
-          </Row>
-        );
-      })}
+      <Row style={{ marginBottom: "8px" }} gutter={8}>
+        <Col span={4}>
+          <BugCardContainer bugs={bugs} state="to-be-acknowledged" />
+        </Col>
+        <Col span={4}>
+          <BugCardContainer bugs={bugs} state="to-be-fixed" />
+        </Col>
+        <Col span={4}>
+          <BugCardContainer bugs={bugs} state="fixing" />
+        </Col>
+        <Col span={4}>
+          <BugCardContainer bugs={bugs} state="to-be-accepted" />
+        </Col>
+        <Col span={4}>
+          <BugCardContainer bugs={bugs} state="accepted" />
+        </Col>
+        <Col span={4}>
+          <BugCardContainer bugs={bugs} state="closed" />
+        </Col>
+      </Row>
     </DndProvider>
   );
 };
 
-export default Bug;
+export default connect((state: IState) => ({ bugs: state.bugData }))(Bug);

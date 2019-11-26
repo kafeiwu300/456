@@ -1,5 +1,6 @@
 import { IStory } from "./Kanban/interfaces";
 import { IEpicInfo, IIteration } from "./StoryMap/interfaces";
+import { IBug } from "./Bug/interfaces";
 
 export interface IState {
   kanbanData: IStory[];
@@ -7,4 +8,5 @@ export interface IState {
     epics: IEpicInfo[];
     iterations: IIteration[];
   };
+  bugData: IBug[];
 }

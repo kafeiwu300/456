@@ -1,4 +1,7 @@
-import { BugState } from "../enums";
+import { BugState, ActionType } from "../enums";
+import { Action } from "redux";
+import { DragObjectWithType } from "react-dnd";
+import { FormComponentProps } from "antd/lib/form/Form";
 
 export interface IBug {
   id: string;
@@ -7,6 +10,18 @@ export interface IBug {
   description?: string;
   level?: "very high" | "high" | "middle" | "low";
   estimatedHours?: number;
-  taskPoint?: number;
   leader?: string;
+}
+
+export interface IDragObject extends DragObjectWithType {
+  bug: IBug;
+}
+
+export interface IBugAction extends Action<ActionType> {
+  bug: IBug;
+  state: BugState;
+}
+
+export interface IBugFormComponentProps extends FormComponentProps<IBug> {
+  bug?: IBug;
 }
