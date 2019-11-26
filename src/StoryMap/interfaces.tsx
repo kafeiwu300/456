@@ -45,7 +45,9 @@ export interface IIterationInfo {
   title?: string,
   target?: string,
   leader?: string,
-  isActive: boolean
+  isActive: boolean,
+  startTime?: Date,
+  endTime?: Date
 }
 
 export interface IIteration extends IIterationInfo {

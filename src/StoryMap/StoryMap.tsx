@@ -16,11 +16,11 @@ import StoryCard from './StoryCard';
 
 const { Title } = Typography;
 
-const StoryMap: React.FC<{storyMapData: {
+const StoryMap: React.FC<{
   epics: IEpicInfo[];
   iterations: IIteration[];
   unplannedStories: IStoryInEpic[];
-}}> = ({storyMapData}) => {
+}> = ({epics, iterations, unplannedStories}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#fafafa',
@@ -100,12 +100,12 @@ const StoryMap: React.FC<{storyMapData: {
       <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
         <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
         {
-          storyMapData.epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
+          epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
         }
         <Col style={{flex: '0 0 260px', width: '260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
       </Row>
       {
-        storyMapData.iterations
+        iterations
           .sort((a: IIteration, b: IIteration) => a.index - b.index)
           .map((iteration: IIteration) => (
             <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
@@ -113,7 +113,7 @@ const StoryMap: React.FC<{storyMapData: {
                 <IterationCard iteration={iteration}/>
               </Col>
               {
-                storyMapData.epics.map((epic: IEpicInfo) => (
+                epics.map((epic: IEpicInfo) => (
                   <Col style={{flex: '0 0 260px', width: '260px'}}>
                     <StoryCardContainer epic={epic} iteration={iteration}/>
                   </Col>
@@ -135,7 +135,7 @@ const StoryMap: React.FC<{storyMapData: {
         <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>        
         <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}>
           {
-            storyMapData.unplannedStories.map((story: IStoryInEpic) => (
+            unplannedStories.map((story: IStoryInEpic) => (
               <Col span={4} style={{padding: '0 4px'}}>
                 <StoryCard story={story}/>
               </Col>
@@ -147,4 +147,4 @@ const StoryMap: React.FC<{storyMapData: {
   )
 }
 
-export default connect((state: IState) => ({storyMapData: state.storyMapData}))(StoryMap);
+export default connect((state: IState) => ({...state.storyMapData}))(StoryMap);
