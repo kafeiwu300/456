@@ -1,7 +1,7 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
-import { Row, Col, Icon, Modal, Typography, Affix } from 'antd';
+import { Row, Col, Icon, Modal, Typography, Affix, Drawer, Button, Tag } from 'antd';
 import { IEpicInfo, IIteration } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
@@ -90,6 +90,8 @@ const StoryMap: React.FC<{storyMapData: {
     });
   }
 
+  const [showUnplanned, setShowUnplanned] = useState<boolean>(false);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <Affix>
@@ -124,6 +126,12 @@ const StoryMap: React.FC<{storyMapData: {
           <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
         </Col>
       </Row>
+      <Affix offsetBottom={0}>
+        <Row>
+          <div style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</div>        
+          <div style={{borderTop: '4px #87d068 solid', minHeight: '100px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}></div>
+        </Row>
+      </Affix>
     </DndProvider>
   )
 }
