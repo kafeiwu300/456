@@ -5,10 +5,12 @@ import { IEpicInfo, IIterationInfo } from "./interfaces";
 const storyReducer: Reducer<{
   epics: IEpicInfo[];
   iterations: IIteration[];
+  unplannedStories: IStoryInEpic[];
 }, IStoryAction> = (prevState, action) => {
   let state = prevState ? {...prevState} : {
     epics: [],
-    iterations: []
+    iterations: [],
+    unplannedStories: []
   };
   switch (action.type) {
     case 'storyMap-moveStory': {
@@ -37,10 +39,12 @@ const storyReducer: Reducer<{
 const epicReducer: Reducer<{
   epics: IEpicInfo[];
   iterations: IIteration[];
+  unplannedStories: IStoryInEpic[];
 }, IEpicAction> = (prevState, action) => {
   let state = prevState ? {...prevState} : {
     epics: [],
-    iterations: []
+    iterations: [],
+    unplannedStories: []
   };
   switch (action.type) {
     case 'storyMap-addEpic':
@@ -59,10 +63,12 @@ const epicReducer: Reducer<{
 const iterationReducer: Reducer<{
   epics: IEpicInfo[];
   iterations: IIteration[];
+  unplannedStories: IStoryInEpic[];
 }, IIterationAction> = (prevState, action) => {
   let state = prevState ? {...prevState} : {
     epics: [],
-    iterations: []
+    iterations: [],
+    unplannedStories: []
   };
   switch (action.type) {
     case 'storyMap-addIteration':
@@ -81,6 +87,7 @@ const iterationReducer: Reducer<{
 export const storyMapReducer: Reducer<{
   epics: IEpicInfo[];
   iterations: IIteration[];
+  unplannedStories: IStoryInEpic[];
 }, IStoryMapAction> = (prevState, action) => {
   return epicReducer(iterationReducer(storyReducer(prevState, action as IStoryAction), action as IIterationAction), action as IEpicAction);
 }

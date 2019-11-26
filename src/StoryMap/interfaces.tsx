@@ -36,7 +36,7 @@ export interface IEpic extends IEpicInfo {
 }
 
 export interface IStoryInEpic extends IStoryInfo {
-  epicId: string
+  epicId?: string
 }
 
 export interface IIterationInfo {

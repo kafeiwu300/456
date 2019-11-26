@@ -2,7 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import { Row, Col, Icon, Modal, Typography, Affix, Drawer, Button, Tag } from 'antd';
-import { IEpicInfo, IIteration } from './interfaces';
+import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
 import { IState } from '../interfaces';
@@ -12,12 +12,14 @@ import { store } from '../store';
 import IterationCard from './IterationCard';
 import EpicCard from './EpicCard';
 import EpicForm from './EpicForm';
+import StoryCard from './StoryCard';
 
 const { Title } = Typography;
 
 const StoryMap: React.FC<{storyMapData: {
   epics: IEpicInfo[];
   iterations: IIteration[];
+  unplannedStories: IStoryInEpic[];
 }}> = ({storyMapData}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
@@ -127,10 +129,18 @@ const StoryMap: React.FC<{storyMapData: {
         </Col>
       </Row>
       <Affix offsetBottom={0}>
-        <Row>
-          <div style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</div>        
-          <div style={{borderTop: '4px #87d068 solid', minHeight: '100px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}></div>
-        </Row>
+        <>
+          <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>        
+          <Row style={{borderTop: '4px #87d068 solid', minHeight: '100px', backgroundColor: 'white', display: showUnplanned ? 'flex' : 'none'}}>
+            {
+              storyMapData.unplannedStories.map((story: IStoryInEpic) => (
+                <Col style={{flex: '0 0 260px', width: '260px', padding: '0 4px'}}>
+                  <StoryCard story={story}/>
+                </Col>
+              ))
+            }
+          </Row>
+        </>
       </Affix>
     </DndProvider>
   )

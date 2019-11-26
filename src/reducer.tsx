@@ -11,7 +11,8 @@ export const reducer: Reducer<IState, Action<ActionType>> = (prevState, action) 
     kanbanData: [],
     storyMapData: {
       epics: [],
-      iterations: []
+      iterations: [],
+      unplannedStories: []
     }
   };
   state = {
