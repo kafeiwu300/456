@@ -54,7 +54,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
 
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
-      <Collapse>
+      <Collapse defaultActiveKey={[story.id!]}>
         <Collapse.Panel style={{wordBreak: 'break-word'}} key={story.id!} header={story.title} showArrow={false} extra={
           <>
             <Button onClick={modifyStory} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
