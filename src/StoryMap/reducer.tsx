@@ -15,6 +15,7 @@ const storyReducer: Reducer<{
   switch (action.type) {
     case 'storyMap-moveStory': {
       state.iterations.forEach((iteration: IIteration) => iteration.stories = iteration.stories.filter((story: IStoryInEpic) => story.id !== action.story.id));
+      state.unplannedStories = state.unplannedStories.filter((story: IStoryInEpic) => story.id !== action.story.id);
       const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration.id);
       if (iteration) {
         iteration.stories = iteration.stories.concat(action.story);
