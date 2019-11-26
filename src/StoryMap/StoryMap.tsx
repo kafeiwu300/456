@@ -93,18 +93,17 @@ const StoryMap: React.FC<{storyMapData: {
   }
 
   const [showUnplanned, setShowUnplanned] = useState<boolean>(false);
+  const [bottomHeight, setBottomHeight] = useState<number>(0);
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Affix>
-        <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
-          <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
-          {
-            storyMapData.epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
-          }
-          <Col style={{flex: '0 0 260px', width: '260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
-        </Row>
-      </Affix>
+      <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
+        {
+          storyMapData.epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
+        }
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
+      </Row>
       {
         storyMapData.iterations
           .sort((a: IIteration, b: IIteration) => a.index - b.index)
@@ -123,25 +122,27 @@ const StoryMap: React.FC<{storyMapData: {
             </Row>
           ))
       }
-      <Row style={{display: 'flex'}} gutter={8}>
+      <Row style={{display: 'flex', marginBottom: bottomHeight + 'px'}} gutter={8}>
         <Col style={{flex: '0 0 260px', width: '260px'}}>
           <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
         </Col>
       </Row>
-      <Affix offsetBottom={0}>
-        <>
-          <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>        
-          <Row style={{borderTop: '4px #87d068 solid', minHeight: '100px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}>
-            {
-              storyMapData.unplannedStories.map((story: IStoryInEpic) => (
-                <Col span={4} style={{padding: '0 4px'}}>
-                  <StoryCard story={story}/>
-                </Col>
-              ))
-            }
-          </Row>
-        </>
-      </Affix>
+      <div ref={(ref: HTMLDivElement) => {
+        if (ref) {
+          setBottomHeight(ref.clientHeight);
+        }
+      }} style={{position: 'fixed', bottom: '0', width: '100%'}}>
+        <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>        
+        <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}>
+          {
+            storyMapData.unplannedStories.map((story: IStoryInEpic) => (
+              <Col span={4} style={{padding: '0 4px'}}>
+                <StoryCard story={story}/>
+              </Col>
+            ))
+          }
+        </Row>
+      </div>
     </DndProvider>
   )
 }
