@@ -1,5 +1,5 @@
 import { IStoryInEpic, IDragObject } from "./interfaces";
-import React, { useState, CSSProperties } from "react";
+import React, { useState, CSSProperties, useRef, useImperativeHandle, Ref } from "react";
 import { Row, Col, Modal, Icon } from "antd";
 import StoryCard from "./StoryCard";
 import StoryForm from "./StoryForm";
@@ -7,7 +7,9 @@ import { store } from "../store";
 import { useDrop } from "react-dnd";
 import { guid } from "../Kanban/store";
 
-const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[]}> = ({unplannedStories}) => {
+const UnplannedStoryCardContainer: React.RefForwardingComponent<{
+  clientHeight: () => number
+}, {unplannedStories: IStoryInEpic[]}> = ({unplannedStories}, ref) => {
   let storyForm: any = undefined;
 
   const addUnplannedStory = () => {
@@ -60,9 +62,15 @@ const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[]}> 
     border: '1px solid #d9d9d9',
     margin: '4px 0'
   }
-  
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    clientHeight: () => containerRef.current!.clientHeight
+  }));
+
   return (
-    <>
+    <div ref={containerRef}>
       <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
       {
         showUnplanned ? <div ref={drop}>
@@ -80,8 +88,8 @@ const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[]}> 
           </Row>
         </div> : <></>
       }
-    </>
+    </div>
   );
 };
 
-export default UnplannedStoryCardContainer;
+export default React.forwardRef(UnplannedStoryCardContainer);

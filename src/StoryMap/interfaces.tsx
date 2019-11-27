@@ -3,6 +3,7 @@ import { DragObjectWithType } from "react-dnd";
 import { Action } from "dnd-core";
 import { ActionType } from "../enums";
 import { FormComponentProps } from "antd/lib/form";
+import { Moment } from "moment";
 
 export interface IDragObject extends DragObjectWithType {
   story: IStoryInEpic;
@@ -46,8 +47,8 @@ export interface IIterationInfo {
   target?: string,
   leader?: string,
   isActive: boolean,
-  startTime?: Date,
-  endTime?: Date
+  startTime?: Moment,
+  endTime?: Moment
 }
 
 export interface IIteration extends IIterationInfo {

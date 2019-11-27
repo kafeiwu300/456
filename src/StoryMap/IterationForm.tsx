@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormComponentProps, FormCreateOption } from 'antd/lib/form';
-import { Form, Row, Col, Input, Select } from 'antd';
+import { Form, Row, Col, Input, Select, DatePicker } from 'antd';
 import { IIterationFormComponentProps } from './interfaces';
 
 class IterationForm extends React.Component<FormComponentProps> {
@@ -22,6 +22,27 @@ class IterationForm extends React.Component<FormComponentProps> {
               {
                 this.props.form.getFieldDecorator('target', {})(<Input.TextArea rows={5}/>)
               }
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Item label='迭代时间' labelCol={{span: 4}} wrapperCol={{span: 16}}>
+              <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}>
+                {
+                  this.props.form.getFieldDecorator('startTime', {
+                    rules: []
+                  })(<DatePicker/>)
+                }
+              </Form.Item>
+              <span style={{ display: 'inline-block', width: '24px', textAlign: 'center' }}>-</span>
+              <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}>
+                {
+                  this.props.form.getFieldDecorator('endTime', {
+                    rules: []
+                  })(<DatePicker/>)
+                }
+              </Form.Item>
             </Form.Item>
           </Col>
         </Row>
@@ -50,7 +71,9 @@ const formCreateOption: FormCreateOption<IIterationFormComponentProps> = {
     return {
       title: Form.createFormField({value: props.iteration && props.iteration.title}),
       target: Form.createFormField({value: props.iteration && props.iteration.target}),
-      leader: Form.createFormField({value: props.iteration && props.iteration.leader})
+      leader: Form.createFormField({value: props.iteration && props.iteration.leader}),
+      startTime: Form.createFormField({value: props.iteration && props.iteration.startTime}),
+      endTime: Form.createFormField({value: props.iteration && props.iteration.endTime})
     }
   }
 };

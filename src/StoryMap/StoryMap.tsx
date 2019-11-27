@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useState, Ref } from 'react';
 import { DndProvider, useDrop } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import { Row, Col, Icon, Modal, Typography, Affix, Drawer, Button, Tag } from 'antd';
@@ -128,11 +128,12 @@ const StoryMap: React.FC<{
           <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
         </Col>
       </Row>
-      <Affix offsetBottom={0}>
-        <div>
-          <UnplannedStoryCardContainer unplannedStories={unplannedStories}/>
-        </div>
-      </Affix>
+      <div style={{width: '100%', position: 'fixed', bottom: '0'}}>
+        <UnplannedStoryCardContainer ref={(ref: any) => {
+          if (ref)
+            setBottomHeight(ref.clientHeight())
+        }} unplannedStories={unplannedStories}/>
+      </div>
     </DndProvider>
   )
 }
