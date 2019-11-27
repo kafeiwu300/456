@@ -129,7 +129,9 @@ const StoryMap: React.FC<{
         </Col>
       </Row>
       <Affix offsetBottom={0}>
-        <UnplannedStoryCardContainer unplannedStories={unplannedStories}/>
+        <div>
+          <UnplannedStoryCardContainer unplannedStories={unplannedStories}/>
+        </div>
       </Affix>
     </DndProvider>
   )
