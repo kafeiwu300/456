@@ -128,13 +128,9 @@ const StoryMap: React.FC<{
           <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
         </Col>
       </Row>
-      <div ref={(ref: HTMLDivElement) => {
-        if (ref) {
-          setBottomHeight(ref.clientHeight);
-        }
-      }} style={{position: 'fixed', bottom: '0', width: '100%'}}>
+      <Affix offsetBottom={0}>
         <UnplannedStoryCardContainer unplannedStories={unplannedStories}/>
-      </div>
+      </Affix>
     </DndProvider>
   )
 }

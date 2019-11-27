@@ -64,20 +64,22 @@ const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[]}> 
   return (
     <>
       <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
-      <div ref={drop}>
-        <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white', display: showUnplanned ? 'inherit' : 'none'}}>
-          {
-            unplannedStories.map((story: IStoryInEpic) => (
-              <Col span={4} style={{padding: '0 4px'}}>
-                <StoryCard story={story}/>
-              </Col>
-            ))
-          }
-          <Col span={4} style={{padding: '0 4px'}}>
-            <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
-          </Col>
-        </Row>
-      </div>
+      {
+        showUnplanned ? <div ref={drop}>
+          <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white'}}>
+            {
+              unplannedStories.map((story: IStoryInEpic) => (
+                <Col span={4} style={{padding: '0 4px'}}>
+                  <StoryCard story={story}/>
+                </Col>
+              ))
+            }
+            <Col span={4} style={{padding: '0 4px'}}>
+              <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
+            </Col>
+          </Row>
+        </div> : <></>
+      }
     </>
   );
 };
