@@ -68,11 +68,14 @@ const BugCardContainer: React.FC<{
   };
   return (
     <div ref={drop} style={outerStyle}>
-      {bugs
-        .filter((bug: IBug) => bug.state === state)
-        .map((bug: IBug) => (
-          <BugCard bug={bug} />
-        ))}
+      {(() => {
+        const list = bugs
+          .filter((bug: IBug) => bug.state === state)
+          .map((bug: IBug) => (
+            <BugCard bug={bug} />
+          ));
+        return list.length === 0 && state !== 'to-be-acknowledged' ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无缺陷</div> : list;
+      })()}
       {state === "to-be-acknowledged" ? (
         <div style={addTaskStyle} onClick={addTask}>
           <span style={{ cursor: "pointer" }}>

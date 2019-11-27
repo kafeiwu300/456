@@ -82,7 +82,7 @@ const TaskCardContainer: React.FC<{
         ).map(
           (task: ITask) => <TaskCard story={story} task={task}/>
         )
-        return list.length === 0 ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无任务</div> : list;
+        return state !== 'todo' && list.length === 0 ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无任务</div> : list;
       })()}
       {state === 'todo' ? (
         <div style={addTaskStyle} onClick={addTask}>
