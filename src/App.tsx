@@ -8,15 +8,17 @@ import { Provider } from 'react-redux';
 import StoryMap from './StoryMap/StoryMap';
 import { store } from './store';
 import Bug from './Bug/Bug';
+import IterationTable from './IterationTable/IterationTable';
 
 const App: React.FC = () => {
   return (  
     <Provider store={store}>
       <Router history={createBrowserHistory()}>
         <Switch>
-          <Route path="/:projectId/:iterationId/story-map" component={StoryMap}/>
-          <Route path="/:projectId/kanban" component={Kanban}/>
+          <Route path="/:projectId/story-map" component={StoryMap}/>
+          <Route path="/:projectId/:iterationId/kanban" component={Kanban}/>
           <Route path="/bug" component={Bug}/>
+          <Route path="/:projectId/iterations" component={IterationTable}/>
           <Route path="/:projectId" component={Home}/>
           <Route path="/" component={Home}/>
         </Switch>

@@ -13,9 +13,10 @@ export const reducer: Reducer<IState, Action<ActionType>> = (prevState, action) 
     kanbanData: [],
     storyMapData: {
       epics: [],
-      iterations: []
+      iterations: [],
+      unplannedStories: []
     },
-    bugData: [],
+    bugData: []
   };
   state = {
     kanbanData: action.type.startsWith('kanban') ? kanbanReducer(state.kanbanData, action as IKanbanAction) : state.kanbanData,

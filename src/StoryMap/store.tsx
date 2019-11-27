@@ -1,6 +1,7 @@
-import { IEpicInfo, IIteration } from "./interfaces";
+import { IEpicInfo, IIteration, IStoryInEpic } from "./interfaces";
+import { IStoryInfo } from "../Kanban/interfaces";
 
-let epics: IEpicInfo[] = [
+const epics: IEpicInfo[] = [
   {
     id: '0',
     title: '添加商品'
@@ -19,7 +20,7 @@ let epics: IEpicInfo[] = [
   }
 ];
 
-let iterations: IIteration[] = [
+const iterations: IIteration[] = [
   {
     id: '0',
     index: 1,
@@ -180,4 +181,35 @@ let iterations: IIteration[] = [
   }
 ];
 
-export const storyMapData = {epics, iterations};
+const unplannedStories: IStoryInEpic[] = [
+  {
+    id: '27',
+    title: '未规划的故事1',
+  },
+  {
+    id: '28',
+    title: '未规划的故事2',
+  },
+  {
+    id: '29',
+    title: '未规划的故事3',
+  },
+  {
+    id: '30',
+    title: '未规划的故事4',
+  },
+  {
+    id: '31',
+    title: '未规划的故事5',
+  },
+  {
+    id: '32',
+    title: '未规划的故事6',
+  },
+  {
+    id: '33',
+    title: '未规划的故事7',
+  }
+];
+
+export const storyMapData = {epics, iterations, unplannedStories};
