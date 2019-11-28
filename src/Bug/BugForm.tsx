@@ -100,10 +100,15 @@ class BugForm extends React.Component<FormComponentProps> {
         </Row>
         <Row>
           <Col span={12}>
-            <Form.Item label='预估工时' labelCol={{span: 8}} wrapperCol={{span: 8}}>
-              {
-                this.props.form.getFieldDecorator('estimatedHours', {})(<InputNumber/>)
-              }
+            <Form.Item
+              label="预估工时"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 8 }}
+            >
+              {this.props.form.getFieldDecorator(
+                "estimatedHours",
+                {}
+              )(<InputNumber />)}
             </Form.Item>
           </Col>
         </Row>
@@ -113,16 +118,20 @@ class BugForm extends React.Component<FormComponentProps> {
 }
 
 const formCreateOption: FormCreateOption<IBugFormComponentProps> = {
-    mapPropsToFields (props) {
-      return {
-        title: Form.createFormField({value: props.bug && props.bug.title}),
-        state: Form.createFormField({value: props.bug && props.bug.state}),
-        description: Form.createFormField({value: props.bug && props.bug.description}),
-        level: Form.createFormField({value: props.bug && props.bug.level}),
-        estimatedHours: Form.createFormField({value: props.bug && props.bug.estimatedHours}),
-        leader: Form.createFormField({value: props.bug && props.bug.leader})
-      }
-    }
+  mapPropsToFields(props) {
+    return {
+      title: Form.createFormField({ value: props.bug && props.bug.title }),
+      state: Form.createFormField({ value: props.bug && props.bug.state }),
+      description: Form.createFormField({
+        value: props.bug && props.bug.description
+      }),
+      level: Form.createFormField({ value: props.bug && props.bug.level }),
+      estimatedHours: Form.createFormField({
+        value: props.bug && props.bug.estimatedHours
+      }),
+      leader: Form.createFormField({ value: props.bug && props.bug.leader })
+    };
   }
+};
 
 export default Form.create(formCreateOption)(BugForm);

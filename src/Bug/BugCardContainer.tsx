@@ -41,7 +41,7 @@ const BugCardContainer: React.FC<{
     })
   });
   let bugForm: any = undefined;
-  const addTask = () => {
+  const addBug = () => {
     Modal.confirm({
       title: "添加缺陷",
       okText: "保存",
@@ -57,9 +57,10 @@ const BugCardContainer: React.FC<{
       centered: true,
       onOk: () => {
         if (bugForm && bugForm.props) {
+          console.log(bugForm.props);
           store.dispatch({
             type: "bug-addBug",
-            bug: bugForm.props.bug,
+            bug: { ...bugForm.props.bug, ...bugForm.props.form.getFieldsValue() },
             state
           });
         }
@@ -74,7 +75,7 @@ const BugCardContainer: React.FC<{
           <BugCard bug={bug} />
         ))}
       {state === "to-be-acknowledged" ? (
-        <div style={addTaskStyle} onClick={addTask}>
+        <div style={addTaskStyle} onClick={addBug}>
           <span style={{ cursor: "pointer" }}>
             <Icon type="plus" />
             添加缺陷

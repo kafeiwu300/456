@@ -17,6 +17,8 @@ export const bugReducer: Reducer<IBug[], IBugAction> = (prevState, action) => {
     case "bug-moveBug":
       bug = state.find((b: IBug) => b.id === action.bug.id);
       bug!.state = action.state;
+      break;
   }
+  console.log(state);
   return state;
 };
