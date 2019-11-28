@@ -1,19 +1,18 @@
 import { IBug, IDragObject } from "./interfaces";
 import React, { useState } from "react";
-import { Modal, Icon, Collapse, Button, Descriptions } from "antd";
+import { Modal, Icon, Collapse, Button, Descriptions, Tag, Avatar } from "antd";
 import { store } from "../store";
 import { useDrag } from "react-dnd";
+import BugForm from "./BugForm";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
-  let storyForm: any = undefined;
-
   const [ghost, setGhost] = useState<boolean>(true);
 
-  const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
     Modal.confirm({
-      title: "删除故事",
-      content: "确定要删除这个故事吗？",
+      title: "删除缺陷",
+      content: "确定要删除这个缺陷吗？",
       okText: "确定",
       cancelText: "取消",
       width: 600,
@@ -22,6 +21,32 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
         store.dispatch({
           type: "bug-removeBug",
           bug
+        });
+      }
+    });
+  };
+
+  let bugForm: any | undefined;
+
+  const modifyBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.stopPropagation();
+    Modal.confirm({
+      title: "修改缺陷信息",
+      content: (
+        <BugForm
+          bug={bug}
+          wrappedComponentRef={(form: any) => (bugForm = form)}
+        />
+      ),
+      okText: "确定",
+      cancelText: "取消",
+      width: 600,
+      icon: <Icon type="edit" />,
+      onOk: () => {
+        console.log(bugForm.props.form.getFieldsValue());
+        store.dispatch({
+          type: "bug-modifyBug",
+          bug: { id: bug.id, ...bugForm.props.form.getFieldsValue() }
         });
       }
     });
@@ -54,14 +79,14 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
           extra={
             <>
               <Button
-                onClick={removeStory}
+                onClick={modifyBug}
                 size="small"
                 icon="edit"
                 ghost={ghost}
                 style={{ border: "none", backgroundColor: "transparent" }}
               />
               <Button
-                onClick={removeStory}
+                onClick={removeBug}
                 size="small"
                 icon="delete"
                 ghost={ghost}
@@ -70,46 +95,40 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
             </>
           }
         >
-          {/* {bug.priority ? (
+          {bug.level ? (
             <Tag color="#fa8c16" title="优先级">
-              {story.priority}
+              {bug.level}
             </Tag>
           ) : (
             <></>
           )}
-          {story.state ? (
+          {bug.state ? (
             <Tag color="#2db7f5" title="状态">
-              {story.state}
+              {bug.state}
             </Tag>
           ) : (
             <></>
           )}
-          {story.leader ? (
-            <span title={story.leader}>
+          {bug.leader ? (
+            <span title={bug.leader}>
               <Avatar shape="square" icon="user" />
             </span>
           ) : (
             <></>
           )}
-          {story.storyPoint ? (
-            <Badge
-              title="故事点"
-              count={story.storyPoint}
-              style={{ backgroundColor: "#bfbfbf" }}
-              offset={story.leader ? [8, 0] : [0, 0]}
-            />
-          ) : (
-            <></>
-          )} */}
-          <Descriptions size="small" colon={false}>
+          <Descriptions size="small" column={4} colon={false}>
             <Descriptions.Item label="" span={4}>
               {bug.description}
             </Descriptions.Item>
-            {/* <Descriptions.Item label='状态' span={4}>{story.state}</Descriptions.Item> */}
-            {/* <Descriptions.Item label='故事点' span={4}>{story.storyPoint}</Descriptions.Item> */}
-            {/* <Descriptions.Item label='估算工时' span={4}>{story.estimatedHours}</Descriptions.Item> */}
-            {/* <Descriptions.Item label='负责人' span={4}>{story.leader}</Descriptions.Item> */}
-            {/* <Descriptions.Item label='优先级' span={4}>{story.priority}</Descriptions.Item> */}
+            <Descriptions.Item label="状态" span={4}>
+              {bug.state}
+            </Descriptions.Item>{" "}
+            <Descriptions.Item label="负责人" span={4}>
+              {bug.leader}
+            </Descriptions.Item>
+            <Descriptions.Item label="优先级" span={4}>
+              {bug.level}
+            </Descriptions.Item>
           </Descriptions>
         </Collapse.Panel>
       </Collapse>
