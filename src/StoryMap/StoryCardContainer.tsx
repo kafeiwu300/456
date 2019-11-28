@@ -6,6 +6,7 @@ import StoryCard from './StoryCard';
 import { store } from '../store';
 import { guid } from '../Kanban/store';
 import StoryForm from '../Kanban/StoryForm';
+import useRouter from 'use-react-router';
 
 const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = ({epic, iteration}) => {
   const outerStyle = {
@@ -57,6 +58,7 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
         if (storyForm && storyForm.props) {
           store.dispatch({
             type: 'storyMap-addStory',
+            projectId,
             story: {
               ...storyForm.props.story,
               epicId: epic.id,
@@ -69,10 +71,15 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
     });
   };
 
+  const { match } = useRouter<{
+    projectId: string
+  }>();
+  const { projectId } = match.params;
+
   return (
     <div style={outerStyle} ref={drop}>
       {
-        iteration.stories
+        iteration.storyList
           .filter((story: IStoryInEpic) => story.epicId === epic.id)
           .map((story: IStoryInEpic) => <StoryCard story={story}/>)
       }

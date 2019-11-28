@@ -1,5 +1,5 @@
-import React, { CSSProperties, useState, Ref } from 'react';
-import { DndProvider, useDrop } from 'react-dnd';
+import React, { CSSProperties, useState, Ref, useEffect } from 'react';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import { Row, Col, Icon, Modal, Typography, Affix, Drawer, Button, Tag } from 'antd';
 import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
@@ -12,9 +12,8 @@ import { store } from '../store';
 import IterationCard from './IterationCard';
 import EpicCard from './EpicCard';
 import EpicForm from './EpicForm';
-import StoryCard from './StoryCard';
-import StoryForm from '../Kanban/StoryForm';
 import UnplannedStoryCardContainer from './UnplannedStoryCardContainer';
+import useRouter from 'use-react-router';
 
 const { Title } = Typography;
 
@@ -61,6 +60,7 @@ const StoryMap: React.FC<{
         if (iterationForm && iterationForm.props) {
           store.dispatch({
             type: 'storyMap-addIteration',
+            projectId,
             iteration: {
               ...iterationForm.props.iteration,
               ...iterationForm.props.form.getFieldsValue()
@@ -78,12 +78,13 @@ const StoryMap: React.FC<{
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <EpicForm wrappedComponentRef={(form: any) => epicForm = form} epic={{id: guid()}}/>,
+      content: <EpicForm wrappedComponentRef={(form: any) => epicForm = form} epic={{}}/>,
       centered: true,
       onOk: () => {
         if (epicForm && epicForm.props) {
           store.dispatch({
             type: 'storyMap-addEpic',
+            projectId,
             epic: {
               ...epicForm.props.epic,
               ...epicForm.props.form.getFieldsValue()
@@ -95,6 +96,18 @@ const StoryMap: React.FC<{
   }
 
   const [bottomHeight, setBottomHeight] = useState<number>(0);
+  
+  const { match } = useRouter<{
+    projectId: string
+  }>();
+  const { projectId } = match.params;
+
+  useEffect(() => {
+    store.dispatch({
+      type: 'storyMap-getData',
+    })
+    console.log({epics, iterations, unplannedStories});
+  }, [projectId]);
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -107,7 +120,7 @@ const StoryMap: React.FC<{
       </Row>
       {
         iterations
-          .sort((a: IIteration, b: IIteration) => a.index - b.index)
+          .sort((a: IIteration, b: IIteration) => a.index! - b.index!)
           .map((iteration: IIteration) => (
             <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
               <Col style={{flex: '0 0 260px', width: '260px'}}>

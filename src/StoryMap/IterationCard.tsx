@@ -3,6 +3,7 @@ import { Collapse, Button, Tag, Avatar, Descriptions, Modal, Icon } from 'antd';
 import { IIterationInfo } from './interfaces';
 import IterationForm from './IterationForm';
 import { store } from '../store';
+import useRouter from 'use-react-router';
 
 const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
   const [ghost, setGhost] = useState<boolean>(true);
@@ -27,6 +28,7 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
           };
           store.dispatch({
             type: 'storyMap-modifyIteration',
+            projectId,
             iteration: t
           })
         }
@@ -46,16 +48,22 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
       onOk: () => {
         store.dispatch({
           type: 'storyMap-removeIteration',
+          projectId,
           iteration
         });
       }
     })
   }
 
+  const { match } = useRouter<{
+    projectId: string
+  }>();
+  const { projectId } = match.params;
+
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
-      <Collapse>
-        <Collapse.Panel showArrow={false} key={iteration.id} header={
+      <Collapse defaultActiveKey={[iteration.id!]}>
+        <Collapse.Panel showArrow={false} key={iteration.id!} header={
           <>
             迭代{iteration.index} - {iteration.title}
             {/* {iteration.isActive ? <Tag color="#87d068">进行中</Tag> : <></>} */}

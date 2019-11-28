@@ -10,7 +10,12 @@ export interface IDragObject extends DragObjectWithType {
 }
 
 export interface IStoryMapAction extends Action<ActionType> {
-
+  projectId: string;
+  state?: {
+    epics: IEpicInfo[];
+    iterations: IIteration[];
+    unplannedStories: IStoryInEpic[];
+  };
 }
 
 export interface IIterationAction extends IStoryMapAction {
@@ -27,7 +32,7 @@ export interface IStoryAction extends IStoryMapAction {
 }
 
 export interface IEpicInfo {
-  id: string,
+  id?: string,
   title?: string,
   description?: string
 }
@@ -41,18 +46,18 @@ export interface IStoryInEpic extends IStoryInfo {
 }
 
 export interface IIterationInfo {
-  id: string,
-  index: number,
+  id?: string,
+  index?: number,
   title?: string,
   target?: string,
   leader?: string,
-  isActive: boolean,
+  isActive?: boolean,
   startTime?: Moment,
   endTime?: Moment
 }
 
 export interface IIteration extends IIterationInfo {
-  stories: IStoryInEpic[]
+  storyList: IStoryInEpic[]
 }
 
 export interface IStoryInIteration extends IStoryInfo {

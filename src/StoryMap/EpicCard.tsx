@@ -3,6 +3,7 @@ import { Collapse, Button, Descriptions, Modal, Icon } from 'antd';
 import { IEpicInfo } from './interfaces';
 import { store } from '../store';
 import EpicForm from './EpicForm';
+import useRouter from 'use-react-router';
 
 const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
   const [ghost, setGhost] = useState<boolean>(true);
@@ -27,6 +28,7 @@ const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
           };
           store.dispatch({
             type: 'storyMap-modifyEpic',
+            projectId,
             epic: t
           })
         }
@@ -46,16 +48,22 @@ const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
       onOk: () => {
         store.dispatch({
           type: 'storyMap-removeEpic',
+          projectId,
           epic
         });
       }
     })
   }
 
+  const { match } = useRouter<{
+    projectId: string
+  }>();
+  const { projectId } = match.params;
+
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
       <Collapse>
-        <Collapse.Panel showArrow={false} key={epic.id} header={epic.title} style={{wordBreak: 'break-word', fontSize: '18px', fontWeight: 'bold'}} extra={
+        <Collapse.Panel showArrow={false} key={epic.id!} header={epic.title} style={{wordBreak: 'break-word', fontSize: '18px', fontWeight: 'bold'}} extra={
           <>
             <Button onClick={modifyEpic} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
             <Button onClick={removeEpic} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>

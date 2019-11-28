@@ -26,7 +26,7 @@ const iterations: IIteration[] = [
     index: 1,
     title: '最小可行的购物车',
     isActive: false,
-    stories: [
+    storyList: [
       {
         id: '1',
         title: '添加期望商品',
@@ -76,7 +76,7 @@ const iterations: IIteration[] = [
     index: 2,
     title: '增强版的购物车',
     isActive: true,
-    stories: [
+    storyList: [
       {
         id: '2',
         title: '添加配搭商品',
@@ -131,7 +131,7 @@ const iterations: IIteration[] = [
     index: 3,
     title: '豪华版的购物车',
     isActive: false,
-    stories: [
+    storyList: [
       {
         id: '4',
         title: '添加收藏商品',

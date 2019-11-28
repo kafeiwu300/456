@@ -9,6 +9,10 @@ import StoryMap from './StoryMap/StoryMap';
 import { store } from './store';
 import Bug from './Bug/Bug';
 import IterationTable from './IterationTable/IterationTable';
+import Log from './Log/Log';
+import TestList from './Test/TestList';
+import BurnDown from './BurnDown/BurnDown';
+import CFD from './CFD/CFD';
 
 const App: React.FC = () => {
   return (  
@@ -17,8 +21,12 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/:projectId/story-map" component={StoryMap}/>
           <Route path="/:projectId/:iterationId/kanban" component={Kanban}/>
-          <Route path="/bug" component={Bug}/>
+          <Route path="/:projectId/bug" component={Bug}/>
           <Route path="/:projectId/iterations" component={IterationTable}/>
+          <Route path="/:projectId/log" component={Log}/>
+          <Route path="/:projectId/test-case" component={TestList}/>
+          <Route path="/:projectId/burn-down" component={BurnDown}/>
+          <Route path="/:projectId/cfd" component={CFD}/>
           <Route path="/:projectId" component={Home}/>
           <Route path="/" component={Home}/>
         </Switch>
