@@ -4,7 +4,8 @@ import { IEpicInfo, IIterationInfo } from "./interfaces";
 import { getIterations } from "../agent/agileAgent";
 import { store } from "../store";
 import { getEpics, removeEpic, addEpic, modifyEpic } from "../agent/epicAgent";
-import { getIterationOrphan, removeStory, modifyStory, moveStory } from "../agent/storyAgent";
+import { getIterationOrphan, removeStory, modifyStory, moveStory, addStory } from "../agent/storyAgent";
+import { modifyIteration, addIteration, removeIteration } from "../agent/iterationAgent";
 
 const getStoryMapData = async () => {
   const iterations = await getIterations('123').then(res => res.body);
@@ -41,19 +42,20 @@ const storyReducer: Reducer<{
       moveStory(action.story, action.iteration && action.iteration.id, action.story.epicId).then(() => getStoryMapData());
     } break;
     case 'storyMap-addStory': {
-      if (action.iteration) {
-        const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration!.id);
-        if (iteration) {
-          iteration.storyList = iteration.storyList.concat(action.story);
-        }
-      } else {
-        state.unplannedStories = state.unplannedStories.concat(action.story);
-      }
+      // if (action.iteration) {
+      //   const iteration = state.iterations.find((ite: IIteration) => ite.id === action.iteration!.id);
+      //   if (iteration) {
+      //     iteration.storyList = iteration.storyList.concat(action.story);
+      //   }
+      // } else {
+      //   state.unplannedStories = state.unplannedStories.concat(action.story);
+      // }
+      addStory(action.story, action.projectId, action.iteration!.id, action.story.epicId).then(() => getStoryMapData());
     } break;
     case 'storyMap-removeStory': {
       // state.iterations.forEach((iteration: IIteration) => iteration.storyList = iteration.storyList.filter((story: IStoryInEpic) => story.id !== action.story.id));
       // state.unplannedStories = state.unplannedStories.filter((story: IStoryInEpic) => story.id !== action.story.id);
-      removeStory(action.story.id).then(() => getStoryMapData());
+      removeStory(action.story.id!).then(() => getStoryMapData());
     } break;
     case 'storyMap-modifyStory': {
       // state.iterations.forEach((iteration: IIteration) => iteration.storyList = iteration.storyList.map((story: IStoryInEpic) => story.id === action.story.id ? action.story : story));
@@ -103,13 +105,16 @@ const iterationReducer: Reducer<{
   };
   switch (action.type) {
     case 'storyMap-addIteration':
-      state.iterations = state.iterations.concat({...action.iteration, storyList: []});
+      // state.iterations = state.iterations.concat({...action.iteration, storyList: []});
+      addIteration(action.iteration, action.projectId).then(() => getStoryMapData());
       break;
     case 'storyMap-removeIteration':
-      state.iterations = state.iterations.filter((iteration: IIterationInfo) => action.iteration.id !== iteration.id);
+      // state.iterations = state.iterations.filter((iteration: IIterationInfo) => action.iteration.id !== iteration.id);
+      removeIteration(action.iteration.id!).then(() => getStoryMapData());
       break;
     case 'storyMap-modifyIteration':
-      state.iterations = state.iterations.map((iteration: IIteration) => action.iteration.id === iteration.id ? action.iteration : iteration);
+      // state.iterations = state.iterations.map((iteration: IIteration) => action.iteration.id === iteration.id ? action.iteration : iteration);
+      modifyIteration(action.iteration).then(() => getStoryMapData());
       break;
   }
   return state;

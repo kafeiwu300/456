@@ -2,6 +2,7 @@ import React from 'react';
 import { FormComponentProps, FormCreateOption } from 'antd/lib/form';
 import { Form, Row, Col, Input, Select, DatePicker } from 'antd';
 import { IIterationFormComponentProps } from './interfaces';
+import moment from 'moment';
 
 class IterationForm extends React.Component<FormComponentProps> {
   render () {
@@ -72,8 +73,8 @@ const formCreateOption: FormCreateOption<IIterationFormComponentProps> = {
       title: Form.createFormField({value: props.iteration && props.iteration.title}),
       target: Form.createFormField({value: props.iteration && props.iteration.target}),
       leader: Form.createFormField({value: props.iteration && props.iteration.leader}),
-      startTime: Form.createFormField({value: props.iteration && props.iteration.startTime}),
-      endTime: Form.createFormField({value: props.iteration && props.iteration.endTime})
+      startTime: Form.createFormField({value: props.iteration && moment(props.iteration.startTime)}),
+      endTime: Form.createFormField({value: props.iteration && moment(props.iteration.endTime)})
     }
   }
 };

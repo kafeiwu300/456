@@ -52,7 +52,7 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid()}}/>,
+      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {

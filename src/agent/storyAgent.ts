@@ -14,6 +14,15 @@ export function moveStory(story: IStoryInfo, iterationId?: string, epicId?: stri
   });
 }
 
+export function addStory(story: IStoryInfo, projectId: string, iterationId?: string, epicId?: string) {
+  return agent.post(`${BASE_URL}/stories`).send({
+    ...story,
+    project: { id: projectId },
+    iteration: { id: iterationId },
+    epic: { id: epicId }
+  })
+}
+
 export function modifyStory(story: IStoryInfo) {
   return agent.put(`${BASE_URL}/stories/${story.id}`).send(story);
 }

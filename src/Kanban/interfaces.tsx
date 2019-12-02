@@ -15,7 +15,7 @@ export interface ITask {
 }
 
 export interface IStoryInfo {
-  id: string,
+  id?: string,
   title?: string,
   description?: string,
   leader?: string,
