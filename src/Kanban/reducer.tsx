@@ -1,5 +1,16 @@
 import { Reducer } from "redux";
 import { IStory, ITask, IStoryAction, ITaskAction, IKanbanAction } from "./interfaces";
+import { getStories, removeStory, modifyStory, addStory } from "../agent/storyAgent";
+import { store } from "../store";
+import { removeTask, modifyTask, moveTask, addTask } from "../agent/taskAgent";
+
+const getKanbanData = async () => {
+  const stories = await getStories('iteration_1').then(res => res.body);
+  store.dispatch({
+    type: 'kanban-setData',
+    data: stories
+  });
+};
 
 const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
   let state: IStory[] = prevState ? [...prevState] : [];
@@ -7,21 +18,25 @@ const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
   let task: ITask | undefined;
   switch (action.type) {
     case 'kanban-moveTask':
-      story = state.find((s: IStory) => s.id === action.story.id);
-      task = story!.tasks.find((t: ITask) => t.id === action.task.id);
-      task!.state = action.state;
+      // story = state.find((s: IStory) => s.id === action.story.id);
+      // task = story!.taskList.find((t: ITask) => t.id === action.task.id);
+      // task!.status = action.status;
+      moveTask(action.task.id!, action.status).then(() => getKanbanData());
       break;
     case 'kanban-addTask':
-      story = state.find((s: IStory) => s.id === action.story.id);
-      story!.tasks = story!.tasks.concat(action.task);
+      // story = state.find((s: IStory) => s.id === action.story.id);
+      // story!.taskList = story!.taskList.concat(action.task);
+      addTask(action.task).then(() => getKanbanData());
       break;
     case 'kanban-removeTask':
-      story = state.find((s: IStory) => s.id === action.story.id);
-      story!.tasks = story!.tasks.filter((task: ITask) => task.id !== action.task.id);
+      removeTask(action.task.id!).then(() => getKanbanData());
+      // story = state.find((s: IStory) => s.id === action.story.id);
+      // story!.taskList = story!.taskList.filter((task: ITask) => task.id !== action.task.id);
       break;
     case 'kanban-modifyTask':
-      story = state.find((s: IStory) => s.id === action.story.id);
-      story!.tasks = story!.tasks.map((t: ITask) => t.id === action.task!.id ? action.task : t) as ITask[];
+      // story = state.find((s: IStory) => s.id === action.story.id);
+      // story!.taskList = story!.taskList.map((t: ITask) => t.id === action.task!.id ? action.task : t) as ITask[];
+      modifyTask(action.task).then(() => getKanbanData());
       break;
   }
   return state;
@@ -31,18 +46,28 @@ const storyReducer: Reducer<IStory[], IStoryAction> = (prevState, action) => {
   let state: IStory[] = prevState ? [...prevState] : [];
   switch (action.type) {
     case 'kanban-addStory':
-      state = state.concat({...action.story, tasks: []});
+      addStory(action.story, action.projectId, action.iterationId).then(() => getKanbanData());
+      // state = state.concat({...action.story, taskList: []});
       break;
     case 'kanban-removeStory':
-      state = state.filter((s: IStory) => s.id !== action.story.id);
+      removeStory(action.story.id!).then(() => getKanbanData());
+      // state = state.filter((s: IStory) => s.id !== action.story.id);
       break;
     case 'kanban-modifyStory':
-      state = state.map((s: IStory) => s.id === action.story.id ? {...action.story, tasks: s.tasks} : s);
+      modifyStory(action.story).then(() => getKanbanData());
+      // state = state.map((s: IStory) => s.id === action.story.id ? {...action.story, taskList: s.taskList} : s);
       break;
   }
   return state;
 }
 
 export const kanbanReducer: Reducer<IStory[], IKanbanAction> = (prevState, action) => {
-  return storyReducer(taskReducer(prevState, action as ITaskAction), action as IStoryAction);
+  if (action.type === 'kanban-setData') {
+    return action.data!;
+  } else if (action.type === 'kanban-getData') {
+    getKanbanData();
+    return prevState!;
+  } else {
+    return storyReducer(taskReducer(prevState, action as ITaskAction), action as IStoryAction);
+  }
 }

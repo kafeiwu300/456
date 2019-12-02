@@ -7,7 +7,7 @@ const formCreateOption: FormCreateOption<ITaskFormComponentProps> = {
   mapPropsToFields (props) {
     return {
       title: Form.createFormField({value: props.task && props.task.title}),
-      state: Form.createFormField({value: props.task && props.task.state}),
+      status: Form.createFormField({value: props.task && props.task.status}),
       description: Form.createFormField({value: props.task && props.task.description}),
       priority: Form.createFormField({value: props.task && props.task.priority}),
       estimatedHours: Form.createFormField({value: props.task && props.task.estimatedHours}),

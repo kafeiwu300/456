@@ -35,7 +35,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
             type: 'kanban-modifyTask',
             story,
             task: t,
-            state: task.state
+            status: task.status
           })
         }
       }
@@ -63,7 +63,6 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
           type: 'kanban-removeTask',
           story,
           task,
-          state: task.state
         });
       }
     })

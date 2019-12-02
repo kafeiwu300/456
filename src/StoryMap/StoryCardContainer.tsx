@@ -4,7 +4,6 @@ import { useDrop } from 'react-dnd';
 import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
 import StoryCard from './StoryCard';
 import { store } from '../store';
-import { guid } from '../Kanban/store';
 import StoryForm from '../Kanban/StoryForm';
 import useRouter from 'use-react-router';
 

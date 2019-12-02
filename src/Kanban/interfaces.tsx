@@ -4,9 +4,9 @@ import { ActionType, KanbanState } from "../enums";
 import { FormComponentProps } from "antd/lib/form/Form";
 
 export interface ITask {
-  id: string,
+  id?: string,
   title?: string,
-  state?: KanbanState,
+  status?: KanbanState,
   description?: string,
   priority?: 'very high' | 'high' | 'middle' | 'low',
   estimatedHours?: number,
@@ -22,11 +22,11 @@ export interface IStoryInfo {
   priority?: number,
   estimatedHours?: number,
   storyPoint?: number,
-  state?: string
+  status?: string
 }
 
 export interface IStory extends IStoryInfo {
-  tasks: ITask[]
+  taskList: ITask[]
 }
 
 export interface IDragObject extends DragObjectWithType {
@@ -34,7 +34,9 @@ export interface IDragObject extends DragObjectWithType {
 }
 
 export interface IKanbanAction extends Action<ActionType> {
-
+  data: IStory[];
+  projectId: string;
+  iterationId: string;
 }
 
 export interface IStoryAction extends IKanbanAction {
@@ -45,7 +47,7 @@ export interface IStoryAction extends IKanbanAction {
 export interface ITaskAction extends IKanbanAction {
   task: ITask,
   story: IStoryInfo,
-  state?: KanbanState
+  status?: KanbanState
 }
 
 export interface ITaskFormComponentProps extends FormComponentProps<ITask> {

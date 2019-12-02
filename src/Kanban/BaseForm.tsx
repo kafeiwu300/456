@@ -20,13 +20,13 @@ class BaseForm extends React.Component<FormComponentProps> {
           <Col>
             <Form.Item label='状态' labelCol={{span: 4}} wrapperCol={{span: 4}}>
               {
-                this.props.form.getFieldDecorator('state', {})(
+                this.props.form.getFieldDecorator('status', {})(
                   <Select>
-                    <Select.Option value='todo'>todo</Select.Option>
-                    <Select.Option value='doing'>doing</Select.Option>
-                    <Select.Option value='test'>test</Select.Option>
-                    <Select.Option value='deploy'>deploy</Select.Option>
-                    <Select.Option value='done'>done</Select.Option>
+                    <Select.Option value='待开发'>待开发</Select.Option>
+                    <Select.Option value='开发中'>开发中</Select.Option>
+                    <Select.Option value='测试中'>测试中</Select.Option>
+                    <Select.Option value='部署中'>部署中</Select.Option>
+                    <Select.Option value='已完成'>已完成</Select.Option>
                   </Select>
                 )
               }

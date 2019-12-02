@@ -7,7 +7,7 @@ const formCreateOption: FormCreateOption<IStoryFormComponentProps> = {
   mapPropsToFields (props) {
     return {
       title: Form.createFormField({value: props.story && props.story.title}),
-      state: Form.createFormField({value: props.story && props.story.state}),
+      status: Form.createFormField({value: props.story && props.story.status}),
       description: Form.createFormField({value: props.story && props.story.description}),
       priority: Form.createFormField({value: props.story && props.story.priority}),
       estimatedHours: Form.createFormField({value: props.story && props.story.estimatedHours}),

@@ -1,17 +1,17 @@
 import React, { CSSProperties } from 'react';
-import { Icon, Modal, Empty } from 'antd';
+import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
 import { IStory, IDragObject, ITask } from './interfaces';
 import { KanbanState } from "../enums";
 import TaskForm from './TaskForm';
 import { store } from '../store';
-import { guid } from './store';
+import useRouter from 'use-react-router';
 
 const TaskCardContainer: React.FC<{
-  state: KanbanState,
+  status: KanbanState,
   story: IStory
-}> = ({state, story}) => {
+}> = ({status, story}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#FFFFFF',
@@ -31,14 +31,14 @@ const TaskCardContainer: React.FC<{
   const [, drop] = useDrop({
     accept: 'taskCard',
     canDrop: (item: IDragObject) => {
-      return !!story.tasks.find((task: ITask) => item.task === task);
+      return !!story.taskList.find((task: ITask) => item.task === task);
     },
     drop: (item: IDragObject) => {
       store.dispatch({
         type: 'kanban-moveTask',
         story,
         task: item.task,
-        state
+        status
       })
     },
     collect: monitor => ({
@@ -49,6 +49,12 @@ const TaskCardContainer: React.FC<{
 
   let taskForm: any = undefined;
 
+  const { match } = useRouter<{
+    projectId: string,
+    iterationId: string
+  }>();
+  const { projectId } = match.params;
+
   const addTask = () => {
     Modal.confirm({
       title: '添加任务',
@@ -56,7 +62,7 @@ const TaskCardContainer: React.FC<{
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={{id: guid(), state}}/>,
+      content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={{status}}/>,
       centered: true,
       onOk: () => {
         if (taskForm && taskForm.props) {
@@ -66,8 +72,10 @@ const TaskCardContainer: React.FC<{
             task: {
               ...taskForm.props.task,
               ...taskForm.props.form.getFieldsValue(),
-            },
-            state
+              story: story.id ? {id: story.id} : null,
+              status,
+              project: projectId ? {id: projectId} : null
+            }
           });
         }
       }
@@ -77,14 +85,14 @@ const TaskCardContainer: React.FC<{
   return (
     <div ref={drop} style={outerStyle}>
       {(() => {
-        const list = story.tasks.filter(
-          (task: ITask) => task.state === state
+        const list = story.taskList.filter(
+          (task: ITask) => task.status === status
         ).map(
           (task: ITask) => <TaskCard story={story} task={task}/>
         )
-        return state !== 'todo' && list.length === 0 ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无任务</div> : list;
+        return status !== '待开发' && list.length === 0 ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无任务</div> : list;
       })()}
-      {state === 'todo' ? (
+      {status === '待开发' ? (
         <div style={addTaskStyle} onClick={addTask}>
           <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
         </div>

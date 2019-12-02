@@ -15,8 +15,6 @@ import EpicForm from './EpicForm';
 import UnplannedStoryCardContainer from './UnplannedStoryCardContainer';
 import useRouter from 'use-react-router';
 
-const { Title } = Typography;
-
 const StoryMap: React.FC<{
   epics: IEpicInfo[];
   iterations: IIteration[];
@@ -106,7 +104,7 @@ const StoryMap: React.FC<{
     store.dispatch({
       type: 'storyMap-getData',
     })
-    console.log({epics, iterations, unplannedStories});
+    // console.log({epics, iterations, unplannedStories});
   }, [projectId]);
 
   return (

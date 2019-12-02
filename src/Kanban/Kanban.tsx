@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect } from 'react';
 import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';
@@ -8,8 +8,8 @@ import StoryForm from './StoryForm';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import { store } from '../store';
-import { guid } from './store';
 import { IState } from '../interfaces';
+import useRouter from 'use-react-router';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const outerStyle = {
@@ -43,7 +43,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid(), description: '作为……，\n我希望……，\n以便于……'}}/>,
+      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{description: '作为……，\n我希望……，\n以便于……'}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {
@@ -52,24 +52,37 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
             story: {
               tasks: [],
               ...storyForm.props.story,
-              ...storyForm.props.form.getFieldsValue()
-            }
+              ...storyForm.props.form.getFieldsValue(),
+            },
+            projectId,
+            iterationId: 'iteration_1'
           });
         }
       }
     })
   }
 
+  const { match } = useRouter<{
+    projectId: string,
+    iterationId: string
+  }>();
+  const { projectId, iterationId } = match.params;
+
+  useEffect(() => {
+    store.dispatch({
+      type: 'kanban-getData',
+    })
+  }, [projectId, iterationId]);
+
   return (
-    // <Provider store={store}>
     <DndProvider backend={HTML5Backend}>
       <Row style={{display: 'flex', marginBottom: '8px'}} gutter={8}>
         <Col style={{flex: '0 0 260px', width: '260px'}} span={4}><div style={headerStyle}>story</div></Col>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>todo</div></Col>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>doing</div></Col>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>test</div></Col>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>deploy</div></Col>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>done</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>待开发</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>开发中</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>测试中</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>部署中</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>已完成</div></Col>
       </Row>
       {stories.map((story: IStory) => {
         return (
@@ -78,19 +91,19 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
               <StoryCard story={story}/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} state='todo'/>
+              <TaskCardContainer story={story} status='待开发'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} state='doing'/>
+              <TaskCardContainer story={story} status='开发中'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} state='test'/>
+              <TaskCardContainer story={story} status='测试中'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} state='deploy'/>
+              <TaskCardContainer story={story} status='部署中'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} state='done'/>
+              <TaskCardContainer story={story} status='已完成'/>
             </Col>
           </Row>
         )
@@ -103,7 +116,6 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
         </Col>
       </Row>
     </DndProvider>
-    // </Provider>
   )
 }
 

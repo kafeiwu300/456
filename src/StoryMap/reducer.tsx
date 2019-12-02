@@ -13,7 +13,7 @@ const getStoryMapData = async () => {
   const unplannedStories = await getIterationOrphan('123').then(res => res.body);
   store.dispatch({
     type: 'storyMap-setData',
-    state: {epics, iterations, unplannedStories}
+    data: {epics, iterations, unplannedStories}
   });
 };
 
@@ -126,14 +126,12 @@ export const storyMapReducer: Reducer<{
   unplannedStories: IStoryInEpic[];
 }, IStoryMapAction> = (prevState, action) => {
   if (action.type === 'storyMap-setData') {
-    let state = action.state!;
-    return state;
+    return action.data!;
   }
   else if (action.type === 'storyMap-getData') {
     getStoryMapData();
     return prevState;
   } else {
-    let state = epicReducer(iterationReducer(storyReducer(prevState, action as IStoryAction), action as IIterationAction), action as IEpicAction);
-    return state;
+    return epicReducer(iterationReducer(storyReducer(prevState, action as IStoryAction), action as IIterationAction), action as IEpicAction);
   }
 }

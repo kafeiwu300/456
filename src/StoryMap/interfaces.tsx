@@ -11,7 +11,7 @@ export interface IDragObject extends DragObjectWithType {
 
 export interface IStoryMapAction extends Action<ActionType> {
   projectId: string;
-  state?: {
+  data?: {
     epics: IEpicInfo[];
     iterations: IIteration[];
     unplannedStories: IStoryInEpic[];

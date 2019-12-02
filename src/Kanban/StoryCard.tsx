@@ -62,7 +62,7 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
           </>
         }>
           {story.priority ? <Tag color='#fa8c16' title="优先级">{story.priority}</Tag> : <></>}
-          {story.state ? <Tag color='#2db7f5' title="状态">{story.state}</Tag> : <></>}
+          {story.status ? <Tag color='#2db7f5' title="状态">{story.status}</Tag> : <></>}
           {story.leader ? <span title={story.leader}><Avatar shape="square" icon="user"/></span> : <></>}
           {story.storyPoint ? <Badge title="故事点" count={story.storyPoint} style={{backgroundColor: '#bfbfbf'}} offset={story.leader ? [8, 0] : [0, 0]}/> : <></>}
           <Descriptions size='small' colon={false}>

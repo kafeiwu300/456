@@ -9,8 +9,8 @@ export function getIterationOrphan(projectId: string) {
 export function moveStory(story: IStoryInfo, iterationId?: string, epicId?: string) {
   return agent.put(`${BASE_URL}/stories/${story.id}`).send({
     id: story.id,
-    iteration: { id: iterationId },
-    epic: { id: epicId }
+    iteration: iterationId ? { id: iterationId } : null,
+    epic: epicId ? { id: epicId } : null
   });
 }
 
@@ -18,8 +18,8 @@ export function addStory(story: IStoryInfo, projectId: string, iterationId?: str
   return agent.post(`${BASE_URL}/stories`).send({
     ...story,
     project: { id: projectId },
-    iteration: { id: iterationId },
-    epic: { id: epicId }
+    iteration: iterationId ? { id: iterationId } : null,
+    epic: epicId ? { id: epicId } : null
   })
 }
 
@@ -29,4 +29,8 @@ export function modifyStory(story: IStoryInfo) {
 
 export function removeStory(storyId: string) {
   return agent.delete(`${BASE_URL}/stories/${storyId}`);
+}
+
+export function getStories(iterationId: string) {
+  return agent.get(`${BASE_URL}/stories`).query({iteration_id: iterationId, detail: true});
 }
