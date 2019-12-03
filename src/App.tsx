@@ -13,6 +13,7 @@ import Log from './Log/Log';
 import TestList from './Test/TestList';
 import BurnDown from './BurnDown/BurnDown';
 import CFD from './CFD/CFD';
+import Project from './Project';
 
 const App: React.FC = () => {
   return (  
@@ -27,7 +28,7 @@ const App: React.FC = () => {
           <Route path="/:projectId/test-case" component={TestList}/>
           <Route path="/:projectId/burn-down" component={BurnDown}/>
           <Route path="/:projectId/cfd" component={CFD}/>
-          <Route path="/:projectId" component={Home}/>
+          <Route path="/:projectId" component={Project}/>
           <Route path="/" component={Home}/>
         </Switch>
       </Router>
