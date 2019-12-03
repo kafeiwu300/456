@@ -1,8 +1,6 @@
-import React, { CSSProperties, useState, Ref, useEffect } from 'react';
-import { DndProvider } from 'react-dnd';
-import HTML5Backend from "react-dnd-html5-backend";
-import { Row, Col, Icon, Modal, Typography, Affix, Drawer, Button, Tag } from 'antd';
-import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
+import React, { CSSProperties, useState, useEffect } from 'react';
+import { Row, Col, Icon, Modal } from 'antd';
+import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
 import { IState } from '../interfaces';
@@ -103,12 +101,13 @@ const StoryMap: React.FC<{
   useEffect(() => {
     store.dispatch({
       type: 'storyMap-getData',
+      projectId
     })
     // console.log({epics, iterations, unplannedStories});
   }, [projectId]);
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <>
       <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
         <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
         {
@@ -145,7 +144,7 @@ const StoryMap: React.FC<{
             setBottomHeight(ref.clientHeight())
         }} unplannedStories={unplannedStories}/>
       </div>
-    </DndProvider>
+    </>
   )
 }
 

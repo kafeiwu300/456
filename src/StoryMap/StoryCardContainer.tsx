@@ -35,7 +35,8 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
       store.dispatch({
         type: 'storyMap-moveStory',
         story: {...item.story, epicId: epic.id},
-        iteration
+        iteration,
+        projectId
       })
     },
     collect: monitor => ({

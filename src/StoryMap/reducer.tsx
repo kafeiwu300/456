@@ -7,10 +7,10 @@ import { getEpics, removeEpic, addEpic, modifyEpic } from "../agent/epicAgent";
 import { getIterationOrphan, removeStory, modifyStory, moveStory, addStory } from "../agent/storyAgent";
 import { modifyIteration, addIteration, removeIteration } from "../agent/iterationAgent";
 
-const getStoryMapData = async () => {
-  const iterations = await getIterations('123').then(res => res.body);
-  const epics = await getEpics('123').then(res => res.body);
-  const unplannedStories = await getIterationOrphan('123').then(res => res.body);
+const getStoryMapData = async (projectId: string) => {
+  const iterations = await getIterations(projectId).then(res => res.body);
+  const epics = await getEpics(projectId).then(res => res.body);
+  const unplannedStories = await getIterationOrphan(projectId).then(res => res.body);
   store.dispatch({
     type: 'storyMap-setData',
     data: {epics, iterations, unplannedStories}
@@ -39,7 +39,7 @@ const storyReducer: Reducer<{
       // } else {
       //   state.unplannedStories = state.unplannedStories.concat(action.story);
       // }
-      moveStory(action.story, action.iteration && action.iteration.id, action.story.epicId).then(() => getStoryMapData());
+      moveStory(action.story, action.iteration && action.iteration.id, action.story.epicId).then(() => getStoryMapData(action.projectId));
     } break;
     case 'storyMap-addStory': {
       // if (action.iteration) {
@@ -50,17 +50,17 @@ const storyReducer: Reducer<{
       // } else {
       //   state.unplannedStories = state.unplannedStories.concat(action.story);
       // }
-      addStory(action.story, action.projectId, action.iteration!.id, action.story.epicId).then(() => getStoryMapData());
+      addStory(action.story, action.projectId, action.iteration!.id, action.story.epicId).then(() => getStoryMapData(action.projectId));
     } break;
     case 'storyMap-removeStory': {
       // state.iterations.forEach((iteration: IIteration) => iteration.storyList = iteration.storyList.filter((story: IStoryInEpic) => story.id !== action.story.id));
       // state.unplannedStories = state.unplannedStories.filter((story: IStoryInEpic) => story.id !== action.story.id);
-      removeStory(action.story.id!).then(() => getStoryMapData());
+      removeStory(action.story.id!).then(() => getStoryMapData(action.projectId));
     } break;
     case 'storyMap-modifyStory': {
       // state.iterations.forEach((iteration: IIteration) => iteration.storyList = iteration.storyList.map((story: IStoryInEpic) => story.id === action.story.id ? action.story : story));
       // state.unplannedStories = state.unplannedStories.map((story: IStoryInEpic) => story.id === action.story.id ? action.story : story);
-      modifyStory(action.story).then(() => getStoryMapData());
+      modifyStory(action.story).then(() => getStoryMapData(action.projectId));
     } break;
   }
   return state;
@@ -79,15 +79,15 @@ const epicReducer: Reducer<{
   switch (action.type) {
     case 'storyMap-addEpic':
       // state.epics = state.epics.concat(action.epic);
-      addEpic(action.projectId, action.epic).then(() => getStoryMapData());
+      addEpic(action.projectId, action.epic).then(() => getStoryMapData(action.projectId));
       break;
     case 'storyMap-removeEpic':
       // state.epics = state.epics.filter((epic: IEpicInfo) => epic.id !== action.epic.id);
-      removeEpic(action.epic.id!).then(() => getStoryMapData());
+      removeEpic(action.epic.id!).then(() => getStoryMapData(action.projectId));
       break;
     case 'storyMap-modifyEpic':
       // state.epics = state.epics.map((epic: IEpicInfo) => epic.id === action.epic.id ? action.epic : epic);
-      modifyEpic(action.epic).then(() => getStoryMapData());
+      modifyEpic(action.epic).then(() => getStoryMapData(action.projectId));
       break;
   }
   return state;
@@ -106,15 +106,15 @@ const iterationReducer: Reducer<{
   switch (action.type) {
     case 'storyMap-addIteration':
       // state.iterations = state.iterations.concat({...action.iteration, storyList: []});
-      addIteration(action.iteration, action.projectId).then(() => getStoryMapData());
+      addIteration(action.iteration, action.projectId).then(() => getStoryMapData(action.projectId));
       break;
     case 'storyMap-removeIteration':
       // state.iterations = state.iterations.filter((iteration: IIterationInfo) => action.iteration.id !== iteration.id);
-      removeIteration(action.iteration.id!).then(() => getStoryMapData());
+      removeIteration(action.iteration.id!).then(() => getStoryMapData(action.projectId));
       break;
     case 'storyMap-modifyIteration':
       // state.iterations = state.iterations.map((iteration: IIteration) => action.iteration.id === iteration.id ? action.iteration : iteration);
-      modifyIteration(action.iteration).then(() => getStoryMapData());
+      modifyIteration(action.iteration).then(() => getStoryMapData(action.projectId));
       break;
   }
   return state;
@@ -129,7 +129,7 @@ export const storyMapReducer: Reducer<{
     return action.data!;
   }
   else if (action.type === 'storyMap-getData') {
-    getStoryMapData();
+    getStoryMapData(action.projectId);
     return prevState;
   } else {
     return epicReducer(iterationReducer(storyReducer(prevState, action as IStoryAction), action as IIterationAction), action as IEpicAction);

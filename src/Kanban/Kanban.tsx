@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { IStory } from './interfaces';
 import StoryCard from './StoryCard';
 import StoryForm from './StoryForm';
-import { DndProvider } from 'react-dnd';
-import HTML5Backend from "react-dnd-html5-backend";
 import { store } from '../store';
 import { IState } from '../interfaces';
 import useRouter from 'use-react-router';
@@ -75,7 +73,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   }, [projectId, iterationId]);
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <>
       <Row style={{display: 'flex', marginBottom: '8px'}} gutter={8}>
         <Col style={{flex: '0 0 260px', width: '260px'}} span={4}><div style={headerStyle}>story</div></Col>
         <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>待开发</div></Col>
@@ -115,7 +113,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
           </div>
         </Col>
       </Row>
-    </DndProvider>
+    </>
   )
 }
 

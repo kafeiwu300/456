@@ -1,9 +1,6 @@
 import React, { CSSProperties } from "react";
 import { IBug } from "./interfaces";
-import { Row, Col, Icon, Modal } from "antd";
-import HTML5Backend from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
-import BugCard from "./BugCard";
+import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import { IState } from "../interfaces";
 import BugCardContainer from "./BugCardContainer";
@@ -30,7 +27,7 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <>
       <Row gutter={[8, 16]}>
         <Col span={4}>
           <div style={headerStyle}>To be acknowledged</div>
@@ -71,7 +68,7 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
           <BugCardContainer bugs={bugs} state="closed" />
         </Col>
       </Row>
-    </DndProvider>
+    </>
   );
 };
 

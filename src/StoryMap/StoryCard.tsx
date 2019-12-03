@@ -4,6 +4,7 @@ import { store } from "../store";
 import StoryForm from "../Kanban/StoryForm";
 import { IDragObject, IStoryInEpic } from "./interfaces";
 import { useDrag } from "react-dnd";
+import useRouter from "use-react-router";
 
 const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
   let storyForm: any = undefined;
@@ -34,7 +35,8 @@ const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
       onOk: () => {
         store.dispatch({
           type: 'storyMap-removeStory',
-          story
+          story,
+          projectId
         });
       }
     })
@@ -59,12 +61,18 @@ const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
           };
           store.dispatch({
             type: 'storyMap-modifyStory',
-            story: s
+            story: s,
+            projectId
           })
         }
       }
     })
   }
+
+  const { match } = useRouter<{
+    projectId: string
+  }>();
+  const { projectId } = match.params;
 
   return (
     <div ref={drag} style={{margin: '4px 0'}} onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>
