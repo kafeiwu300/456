@@ -14,7 +14,7 @@ const App: React.FC = () => {
           <Typography.Title level={3}>敏捷实践系统</Typography.Title>
         </Layout.Header>
         <Layout.Content>
-          <Route path="/:projectId" component={Project}/>
+          <Route path="/project/:projectId" component={Project}/>
           <Route exact path="/" component={Home}/>
         </Layout.Content>
       </Layout>

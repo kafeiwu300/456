@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button, Icon } from "antd";
+import { Modal, Descriptions, Tag, Badge, Avatar, Button, Icon, Collapse } from "antd";
 import { store } from "../store";
 import StoryForm from "../Kanban/StoryForm";
 import { IDragObject, IStoryInEpic } from "./interfaces";

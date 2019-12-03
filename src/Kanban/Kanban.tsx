@@ -64,13 +64,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
     projectId: string,
     iterationId: string
   }>();
-  const { projectId, iterationId } = match.params;
-
-  useEffect(() => {
-    store.dispatch({
-      type: 'kanban-getData',
-    })
-  }, [projectId, iterationId]);
+  const { projectId } = match.params;
 
   return (
     <>

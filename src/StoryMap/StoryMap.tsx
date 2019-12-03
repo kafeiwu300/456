@@ -98,14 +98,6 @@ const StoryMap: React.FC<{
   }>();
   const { projectId } = match.params;
 
-  useEffect(() => {
-    store.dispatch({
-      type: 'storyMap-getData',
-      projectId
-    })
-    // console.log({epics, iterations, unplannedStories});
-  }, [projectId]);
-
   return (
     <>
       <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>

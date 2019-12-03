@@ -17,7 +17,7 @@ const Home: React.FC = () => {
       {
         projects.map(((project: {id: number}) => (
           <Col span={6}>
-            <Link to={`/${project.id}`}>
+            <Link to={`/project/${project.id}`}>
               <Card title={project.id}/>
             </Link>
           </Col>
