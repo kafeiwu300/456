@@ -10,10 +10,10 @@ const App: React.FC = () => {
   return (  
     <Router history={createBrowserHistory()}>
       <Layout style={{height: '100%', width: '100%'}}>
-        <Layout.Header style={{ background: '#fff', paddingTop: 8 }}>
+        <Layout.Header style={{ background: '#fff' }}>
           <Typography.Title level={3}>敏捷实践系统</Typography.Title>
         </Layout.Header>
-        <Layout.Content style={{height: '100%'}}>
+        <Layout.Content style={{height: 'calc(100% - 64px)'}}>
           <Switch>
             <Route path="/project/:projectId" component={Project}/>
             <Route path="/" component={Home}/>
