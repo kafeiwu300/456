@@ -53,7 +53,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
               ...storyForm.props.form.getFieldsValue(),
             },
             projectId,
-            iterationId: 'iteration_1'
+            iterationId
           });
         }
       }
@@ -64,7 +64,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
     projectId: string,
     iterationId: string
   }>();
-  const { projectId } = match.params;
+  const { projectId, iterationId } = match.params;
 
   return (
     <>

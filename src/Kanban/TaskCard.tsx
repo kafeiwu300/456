@@ -4,6 +4,7 @@ import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
 import TaskForm from './TaskForm';
 import { store } from '../store';
+import useRouter from 'use-react-router';
 
 const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   const dragObject: IDragObject = {
@@ -35,7 +36,8 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
             type: 'kanban-modifyTask',
             story,
             task: t,
-            status: task.status
+            status: task.status,
+            iterationId
           })
         }
       }
@@ -63,10 +65,17 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
           type: 'kanban-removeTask',
           story,
           task,
+          iterationId
         });
       }
     })
   }
+
+  const { match } = useRouter<{
+    projectId: string,
+    iterationId: string
+  }>();
+  const { iterationId } = match.params;
 
   return (
     <div ref={drag} style={{margin: '4px 0'}} onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>

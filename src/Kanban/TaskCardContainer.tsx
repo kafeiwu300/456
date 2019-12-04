@@ -53,7 +53,7 @@ const TaskCardContainer: React.FC<{
     projectId: string,
     iterationId: string
   }>();
-  const { projectId } = match.params;
+  const { projectId, iterationId } = match.params;
 
   const addTask = () => {
     Modal.confirm({
@@ -75,7 +75,8 @@ const TaskCardContainer: React.FC<{
               story: story.id ? {id: story.id} : null,
               status,
               project: projectId ? {id: projectId} : null
-            }
+            },
+            iterationId
           });
         }
       }

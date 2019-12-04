@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import useRouter from 'use-react-router';
 import StoryMap from './StoryMap/StoryMap';
@@ -22,17 +22,14 @@ const Project: React.FC = () => {
     iterationId: string;
   }>();
 
-  const { projectId, iterationId } = match.params;
+  const { projectId } = match.params;
 
   useEffect(() => {
     store.dispatch({
       type: 'storyMap-getData',
       projectId
     });
-    store.dispatch({
-      type: 'kanban-getData',
-    });
-  }, [projectId, iterationId]);
+  }, [projectId]);
 
   return (
     <Layout style={{height: '100%'}}>
@@ -64,14 +61,16 @@ const Project: React.FC = () => {
       <Layout.Content style={{overflowX: 'scroll', overflowY: 'scroll'}}>
         <Provider store={store}>
           <DndProvider backend={HTML5Backend}>
-            <LayoutRoute title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
-            <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
-            <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
-            <LayoutRoute title='项目日志' exact path={`${match.path}/log`} component={Log}/>
-            <LayoutRoute title='测试' exact path={`${match.path}/test-case`} component={TestList}/>
-            <LayoutRoute title='燃尽图' exact path={`${match.path}/burn-down`} component={BurnDown}/>
-            <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
-            <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>
+            <Switch>
+              <LayoutRoute title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
+              <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
+              <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
+              <LayoutRoute title='项目日志' exact path={`${match.path}/log`} component={Log}/>
+              <LayoutRoute title='测试' exact path={`${match.path}/test-case`} component={TestList}/>
+              <LayoutRoute title='燃尽图' exact path={`${match.path}/burn-down`} component={BurnDown}/>
+              <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
+              <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>
+            </Switch>
           </DndProvider>
         </Provider>
       </Layout.Content>

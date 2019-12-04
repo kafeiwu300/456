@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button, Icon } from "antd";
 import StoryForm from "./StoryForm";
 import { store } from "../store";
+import useRouter from "use-react-router";
 
 const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
   let storyForm: any = undefined;
@@ -45,12 +46,19 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
           };
           store.dispatch({
             type: 'kanban-modifyStory',
-            story: s
+            story: s,
+            iterationId
           })
         }
       }
     })
   }
+
+  const { match } = useRouter<{
+    projectId: string,
+    iterationId: string
+  }>();
+  const { iterationId } = match.params;
 
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>

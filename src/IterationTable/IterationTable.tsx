@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IIterationInfo } from "../StoryMap/interfaces";
 import { connect } from "react-redux";
 import { IState } from "../interfaces";
