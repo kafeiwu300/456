@@ -58,7 +58,7 @@ const Project: React.FC = () => {
           </Menu.Item> */}
         </Menu>
       </Layout.Sider>
-      <Layout.Content style={{height: '100%'}}>
+      <Layout.Content style={{height: '100%', width: 'calc(100% - 200px)'}}>
         <Provider store={store}>
           <DndProvider backend={HTML5Backend}>
             <Switch>

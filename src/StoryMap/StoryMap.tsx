@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState, useEffect } from 'react';
-import { Row, Col, Icon, Modal, Layout, Affix } from 'antd';
+import { Row, Col, Icon, Modal, Layout, Affix, PageHeader } from 'antd';
 import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
@@ -100,7 +100,8 @@ const StoryMap: React.FC<{
 
   return (
     <Layout>
-      <Layout.Content style={{overflow: 'scroll'}}>
+      <PageHeader title='故事地图'/>
+      <Layout.Content style={{overflowX: 'scroll'}}>
         <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
           <Col style={{flex: '0 0 260px', width: 260}}><div style={headerStyle}>Iteration</div></Col>
           {

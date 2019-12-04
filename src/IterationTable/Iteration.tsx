@@ -28,7 +28,7 @@ const Iteration: React.FC<{iteration?: IIterationInfo}> = ({iteration}) => {
   return (
     <Layout>
       <PageHeader title={iteration ? iteration.title : '迭代'} onBack={() => {history.goBack()}} extra={<Switch checkedChildren='看板' unCheckedChildren='燃尽图' defaultChecked onChange={() => setShowKanban(!showKanban)}/>}/>
-      <Layout.Content style={{overflow: 'scroll'}}>
+      <Layout.Content style={{overflowX: 'scroll'}}>
         {showKanban ? <Kanban/> : <BurnDown/>}
       </Layout.Content>
     </Layout>

@@ -14,7 +14,7 @@ const LayoutRoute: React.FC<Props> = ({title, component, ...rest}) => {
       <Route render={() => (
         <Layout style={{height: '100%'}}>
           <PageHeader title={title}/>
-          <Layout.Content style={{overflow: 'scroll', height: '100%'}}>
+          <Layout.Content style={{overflowX: 'scroll', height: '100%'}}>
             <Component/>
           </Layout.Content>
         </Layout>
