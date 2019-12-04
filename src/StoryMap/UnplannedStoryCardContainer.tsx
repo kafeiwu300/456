@@ -1,5 +1,5 @@
 import { IStoryInEpic, IDragObject } from "./interfaces";
-import React, { CSSProperties, useRef } from "react";
+import React, { CSSProperties } from "react";
 import { Row, Col, Modal, Icon } from "antd";
 import StoryCard from "./StoryCard";
 import StoryForm from "./StoryForm";
@@ -58,30 +58,24 @@ const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[], v
     border: '1px solid #d9d9d9',
     margin: '4px 0'
   }
-
-  const containerRef = useRef<HTMLDivElement>(null);
   
   return (
-    <div ref={containerRef}>
-      {
-        visible ? (
-          <div ref={drop}>
-            <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white'}}>
-              {
-                unplannedStories.map((story: IStoryInEpic) => (
-                  <Col span={4} style={{padding: '0 4px'}}>
-                    <StoryCard story={story}/>
-                  </Col>
-                ))
-              }
+    visible ? (
+      <div ref={drop}>
+        <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white'}}>
+          {
+            unplannedStories.map((story: IStoryInEpic) => (
               <Col span={4} style={{padding: '0 4px'}}>
-                <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
+                <StoryCard story={story}/>
               </Col>
-            </Row>
-          </div>
-        ) : <></>
-      }
-    </div>
+            ))
+          }
+          <Col span={4} style={{padding: '0 4px'}}>
+            <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
+          </Col>
+        </Row>
+      </div>
+    ) : <></>
   );
 };
 
