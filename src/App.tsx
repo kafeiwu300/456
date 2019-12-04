@@ -9,11 +9,11 @@ import { Layout, Typography } from 'antd';
 const App: React.FC = () => {
   return (  
     <Router history={createBrowserHistory()}>
-      <Layout>
+      <Layout style={{height: '100%'}}>
         <Layout.Header style={{ background: '#fff', paddingTop: 8 }}>
           <Typography.Title level={3}>敏捷实践系统</Typography.Title>
         </Layout.Header>
-        <Layout.Content>
+        <Layout.Content style={{height: '100%'}}>
           <Switch>
             <Route path="/project/:projectId" component={Project}/>
             <Route path="/" component={Home}/>

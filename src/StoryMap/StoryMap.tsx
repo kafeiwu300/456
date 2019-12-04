@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState, useEffect } from 'react';
-import { Row, Col, Icon, Modal } from 'antd';
+import { Row, Col, Icon, Modal, Layout, Affix } from 'antd';
 import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
@@ -91,7 +91,7 @@ const StoryMap: React.FC<{
     });
   }
 
-  const [bottomHeight, setBottomHeight] = useState<number>(0);
+  const [showUnplanned, setShowUnplanned] = useState<boolean>(false);
   
   const { match } = useRouter<{
     projectId: string
@@ -99,44 +99,46 @@ const StoryMap: React.FC<{
   const { projectId } = match.params;
 
   return (
-    <>
-      <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>Iteration</div></Col>
+    <Layout>
+      <Layout.Content style={{overflow: 'scroll'}}>
+        <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
+          <Col style={{flex: '0 0 260px', width: 260}}><div style={headerStyle}>Iteration</div></Col>
+          {
+            epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: 260}}><EpicCard epic={epic}/></Col>)
+          }
+          <Col style={{flex: '0 0 260px', width: 260}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
+        </Row>
         {
-          epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: '260px'}}><EpicCard epic={epic}/></Col>)
+          iterations
+            .sort((a: IIteration, b: IIteration) => a.index! - b.index!)
+            .map((iteration: IIteration) => (
+              <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
+                <Col style={{flex: '0 0 260px', width: 260}}>
+                  <IterationCard iteration={iteration}/>
+                </Col>
+                {
+                  epics.map((epic: IEpicInfo) => (
+                    <Col style={{flex: '0 0 260px', width: 260}}>
+                      <StoryCardContainer epic={epic} iteration={iteration}/>
+                    </Col>
+                  ))
+                }
+              </Row>
+            ))
         }
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
-      </Row>
-      {
-        iterations
-          .sort((a: IIteration, b: IIteration) => a.index! - b.index!)
-          .map((iteration: IIteration) => (
-            <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
-              <Col style={{flex: '0 0 260px', width: '260px'}}>
-                <IterationCard iteration={iteration}/>
-              </Col>
-              {
-                epics.map((epic: IEpicInfo) => (
-                  <Col style={{flex: '0 0 260px', width: '260px'}}>
-                    <StoryCardContainer epic={epic} iteration={iteration}/>
-                  </Col>
-                ))
-              }
-            </Row>
-          ))
-      }
-      <Row style={{display: 'flex', marginBottom: bottomHeight + 'px'}} gutter={8}>
-        <Col style={{flex: '0 0 260px', width: '260px'}}>
-          <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
-        </Col>
-      </Row>
-      <div style={{width: '100%', position: 'fixed', bottom: '0'}}>
-        <UnplannedStoryCardContainer ref={(ref: any) => {
-          if (ref)
-            setBottomHeight(ref.clientHeight())
-        }} unplannedStories={unplannedStories}/>
-      </div>
-    </>
+        <Row style={{display: 'flex'}} gutter={8}>
+          <Col style={{flex: '0 0 260px', width: 260}}>
+            <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
+          </Col>
+        </Row>
+      </Layout.Content>
+      <Affix offsetBottom={1}>
+        <div style={{textAlign: 'center'}}>
+          <Row style={{margin: 'auto', display: 'inline-block', marginTop: -30, lineHeight: '30px', textAlign: 'center', width: 120, height: 0, borderRadius: '4px 4px 0 0', borderBottom: '30px solid rgb(135, 208, 104)'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
+          <UnplannedStoryCardContainer visible={showUnplanned} unplannedStories={unplannedStories}/>
+        </div>
+      </Affix>
+    </Layout>
   )
 }
 

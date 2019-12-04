@@ -1,6 +1,6 @@
 import { RouteProps, Route } from "react-router-dom";
 import React from "react";
-import { PageHeader } from "antd";
+import { PageHeader, Layout } from "antd";
 
 interface Props extends RouteProps {
   title: React.ReactNode;
@@ -12,10 +12,12 @@ const LayoutRoute: React.FC<Props> = ({title, component, ...rest}) => {
   return (
     <>
       <Route render={() => (
-        <>
+        <Layout style={{height: '100%'}}>
           <PageHeader title={title}/>
-          <Component/>
-        </>
+          <Layout.Content style={{overflow: 'scroll', height: '100%'}}>
+            <Component/>
+          </Layout.Content>
+        </Layout>
       )} {...rest}/>
     </>
   );

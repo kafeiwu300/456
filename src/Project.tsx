@@ -58,11 +58,11 @@ const Project: React.FC = () => {
           </Menu.Item> */}
         </Menu>
       </Layout.Sider>
-      <Layout.Content style={{overflowX: 'scroll', overflowY: 'scroll'}}>
+      <Layout.Content style={{height: '100%'}}>
         <Provider store={store}>
           <DndProvider backend={HTML5Backend}>
             <Switch>
-              <LayoutRoute title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
+              <Route title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
               <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
               <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
               <LayoutRoute title='项目日志' exact path={`${match.path}/log`} component={Log}/>

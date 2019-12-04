@@ -1,5 +1,5 @@
 import { IStoryInEpic, IDragObject } from "./interfaces";
-import React, { useState, CSSProperties, useRef, useImperativeHandle, Ref } from "react";
+import React, { CSSProperties, useRef } from "react";
 import { Row, Col, Modal, Icon } from "antd";
 import StoryCard from "./StoryCard";
 import StoryForm from "./StoryForm";
@@ -7,9 +7,7 @@ import { store } from "../store";
 import { useDrop } from "react-dnd";
 import { guid } from "../Kanban/store";
 
-const UnplannedStoryCardContainer: React.RefForwardingComponent<{
-  clientHeight: () => number
-}, {unplannedStories: IStoryInEpic[]}> = ({unplannedStories}, ref) => {
+const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[], visible: boolean}> = ({unplannedStories, visible = true}) => {
   let storyForm: any = undefined;
 
   const addUnplannedStory = () => {
@@ -37,7 +35,7 @@ const UnplannedStoryCardContainer: React.RefForwardingComponent<{
 
   const [, drop] = useDrop({
     accept: 'storyCard',
-    canDrop: (item: IDragObject) => {
+    canDrop: () => {
       return true;
     },
     drop: (item: IDragObject) => {
@@ -52,8 +50,6 @@ const UnplannedStoryCardContainer: React.RefForwardingComponent<{
     })
   });
 
-  const [showUnplanned, setShowUnplanned] = useState<boolean>(false);
-
   const addUnplannedStoryStyle: CSSProperties = {
     padding: '12px 16px',
     borderRadius: '4px',
@@ -64,32 +60,29 @@ const UnplannedStoryCardContainer: React.RefForwardingComponent<{
   }
 
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useImperativeHandle(ref, () => ({
-    clientHeight: () => containerRef.current!.clientHeight
-  }));
-
+  
   return (
     <div ref={containerRef}>
-      <Row style={{margin: 'auto', backgroundColor: '#87d068', lineHeight: '30px', textAlign: 'center', width: '120px', borderRadius: '4px 4px 0 0'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
       {
-        showUnplanned ? <div ref={drop}>
-          <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white'}}>
-            {
-              unplannedStories.map((story: IStoryInEpic) => (
-                <Col span={4} style={{padding: '0 4px'}}>
-                  <StoryCard story={story}/>
-                </Col>
-              ))
-            }
-            <Col span={4} style={{padding: '0 4px'}}>
-              <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
-            </Col>
-          </Row>
-        </div> : <></>
+        visible ? (
+          <div ref={drop}>
+            <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white'}}>
+              {
+                unplannedStories.map((story: IStoryInEpic) => (
+                  <Col span={4} style={{padding: '0 4px'}}>
+                    <StoryCard story={story}/>
+                  </Col>
+                ))
+              }
+              <Col span={4} style={{padding: '0 4px'}}>
+                <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
+              </Col>
+            </Row>
+          </div>
+        ) : <></>
       }
     </div>
   );
 };
 
-export default React.forwardRef(UnplannedStoryCardContainer);
+export default UnplannedStoryCardContainer;
