@@ -12,8 +12,7 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: "#fff",
-    padding: "12px 16px",
-    borderRadius: "4px"
+    padding: "12px 16px"
   };
 
   const addStoryStyle: CSSProperties = {
@@ -26,51 +25,55 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
     ...outerStyle,
     fontSize: "18px",
     fontWeight: "bold",
-    borderRadius: "4px"
+    textAlign: "center"
   };
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Row gutter={[8, 16]}>
-        <Col span={4}>
-          <div style={headerStyle}>To be acknowledged</div>
-        </Col>
-        <Col span={4}>
-          <div style={headerStyle}>To be fixed</div>
-        </Col>
-        <Col span={4}>
-          <div style={headerStyle}>Fixing</div>
-        </Col>
-        <Col span={4}>
-          <div style={headerStyle}>To be accepted</div>
-        </Col>
-        <Col span={4}>
-          <div style={headerStyle}>Accepted</div>
-        </Col>
-        <Col span={4}>
-          <div style={headerStyle}>Closed</div>
-        </Col>
-      </Row>
-      <Row style={{ marginBottom: "8px" }} gutter={8}>
-        <Col span={4}>
-          <BugCardContainer bugs={bugs} state="to-be-acknowledged" />
-        </Col>
-        <Col span={4}>
-          <BugCardContainer bugs={bugs} state="to-be-fixed" />
-        </Col>
-        <Col span={4}>
-          <BugCardContainer bugs={bugs} state="fixing" />
-        </Col>
-        <Col span={4}>
-          <BugCardContainer bugs={bugs} state="to-be-accepted" />
-        </Col>
-        <Col span={4}>
-          <BugCardContainer bugs={bugs} state="accepted" />
-        </Col>
-        <Col span={4}>
-          <BugCardContainer bugs={bugs} state="closed" />
-        </Col>
-      </Row>
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <div style={{ width: "80%", textAlign: "left", margin: "0 auto" }}>
+          <Row>
+            <Col span={4}>
+              <div style={headerStyle}>待确认</div>
+            </Col>
+            <Col span={4}>
+              <div style={headerStyle}>待修复</div>
+            </Col>
+            <Col span={4}>
+              <div style={headerStyle}>修复中</div>
+            </Col>
+            <Col span={4}>
+              <div style={headerStyle}>待验收</div>
+            </Col>
+            <Col span={4}>
+              <div style={headerStyle}>已验收</div>
+            </Col>
+            <Col span={4}>
+              <div style={headerStyle}>已关闭</div>
+            </Col>
+          </Row>
+          <Row style={{ marginBottom: "8px" }}>
+            <Col span={4}>
+              <BugCardContainer bugs={bugs} state="to-be-acknowledged" />
+            </Col>
+            <Col span={4}>
+              <BugCardContainer bugs={bugs} state="to-be-fixed" />
+            </Col>
+            <Col span={4}>
+              <BugCardContainer bugs={bugs} state="fixing" />
+            </Col>
+            <Col span={4}>
+              <BugCardContainer bugs={bugs} state="to-be-accepted" />
+            </Col>
+            <Col span={4}>
+              <BugCardContainer bugs={bugs} state="accepted" />
+            </Col>
+            <Col span={4}>
+              <BugCardContainer bugs={bugs} state="closed" />
+            </Col>
+          </Row>
+        </div>
+      </div>
     </DndProvider>
   );
 };
