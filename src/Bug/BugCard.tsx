@@ -1,15 +1,17 @@
 import { IBug, IDragObject } from "./interfaces";
-import React, { useState } from "react";
-import { Modal, Icon, Collapse, Button, Descriptions, Tag, Avatar } from "antd";
+import React, { CSSProperties, useState } from "react";
+import { Modal, Icon, Button, Popover } from "antd";
 import { store } from "../store";
 import { useDrag } from "react-dnd";
 import BugForm from "./BugForm";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
-  const [ghost, setGhost] = useState<boolean>(true);
+  // 设置气泡卡片是否可见，点击按钮以后隐藏
+  const [isPopoverVisible, setPopoverVisible] = useState(false);
 
   const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
+    setPopoverVisible(false);
     Modal.confirm({
       title: "删除缺陷",
       content: "确定要删除这个缺陷吗？",
@@ -26,16 +28,17 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
     });
   };
 
-  let bugForm: any | undefined;
+  let bugForm: JSX.Element;
 
   const modifyBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
+    setPopoverVisible(false);
     Modal.confirm({
       title: "修改缺陷信息",
       content: (
         <BugForm
           bug={bug}
-          wrappedComponentRef={(form: any) => (bugForm = form)}
+          wrappedComponentRef={(form: JSX.Element) => (bugForm = form)}
         />
       ),
       okText: "确定",
@@ -43,7 +46,6 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       width: 600,
       icon: <Icon type="edit" />,
       onOk: () => {
-        console.log(bugForm.props.form.getFieldsValue());
         store.dispatch({
           type: "bug-modifyBug",
           bug: { id: bug.id, ...bugForm.props.form.getFieldsValue() }
@@ -64,75 +66,117 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
     }
   });
 
-  return (
-    <div
-      onMouseOverCapture={() => setGhost(false)}
-      onMouseOutCapture={() => setGhost(true)}
-      ref={drag}
-    >
-      <Collapse>
-        <Collapse.Panel
-          style={{ wordBreak: "break-word" }}
-          key={bug.id!}
-          header={bug.title}
-          showArrow={false}
-          extra={
-            <>
-              <Button
-                onClick={modifyBug}
-                size="small"
-                icon="edit"
-                ghost={ghost}
-                style={{ border: "none", backgroundColor: "transparent" }}
-              />
-              <Button
-                onClick={removeBug}
-                size="small"
-                icon="delete"
-                ghost={ghost}
-                style={{ border: "none", backgroundColor: "transparent" }}
-              />
-            </>
-          }
-        >
-          {bug.level ? (
-            <Tag color="#fa8c16" title="优先级">
-              {bug.level}
-            </Tag>
-          ) : (
-            <></>
-          )}
-          {bug.state ? (
-            <Tag color="#2db7f5" title="状态">
-              {bug.state}
-            </Tag>
-          ) : (
-            <></>
-          )}
-          {bug.leader ? (
-            <span title={bug.leader}>
-              <Avatar shape="square" icon="user" />
-            </span>
-          ) : (
-            <></>
-          )}
-          <Descriptions size="small" column={4} colon={false}>
-            <Descriptions.Item label="" span={4}>
-              {bug.description}
-            </Descriptions.Item>
-            <Descriptions.Item label="状态" span={4}>
-              {bug.state}
-            </Descriptions.Item>{" "}
-            <Descriptions.Item label="负责人" span={4}>
-              {bug.leader}
-            </Descriptions.Item>
-            <Descriptions.Item label="优先级" span={4}>
-              {bug.level}
-            </Descriptions.Item>
-          </Descriptions>
-        </Collapse.Panel>
-      </Collapse>
+  const bugCardStyle: CSSProperties = {
+    border: "1px solid #ddd",
+    borderRadius: "2px",
+    padding: "10px",
+    width: "50%",
+    margin: "0 0 5px",
+    boxShadow: "1px 1px 1px 0 rgb(200,200,200,0.5)",
+    float: "left",
+    height: "95px",
+    position: "relative"
+  };
+
+  const wrapStyle: CSSProperties = {
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    wordWrap: "break-word",
+    display: "-webkit-box",
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: "vertical"
+  };
+
+  const basePriorityStyle: CSSProperties = {
+    height: "4px",
+    // border: "1px solid #eee",
+    borderRadius: "5px",
+    boxShadow: "-1px -1px 1px 0 rgb(100,100,100,0.5) inset",
+    position: "absolute",
+    bottom: "5px",
+    left: "8px",
+    right: "8px"
+  };
+
+  const veryHighStyle: CSSProperties = {
+    backgroundColor: "#F22",
+    ...basePriorityStyle
+  };
+
+  const highStyle: CSSProperties = {
+    backgroundColor: "#FF8C00",
+    ...basePriorityStyle
+  };
+
+  const middleStyle: CSSProperties = {
+    backgroundColor: "#3CB371",
+    ...basePriorityStyle
+  };
+
+  const lowStyle: CSSProperties = {
+    backgroundColor: "#A9A9A9",
+    ...basePriorityStyle
+  };
+
+  const setPriorityStyle = () => {
+    switch (bug.level) {
+      case "very high":
+        return veryHighStyle;
+      case "high":
+        return highStyle;
+      case "middle":
+        return middleStyle;
+      case "low":
+        return lowStyle;
+      default:
+        return lowStyle;
+    }
+  };
+
+  const popoverContent = (
+    <div>
+      {/* <Descriptions size="small" column={1} colon={false}>
+        <Descriptions.Item label="">{bug.description}</Descriptions.Item>
+        <Descriptions.Item label="状态">{bug.state}</Descriptions.Item>{" "}
+        <Descriptions.Item label="负责人">{bug.leader}</Descriptions.Item>
+        <Descriptions.Item label="优先级">{bug.level}</Descriptions.Item>
+      </Descriptions> */}
+      <p>{bug.description}</p>
+      <p>状态 {bug.state}</p>
+      <p>负责人 {bug.leader}</p>
+      <p>优先级 {bug.level}</p>
+      <Button
+        onClick={modifyBug}
+        size="small"
+        icon="edit"
+        style={{ border: "none", backgroundColor: "transparent" }}
+      />
+      <Button
+        onClick={removeBug}
+        size="small"
+        icon="delete"
+        style={{ border: "none", backgroundColor: "transparent" }}
+      />
     </div>
+  );
+
+  return (
+    <Popover
+      content={popoverContent}
+      title={bug.title}
+      placement="right"
+      trigger="click"
+      visible={isPopoverVisible}
+      onVisibleChange={visible => {
+        setPopoverVisible(visible);
+      }}
+      // overlayStyle={{ width: "200px" }}
+    >
+      <div ref={drag} style={bugCardStyle}>
+        <div style={wrapStyle}>{bug.title}</div>
+        <div style={setPriorityStyle()} />
+      </div>
+    </Popover>
   );
 };
 
