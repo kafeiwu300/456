@@ -13,6 +13,7 @@ const getKanbanData = async (iterationId: string) => {
 };
 
 const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
+  console.log(action);
   let state: IStory[] = prevState ? [...prevState] : [];
   switch (action.type) {
     case 'kanban-moveTask':

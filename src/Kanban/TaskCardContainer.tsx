@@ -38,7 +38,8 @@ const TaskCardContainer: React.FC<{
         type: 'kanban-moveTask',
         story,
         task: item.task,
-        status
+        status,
+        iterationId
       })
     },
     collect: monitor => ({
