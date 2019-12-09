@@ -80,7 +80,19 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
         return (
           <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <StoryCard story={story}/>
+              {(() => {
+                story = story.title === '___' ? (
+                  {
+                    title: '其他任务',
+                    description: '没有所属故事的任务',
+                    taskList: story.taskList
+                  }
+                ) : story;
+                // story.description = story.title === '___' ? '没有所属故事的任务' : story.description;
+                // story.priority = story.title === '___' ? undefined : story.priority;
+                // story.title = story.title === '___' ? '其他任务' : story.title;
+                return <StoryCard story={story} editable={story.title !== '其他任务'} deletable={story.title !== '其他任务'}/>
+              })()}
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
               <TaskCardContainer story={story} status='待开发'/>

@@ -5,7 +5,7 @@ import StoryForm from "./StoryForm";
 import { store } from "../store";
 import useRouter from "use-react-router";
 
-const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
+const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: boolean}> = ({story, editable = true, deletable = true}) => {
   let storyForm: any = undefined;
 
   const [ghost, setGhost] = useState<boolean>(true);
@@ -65,8 +65,12 @@ const StoryCard: React.FC<{story: IStoryInfo}> = ({story}) => {
       <Collapse defaultActiveKey={[story.id!]}>
         <Collapse.Panel style={{wordBreak: 'break-word'}} key={story.id!} header={story.title} showArrow={false} extra={
           <>
-            <Button onClick={modifyStory} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
-            <Button onClick={removeStory} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
+            {
+              editable ? <Button onClick={modifyStory} size='small' icon='edit' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/> : <></>
+            }
+            {
+              deletable ? <Button onClick={removeStory} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/> : <></>
+            }
           </>
         }>
           {story.priority ? <Tag color='#fa8c16' title="优先级">{story.priority}</Tag> : <></>}
