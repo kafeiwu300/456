@@ -99,6 +99,7 @@ const BugCardContainer: React.FC<{
   useEffect(() => {
     console.log("list is" + list);
     if (listState.pageNumber * pageSize < list.length) {
+      // 拖拽到列表时自动翻到最后一页
       dispatchList(Math.ceil(list.length / pageSize));
     } else if ((listState.pageNumber - 1) * pageSize === list.length) {
       dispatchList(listState.pageNumber - 1);

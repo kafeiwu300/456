@@ -1,13 +1,17 @@
 import { IBug, IDragObject } from "./interfaces";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useState } from "react";
 import { Modal, Icon, Button, Popover } from "antd";
 import { store } from "../store";
 import { useDrag } from "react-dnd";
 import BugForm from "./BugForm";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
+  // 设置气泡卡片是否可见，点击按钮以后隐藏
+  const [isPopoverVisible, setPopoverVisible] = useState(false);
+
   const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
+    setPopoverVisible(false);
     Modal.confirm({
       title: "删除缺陷",
       content: "确定要删除这个缺陷吗？",
@@ -28,6 +32,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
 
   const modifyBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
+    setPopoverVisible(false);
     Modal.confirm({
       title: "修改缺陷信息",
       content: (
@@ -161,6 +166,10 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       title={bug.title}
       placement="right"
       trigger="click"
+      visible={isPopoverVisible}
+      onVisibleChange={visible => {
+        setPopoverVisible(visible);
+      }}
       // overlayStyle={{ width: "200px" }}
     >
       <div ref={drag} style={bugCardStyle}>
