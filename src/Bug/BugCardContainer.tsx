@@ -2,7 +2,7 @@ import { BugState } from "../enums";
 import { IBug, IDragObject, IPage } from "./interfaces";
 import { useDrop } from "react-dnd";
 import { store } from "../store";
-import React, { CSSProperties, useState, useEffect, useReducer } from "react";
+import React, { CSSProperties, useEffect, useReducer } from "react";
 import BugCard from "./BugCard";
 import { Icon, Modal, Pagination } from "antd";
 import BugForm from "./BugForm";
@@ -16,8 +16,9 @@ const BugCardContainer: React.FC<{
     // backgroundColor: '#e8e8e8',
     backgroundColor: "#FFFFFF",
     padding: "4px 8px",
-    height: "800px"
+    height: "700px"
   };
+
   const addTaskStyle: CSSProperties = {
     padding: "12px 16px",
     borderRadius: "4px",
@@ -28,6 +29,15 @@ const BugCardContainer: React.FC<{
     float: "left",
     width: "100%"
   };
+
+  const paginationStyle: CSSProperties = {
+    float: "left",
+    width: "100%",
+    textAlign: "center",
+    paddingTop: "15px"
+  };
+
+  // react-dnd拖拽
   const [, drop] = useDrop({
     accept: "bugCard",
     drop: (item: IDragObject) => {
@@ -42,7 +52,9 @@ const BugCardContainer: React.FC<{
       canDrop: monitor.canDrop()
     })
   });
+
   let bugForm: JSX.Element;
+
   const addBug = () => {
     Modal.confirm({
       title: "添加缺陷",
@@ -73,14 +85,17 @@ const BugCardContainer: React.FC<{
 
   const pageSize: number = 12;
 
+  // 根据bug生成的JSX数组
   const list: JSX.Element[] = bugs
     .filter((bug: IBug) => bug.state === state)
     .map((bug: IBug) => <BugCard bug={bug} />);
 
+  // 切除当前页需要显示的list
   const slicecurrentList = (pageNumber: number) => {
     return list.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
   };
 
+  // 用于处理list的reducer，这样就不用两个state了
   const listReducer = (_state: IPage, action: number) => ({
     pageNumber: action,
     currentList: slicecurrentList(action)
@@ -91,23 +106,27 @@ const BugCardContainer: React.FC<{
     currentList: slicecurrentList(1)
   });
 
+  // 分页器处理函数
   const onPaginationChange = (page: number) => {
     //console.log(page, pageSize, currentList);
     dispatchList(page);
   };
 
   useEffect(() => {
-    console.log("list is" + list);
-    if (listState.pageNumber * pageSize < list.length) {
-      // 拖拽到列表时自动翻到最后一页
-      dispatchList(Math.ceil(list.length / pageSize));
-    } else if ((listState.pageNumber - 1) * pageSize === list.length) {
+    // console.log("list is" + list, listState.pageNumber);
+    // dispatchList(Math.ceil(list.length / pageSize));
+    if (
+      listState.pageNumber > 1 &&
+      (listState.pageNumber - 1) * pageSize === list.length
+    ) {
+      // 当前页的bug都被拖走了则翻到上一页，但不能翻到第0页
       dispatchList(listState.pageNumber - 1);
     } else {
       dispatchList(listState.pageNumber);
     }
-  }, [bugs]);
+  }, [list.length]);
 
+  // 显示当前页的list
   const showCurrentList = () => {
     return list.length === 0 && state !== "to-be-acknowledged" ? (
       <div
@@ -125,6 +144,7 @@ const BugCardContainer: React.FC<{
     );
   };
 
+  // 在第一栏显示添加缺陷按钮
   const showAddBugButton = () => {
     return state === "to-be-acknowledged" ? (
       <div style={addTaskStyle} onClick={addBug}>
@@ -142,14 +162,16 @@ const BugCardContainer: React.FC<{
     <div ref={drop} style={outerStyle}>
       {showCurrentList()}
       {showAddBugButton()}
-      <Pagination
-        onChange={onPaginationChange}
-        current={listState.pageNumber}
-        total={list.length}
-        pageSize={pageSize}
-        size="small"
-        hideOnSinglePage={true}
-      />
+      <div style={paginationStyle}>
+        <Pagination
+          onChange={onPaginationChange}
+          current={listState.pageNumber}
+          total={list.length}
+          pageSize={pageSize}
+          size="small"
+          hideOnSinglePage={true}
+        />
+      </div>
     </div>
   );
 };
