@@ -38,6 +38,7 @@ const StoryMap: React.FC<{
     ...outerStyle,
     textAlign: 'center',
     border: '1px solid #d9d9d9',
+    cursor: 'pointer'
   }
 
   let iterationForm: any = undefined;
@@ -135,7 +136,7 @@ const StoryMap: React.FC<{
       </Layout.Content>
       <Affix offsetBottom={1}>
         <div style={{textAlign: 'center'}}>
-          <Row style={{margin: 'auto', display: 'inline-block', marginTop: -30, lineHeight: '30px', textAlign: 'center', width: 120, height: 0, borderRadius: '4px 4px 0 0', borderBottom: '30px solid rgb(135, 208, 104)'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
+          <Row style={{margin: 'auto', display: 'inline-block', marginTop: -30, lineHeight: '30px', textAlign: 'center', width: 120, height: 0, borderRadius: '4px 4px 0 0', borderBottom: '30px solid rgb(135, 208, 104)', cursor: 'pointer'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
           <UnplannedStoryCardContainer visible={showUnplanned} unplannedStories={unplannedStories}/>
         </div>
       </Affix>

@@ -7,11 +7,17 @@ import BugCard from "./BugCard";
 import { Icon, Modal, Pagination } from "antd";
 import BugForm from "./BugForm";
 import { guid } from "../Kanban/store";
+import useRouter from "use-react-router";
 
 const BugCardContainer: React.FC<{
-  state: BugState;
+  status: BugState;
   bugs: IBug[];
-}> = ({ state, bugs }) => {
+}> = ({ status, bugs }) => {
+  const { match } = useRouter<{
+    projectId: string
+  }>();
+  const { projectId } = match.params;
+
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: "#FFFFFF",
@@ -34,7 +40,8 @@ const BugCardContainer: React.FC<{
       store.dispatch({
         type: "bug-moveBug",
         bug: item.bug,
-        state
+        status,
+        projectId
       });
     },
     collect: monitor => ({
@@ -53,7 +60,7 @@ const BugCardContainer: React.FC<{
       content: (
         <BugForm
           wrappedComponentRef={(form: JSX.Element) => (bugForm = form)}
-          bug={{ id: guid(), state }}
+          bug={{ id: guid(), status }}
         />
       ),
       centered: true,
@@ -65,7 +72,8 @@ const BugCardContainer: React.FC<{
             ...bugForm.props.bug,
             ...bugForm.props.form.getFieldsValue()
           },
-          state
+          status,
+          projectId
         });
       }
     });
@@ -74,7 +82,7 @@ const BugCardContainer: React.FC<{
   const pageSize: number = 12;
 
   const list: JSX.Element[] = bugs
-    .filter((bug: IBug) => bug.state === state)
+    .filter((bug: IBug) => bug.status === status)
     .map((bug: IBug) => <BugCard bug={bug} />);
 
   const slicecurrentList = (pageNumber: number) => {
@@ -109,7 +117,7 @@ const BugCardContainer: React.FC<{
   }, [bugs]);
 
   const showCurrentList = () => {
-    return list.length === 0 && state !== "to-be-acknowledged" ? (
+    return list.length === 0 && status !== "to-be-acknowledged" ? (
       <div
         style={{
           textAlign: "center",
@@ -126,7 +134,8 @@ const BugCardContainer: React.FC<{
   };
 
   const showAddBugButton = () => {
-    return state === "to-be-acknowledged" ? (
+    // return status === "to-be-acknowledged" ? (
+    return status === "待确认" ? (
       <div style={addTaskStyle} onClick={addBug}>
         <span style={{ cursor: "pointer" }}>
           <Icon type="plus" />

@@ -53,22 +53,28 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
           </Row>
           <Row style={{ marginBottom: "8px" }}>
             <Col span={4}>
-              <BugCardContainer bugs={bugs} state="to-be-acknowledged" />
+              {/* <BugCardContainer bugs={bugs} status="to-be-acknowledged" /> */}
+              <BugCardContainer bugs={bugs} status="待确认" />
             </Col>
             <Col span={4}>
-              <BugCardContainer bugs={bugs} state="to-be-fixed" />
+              {/* <BugCardContainer bugs={bugs} status="to-be-fixed" /> */}
+              <BugCardContainer bugs={bugs} status="待修复" />
             </Col>
             <Col span={4}>
-              <BugCardContainer bugs={bugs} state="fixing" />
+              {/* <BugCardContainer bugs={bugs} status="fixing" /> */}
+              <BugCardContainer bugs={bugs} status="修复中" />
             </Col>
             <Col span={4}>
-              <BugCardContainer bugs={bugs} state="to-be-accepted" />
+              {/* <BugCardContainer bugs={bugs} status="to-be-accepted" /> */}
+              <BugCardContainer bugs={bugs} status="待验收" />
             </Col>
             <Col span={4}>
-              <BugCardContainer bugs={bugs} state="accepted" />
+              {/* <BugCardContainer bugs={bugs} status="accepted" /> */}
+              <BugCardContainer bugs={bugs} status="已验收" />
             </Col>
             <Col span={4}>
-              <BugCardContainer bugs={bugs} state="closed" />
+              {/* <BugCardContainer bugs={bugs} status="closed" /> */}
+              <BugCardContainer bugs={bugs} status="已关闭" />
             </Col>
           </Row>
         </div>

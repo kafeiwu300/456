@@ -26,7 +26,7 @@ class BugForm extends React.Component<FormComponentProps> {
               wrapperCol={{ span: 4 }}
             >
               {this.props.form.getFieldDecorator(
-                "state",
+                "status",
                 {}
               )(
                 <Select>
@@ -121,7 +121,7 @@ const formCreateOption: FormCreateOption<IBugFormComponentProps> = {
   mapPropsToFields(props) {
     return {
       title: Form.createFormField({ value: props.bug && props.bug.title }),
-      state: Form.createFormField({ value: props.bug && props.bug.state }),
+      status: Form.createFormField({ value: props.bug && props.bug.status }),
       description: Form.createFormField({
         value: props.bug && props.bug.description
       }),

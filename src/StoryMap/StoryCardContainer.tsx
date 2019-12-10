@@ -21,7 +21,8 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
     backgroundColor: 'white',
     textAlign: "center",
     border: '1px solid #d9d9d9',
-    margin: '4px 0'
+    margin: '4px 0',
+    cursor: 'pointer'
   }
 
   let storyForm: any = undefined;

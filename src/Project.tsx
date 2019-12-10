@@ -29,6 +29,10 @@ const Project: React.FC = () => {
       type: 'storyMap-getData',
       projectId
     });
+    store.dispatch({
+      type: 'bug-getData',
+      projectId
+    });
   }, [projectId]);
 
   return (

@@ -6,7 +6,7 @@ import { FormComponentProps } from "antd/lib/form/Form";
 export interface IBug {
   id: string;
   title?: string;
-  state?: BugState;
+  status?: BugState;
   description?: string;
   level?: "very high" | "high" | "middle" | "low";
   estimatedHours?: number;
@@ -18,8 +18,10 @@ export interface IDragObject extends DragObjectWithType {
 }
 
 export interface IBugAction extends Action<ActionType> {
+  projectId: string;
+  data?: IBug[];
   bug: IBug;
-  state: BugState;
+  status: BugState;
 }
 
 export interface IBugFormComponentProps extends FormComponentProps<IBug> {

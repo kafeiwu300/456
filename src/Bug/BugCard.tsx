@@ -4,10 +4,16 @@ import { Modal, Icon, Button, Popover } from "antd";
 import { store } from "../store";
 import { useDrag } from "react-dnd";
 import BugForm from "./BugForm";
+import useRouter from "use-react-router";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
   // 设置气泡卡片是否可见，点击按钮以后隐藏
   const [isPopoverVisible, setPopoverVisible] = useState(false);
+
+  const { match } = useRouter<{
+    projectId: string
+  }>();
+  const { projectId } = match.params;
 
   const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
@@ -22,7 +28,8 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       onOk: () => {
         store.dispatch({
           type: "bug-removeBug",
-          bug
+          bug,
+          projectId
         });
       }
     });
@@ -48,7 +55,8 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       onOk: () => {
         store.dispatch({
           type: "bug-modifyBug",
-          bug: { id: bug.id, ...bugForm.props.form.getFieldsValue() }
+          bug: { id: bug.id, ...bugForm.props.form.getFieldsValue() },
+          projectId
         });
       }
     });
@@ -142,7 +150,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
         <Descriptions.Item label="优先级">{bug.level}</Descriptions.Item>
       </Descriptions> */}
       <p>{bug.description}</p>
-      <p>状态 {bug.state}</p>
+      <p>状态 {bug.status}</p>
       <p>负责人 {bug.leader}</p>
       <p>优先级 {bug.level}</p>
       <Button

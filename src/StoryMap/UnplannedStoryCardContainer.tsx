@@ -56,7 +56,8 @@ const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[], v
     backgroundColor: 'white',
     textAlign: "center",
     border: '1px solid #d9d9d9',
-    margin: '4px 0'
+    margin: '4px 0',
+    cursor: 'pointer'
   }
   
   return (
