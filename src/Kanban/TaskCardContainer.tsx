@@ -16,7 +16,8 @@ const TaskCardContainer: React.FC<{
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#FFFFFF',
     padding: '4px 8px',
-    borderRadius: '4px'
+    borderRadius: '4px',
+    border: "1px solid #d9d9d9",
   }
 
   const addTaskStyle: CSSProperties = {
