@@ -7,7 +7,7 @@ import BugForm from "./BugForm";
 import useRouter from "use-react-router";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
-  // 设置气泡卡片是否可见，点击按钮以后隐藏
+  // 设置气泡卡片是否可见，点击气泡上的按钮以后隐藏它
   const [isPopoverVisible, setPopoverVisible] = useState(false);
 
   const { match } = useRouter<{
@@ -67,6 +67,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
     bug
   };
 
+  // react-dnd拖拽
   const [, drag] = useDrag({
     item: dragObject,
     collect: monitor => {
@@ -95,6 +96,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
     WebkitBoxOrient: "vertical"
   };
 
+  // absolute一定要搭配left和right一起才能使其固定在卡片中间
   const basePriorityStyle: CSSProperties = {
     height: "4px",
     // border: "1px solid #eee",
@@ -141,6 +143,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
     }
   };
 
+  // 气泡卡片的内容
   const popoverContent = (
     <div>
       {/* <Descriptions size="small" column={1} colon={false}>

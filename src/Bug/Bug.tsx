@@ -14,12 +14,6 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
     padding: "12px 16px"
   };
 
-  const addStoryStyle: CSSProperties = {
-    ...outerStyle,
-    textAlign: "center",
-    border: "1px solid #d9d9d9"
-  };
-
   const headerStyle: CSSProperties = {
     ...outerStyle,
     fontSize: "18px",
@@ -30,7 +24,7 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{ textAlign: "center", marginTop: "30px" }}>
-        <div style={{ width: "80%", textAlign: "left", margin: "0 auto" }}>
+        <div style={{ width: "100%", textAlign: "left", margin: "0 auto" }}>
           <Row>
             <Col span={4}>
               <div style={headerStyle}>待确认</div>
@@ -83,4 +77,5 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
   );
 };
 
+// redux
 export default connect((state: IState) => ({ bugs: state.bugData }))(Bug);

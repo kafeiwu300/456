@@ -163,5 +163,113 @@ export let bugData: IBug[] = [
     estimatedHours: 8,
     level: "very high",
     leader: "bbb"
+  },
+  {
+    id: "19",
+    title: "ccc",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "high",
+    leader: "bbb"
+  },
+  {
+    id: "20",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "21",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "22",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "23",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "24",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "25",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "26",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "27",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "28",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "29",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
+  },
+  {
+    id: "30",
+    title: "ddd",
+    state: "fixing",
+    description: "aaa的描述",
+    estimatedHours: 8,
+    level: "very high",
+    leader: "bbb"
   }
 ];
