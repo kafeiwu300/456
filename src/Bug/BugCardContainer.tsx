@@ -137,7 +137,7 @@ const BugCardContainer: React.FC<{
 
   // 显示当前页的list
   const showCurrentList = () => {
-    return list.length === 0 && status !== "to-be-acknowledged" ? (
+    return list.length === 0 && status !== "待确认" ? (
       <div
         style={{
           textAlign: "center",
