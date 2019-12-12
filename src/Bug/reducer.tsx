@@ -39,6 +39,6 @@ export const bugReducer: Reducer<IBug[], IBugAction> = (prevState, action) => {
       moveBug(action.bug, action.status).then(() => getBugData(action.projectId));
       break;
   }
-  console.log(state);
+  // console.log(state);
   return state;
 };

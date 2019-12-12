@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useContext } from "react";
 import { IBug } from "./interfaces";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
@@ -6,8 +6,12 @@ import { IState } from "../interfaces";
 import BugCardContainer from "./BugCardContainer";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
+import { BugState, KanbanState } from "../enums";
+import ProjectContext from "../common/contexts/ProjectContext";
 
 const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
+  const project = useContext(ProjectContext);
+
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: "#fff",
@@ -26,7 +30,14 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
       <div style={{ textAlign: "center", marginTop: "30px" }}>
         <div style={{ width: "100%", textAlign: "left", margin: "0 auto" }}>
           <Row>
-            <Col span={4}>
+            {
+              project.bugStatusList!.map((value: KanbanState) => (
+                <Col span={4}>
+                  <div style={headerStyle}>{value}</div>
+                </Col>
+              ))
+            }
+            {/* <Col span={4}>
               <div style={headerStyle}>待确认</div>
             </Col>
             <Col span={4}>
@@ -43,33 +54,40 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
             </Col>
             <Col span={4}>
               <div style={headerStyle}>已关闭</div>
-            </Col>
+            </Col> */}
           </Row>
           <Row style={{ marginBottom: "8px" }}>
-            <Col span={4}>
-              {/* <BugCardContainer bugs={bugs} status="to-be-acknowledged" /> */}
-              <BugCardContainer bugs={bugs} status="待确认" />
+            {
+              project.bugStatusList!.map((value: BugState, index: number) => (
+                <Col span={4}>
+                  <BugCardContainer canAddBug={index === 0} bugs={bugs} status={value} />
+                </Col>    
+              ))
+            }
+            {/* <Col span={4}>
+              <BugCardContainer bugs={bugs} status="to-be-acknowledged" />
+              <BugCardContainer canAddBug={true} bugs={bugs} status="待确认" />
             </Col>
             <Col span={4}>
-              {/* <BugCardContainer bugs={bugs} status="to-be-fixed" /> */}
-              <BugCardContainer bugs={bugs} status="待修复" />
+              <BugCardContainer bugs={bugs} status="to-be-fixed" />
+              <BugCardContainer canAddBug={false} bugs={bugs} status="待修复" />
             </Col>
             <Col span={4}>
-              {/* <BugCardContainer bugs={bugs} status="fixing" /> */}
-              <BugCardContainer bugs={bugs} status="修复中" />
+              <BugCardContainer bugs={bugs} status="fixing" />
+              <BugCardContainer canAddBug={false} bugs={bugs} status="修复中" />
             </Col>
             <Col span={4}>
-              {/* <BugCardContainer bugs={bugs} status="to-be-accepted" /> */}
-              <BugCardContainer bugs={bugs} status="待验收" />
+              <BugCardContainer bugs={bugs} status="to-be-accepted" />
+              <BugCardContainer canAddBug={false} bugs={bugs} status="待验收" />
             </Col>
             <Col span={4}>
-              {/* <BugCardContainer bugs={bugs} status="accepted" /> */}
-              <BugCardContainer bugs={bugs} status="已验收" />
+              <BugCardContainer bugs={bugs} status="accepted" />
+              <BugCardContainer canAddBug={false} bugs={bugs} status="已验收" />
             </Col>
             <Col span={4}>
-              {/* <BugCardContainer bugs={bugs} status="closed" /> */}
-              <BugCardContainer bugs={bugs} status="已关闭" />
-            </Col>
+              <BugCardContainer bugs={bugs} status="closed" />
+              <BugCardContainer canAddBug={false} bugs={bugs} status="已关闭" />
+            </Col> */}
           </Row>
         </div>
       </div>

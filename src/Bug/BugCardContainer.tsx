@@ -12,7 +12,8 @@ import useRouter from "use-react-router";
 const BugCardContainer: React.FC<{
   status: BugState;
   bugs: IBug[];
-}> = ({ status, bugs }) => {
+  canAddBug: boolean
+}> = ({ status, bugs, canAddBug }) => {
   const { match } = useRouter<{
     projectId: string
   }>();
@@ -78,7 +79,7 @@ const BugCardContainer: React.FC<{
       ),
       centered: true,
       onOk: () => {
-        console.log(bugForm.props);
+        // (bugForm.props);
         store.dispatch({
           type: "bug-addBug",
           bug: {
@@ -156,7 +157,7 @@ const BugCardContainer: React.FC<{
   // 在第一栏显示添加缺陷按钮
   const showAddBugButton = () => {
     // return status === "to-be-acknowledged" ? (
-    return status === "待确认" ? (
+    return canAddBug ? (
       <div style={addTaskStyle} onClick={addBug}>
         <span style={{ cursor: "pointer" }}>
           <Icon type="plus" />

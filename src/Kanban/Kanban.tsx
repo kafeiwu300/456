@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect } from 'react';
+import React, { CSSProperties, useEffect, useContext } from 'react';
 import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';
@@ -8,8 +8,12 @@ import StoryForm from './StoryForm';
 import { store } from '../store';
 import { IState } from '../interfaces';
 import useRouter from 'use-react-router';
+import { KanbanState } from '../enums';
+import ProjectContext from '../common/contexts/ProjectContext';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
+  const project = useContext(ProjectContext);
+
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#fafafa',
@@ -70,11 +74,18 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
     <>
       <Row style={{display: 'flex', marginBottom: '8px'}} gutter={8}>
         <Col style={{flex: '0 0 260px', width: '260px'}} span={4}><div style={headerStyle}>story</div></Col>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>待开发</div></Col>
+        {/* <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>待开发</div></Col>
         <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>开发中</div></Col>
         <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>测试中</div></Col>
         <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>部署中</div></Col>
-        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>已完成</div></Col>
+        <Col style={{flex: '0 0 260px', width: '260px'}}><div style={headerStyle}>已完成</div></Col> */}
+        {
+          project.taskStatusList!.map((value: KanbanState) => (
+            <Col style={{flex: '0 0 260px', width: '260px'}}>
+              <div style={headerStyle}>{value}</div>
+            </Col>
+          ))
+        }
       </Row>
       {stories.map((story: IStory) => {
         return (
@@ -94,21 +105,28 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
                 return <StoryCard story={story} editable={story.title !== '其他任务'} deletable={story.title !== '其他任务'}/>
               })()}
             </Col>
-            <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} status='待开发'/>
+            {
+              project.taskStatusList!.map((value: KanbanState, index: number) => (
+                <Col style={{flex: '0 0 260px', width: '260px'}}>
+                  <TaskCardContainer canAddTask={index === 0} story={story} status={value}/>
+                </Col>    
+              ))
+            }
+            {/* <Col style={{flex: '0 0 260px', width: '260px'}}>
+              <TaskCardContainer canAddTask={true} story={story} status='待开发'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} status='开发中'/>
+              <TaskCardContainer canAddTask={false} story={story} status='开发中'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} status='测试中'/>
+              <TaskCardContainer canAddTask={false} story={story} status='测试中'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} status='部署中'/>
+              <TaskCardContainer canAddTask={false} story={story} status='部署中'/>
             </Col>
             <Col style={{flex: '0 0 260px', width: '260px'}}>
-              <TaskCardContainer story={story} status='已完成'/>
-            </Col>
+              <TaskCardContainer canAddTask={false} story={story} status='已完成'/>
+            </Col> */}
           </Row>
         )
       })}

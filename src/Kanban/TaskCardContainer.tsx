@@ -10,8 +10,9 @@ import useRouter from 'use-react-router';
 
 const TaskCardContainer: React.FC<{
   status: KanbanState,
-  story: IStory
-}> = ({status, story}) => {
+  story: IStory,
+  canAddTask: boolean
+}> = ({status, story, canAddTask}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#FFFFFF',
@@ -93,9 +94,9 @@ const TaskCardContainer: React.FC<{
         ).map(
           (task: ITask) => <TaskCard story={story} task={task}/>
         )
-        return status !== '待开发' && list.length === 0 ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无任务</div> : list;
+        return !canAddTask && list.length === 0 ? <div style={{textAlign: 'center', minHeight: '50px', lineHeight: '50px', color: '#aaa'}}>无任务</div> : list;
       })()}
-      {status === '待开发' ? (
+      {canAddTask ? (
         <div style={addTaskStyle} onClick={addTask}>
           <span style={{cursor: 'pointer'}}><Icon type="plus" />添加任务</span>
         </div>
