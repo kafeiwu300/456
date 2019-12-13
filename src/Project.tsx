@@ -58,16 +58,16 @@ const Project: React.FC = () => {
       <Layout.Sider theme='light'>
         <Menu mode='inline'>
           <Menu.Item>
-            <Link to={`/project/${projectId}/story-map`}>story map</Link>
+            <Link to={`/project/${projectId}/story-map`}>故事地图</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to={`/project/${projectId}/iterations`}>iterations</Link>
+            <Link to={`/project/${projectId}/iterations`}>迭代</Link>
           </Menu.Item>
           {/* <Menu.Item>
             <Link to={`/project/${projectId}/log`}>log</Link>
           </Menu.Item> */}
           <Menu.Item>
-            <Link to={`/project/${projectId}/bug`}>bug map</Link>
+            <Link to={`/project/${projectId}/bug`}>缺陷看板</Link>
           </Menu.Item>
           {/* <Menu.Item>
             <Link to={`/project/${projectId}/test-case`}>test cases</Link>
