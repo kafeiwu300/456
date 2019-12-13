@@ -11,6 +11,7 @@ import ProjectContext from "../common/contexts/ProjectContext";
 
 const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
   const project = useContext(ProjectContext);
+  console.log(project);
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

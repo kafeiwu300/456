@@ -26,6 +26,7 @@ export interface IBugAction extends Action<ActionType> {
 
 export interface IBugFormComponentProps extends FormComponentProps<IBug> {
   bug?: IBug;
+  bugStatus: BugState[];
 }
 
 export interface IPage {

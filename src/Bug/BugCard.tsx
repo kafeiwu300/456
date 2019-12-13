@@ -1,10 +1,11 @@
 import { IBug, IDragObject } from "./interfaces";
-import React, { CSSProperties, useState } from "react";
-import { Modal, Icon, Button, Popover } from "antd";
+import React, { CSSProperties, useState, useContext } from "react";
+import { Modal, Icon, Button, Popover, Form } from "antd";
 import { store } from "../store";
 import { useDrag } from "react-dnd";
 import BugForm from "./BugForm";
 import useRouter from "use-react-router";
+import ProjectContext from "../common/contexts/ProjectContext";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
   // 设置气泡卡片是否可见，点击气泡上的按钮以后隐藏它
@@ -14,6 +15,8 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
     projectId: string
   }>();
   const { projectId } = match.params;
+
+  const project = useContext(ProjectContext);
 
   const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
@@ -35,7 +38,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
     });
   };
 
-  let bugForm: JSX.Element;
+  let bugForm: Form;
 
   const modifyBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
@@ -44,8 +47,9 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       title: "修改缺陷信息",
       content: (
         <BugForm
+          bugStatus={project.bugStatusList!}
           bug={bug}
-          wrappedComponentRef={(form: JSX.Element) => (bugForm = form)}
+          wrappedComponentRef={(form: Form) => (bugForm = form)}
         />
       ),
       okText: "确定",
@@ -55,7 +59,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       onOk: () => {
         store.dispatch({
           type: "bug-modifyBug",
-          bug: { id: bug.id, ...bugForm.props.form.getFieldsValue() },
+          bug: { id: bug.id, ...bugForm.props.form!.getFieldsValue() },
           projectId
         });
       }

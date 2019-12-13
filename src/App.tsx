@@ -7,7 +7,7 @@ import Project from './Project';
 import { Layout, Typography } from 'antd';
 
 const App: React.FC = () => {
-  return (  
+  return (
     <Router history={createBrowserHistory()}>
       <Layout style={{height: '100%', width: '100%'}}>
         <Layout.Header style={{ background: '#fff' }}>

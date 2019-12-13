@@ -6,12 +6,12 @@ import { Action } from "redux";
 
 export interface IProject {
   id?: string;
-  name?: string;
-  description?: string;
+  name: string;
+  description: string;
   teamId?: string;
-  storyStatusList?: string[],
-  taskStatusList?: KanbanState[],
-  bugStatusList?: BugState[]
+  storyStatusList: string[],
+  taskStatusList: KanbanState[],
+  bugStatusList: BugState[]
 }
 
 export interface IProjectAction extends Action<ActionType> {
@@ -20,6 +20,7 @@ export interface IProjectAction extends Action<ActionType> {
 }
 
 export interface IState {
+  projectInfo: IProject;
   kanbanData: IStory[];
   storyMapData: {
     epics: IEpicInfo[];

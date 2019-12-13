@@ -27,7 +27,15 @@ const Project: React.FC = () => {
 
   const { projectId } = match.params;
 
-  const [project, setProject] = useState<IProject>({});
+  const [project, setProject] = useState<IProject>({
+    id: '',
+    name: '',
+    description: '',
+    teamId: '',
+    storyStatusList: [],
+    taskStatusList: [],
+    bugStatusList: []
+  });
 
   useEffect(() => {
     // store.dispatch({

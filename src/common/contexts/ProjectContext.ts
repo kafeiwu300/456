@@ -1,6 +1,15 @@
 import React from "react";
 import { IProject } from "../../interfaces";
 
-const ProjectContext = React.createContext({} as IProject);
+const project: IProject = {
+  id: '',
+  name: '',
+  description: '',
+  teamId: '',
+  storyStatusList: [],
+  taskStatusList: [],
+  bugStatusList: []
+};
+const ProjectContext = React.createContext(project);
 
 export default ProjectContext;

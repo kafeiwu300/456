@@ -19,7 +19,15 @@ const getProjectInfo = async (projectId: string) => {
 }
 
 export const projectReducer: Reducer<IProject, IProjectAction> = (prevState, action) => {
-  let state = prevState ? {...prevState} : {};
+  let state = prevState ? {...prevState} : {
+    id: '',
+    name: '',
+    description: '',
+    teamId: '',
+    storyStatusList: [],
+    taskStatusList: [],
+    bugStatusList: []
+  };
   switch (action.type) {
     case 'project-getData':
       getProjectInfo(action.projectId!);
@@ -33,7 +41,15 @@ export const projectReducer: Reducer<IProject, IProjectAction> = (prevState, act
 export const reducer: Reducer<IState, Action<ActionType>> = (prevState, action) => {
   // console.log(action);
   let state = prevState || {
-    projectInfo: {},
+    projectInfo: {
+      id: '',
+      name: '',
+      description: '',
+      teamId: '',
+      storyStatusList: [],
+      taskStatusList: [],
+      bugStatusList: []
+    },
     kanbanData: [],
     storyMapData: {
       epics: [],
@@ -43,6 +59,7 @@ export const reducer: Reducer<IState, Action<ActionType>> = (prevState, action) 
     bugData: []
   };
   state = {
+    projectInfo: projectReducer(state.projectInfo, action as IProjectAction),
     kanbanData: kanbanReducer(state.kanbanData, action as IKanbanAction),
     storyMapData: storyMapReducer(state.storyMapData, action as IStoryMapAction),
     bugData: bugReducer(state.bugData, action as IBugAction),

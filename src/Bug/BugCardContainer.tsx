@@ -2,12 +2,13 @@ import { BugState } from "../enums";
 import { IBug, IDragObject, IPage } from "./interfaces";
 import { useDrop } from "react-dnd";
 import { store } from "../store";
-import React, { CSSProperties, useEffect, useReducer } from "react";
+import React, { CSSProperties, useEffect, useReducer, useState, useContext } from "react";
 import BugCard from "./BugCard";
-import { Icon, Modal, Pagination } from "antd";
+import { Icon, Modal, Pagination, Form } from "antd";
 import BugForm from "./BugForm";
 import { guid } from "../Kanban/store";
 import useRouter from "use-react-router";
+import ProjectContext from "../common/contexts/ProjectContext";
 
 const BugCardContainer: React.FC<{
   status: BugState;
@@ -18,6 +19,8 @@ const BugCardContainer: React.FC<{
     projectId: string
   }>();
   const { projectId } = match.params;
+
+  const project = useContext(ProjectContext);
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
@@ -62,7 +65,7 @@ const BugCardContainer: React.FC<{
     })
   });
 
-  let bugForm: JSX.Element;
+  let bugForm: Form;
 
   const addBug = () => {
     Modal.confirm({
@@ -73,23 +76,26 @@ const BugCardContainer: React.FC<{
       width: 600,
       content: (
         <BugForm
-          wrappedComponentRef={(form: JSX.Element) => (bugForm = form)}
+          bugStatus={project.bugStatusList!}
+          wrappedComponentRef={(form: Form) => (bugForm = form)}
           bug={{ id: guid(), status }}
         />
       ),
       centered: true,
       onOk: () => {
         // (bugForm.props);
+        console.log(bugForm);
         store.dispatch({
           type: "bug-addBug",
           bug: {
-            ...bugForm.props.bug,
-            ...bugForm.props.form.getFieldsValue()
+            status,
+            ...bugForm.props.form!.getFieldsValue()
           },
           status,
           projectId
         });
-      }
+      },
+      getContainer: false
     });
   };
 

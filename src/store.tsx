@@ -7,6 +7,15 @@ import { ActionType } from "./enums";
 import { IState } from "./interfaces";
 
 const data: IState = {
+  projectInfo: {
+    id: '',
+    name: '',
+    description: '',
+    teamId: '',
+    storyStatusList: [],
+    taskStatusList: [],
+    bugStatusList: []
+  },
   kanbanData,
   storyMapData,
   bugData
