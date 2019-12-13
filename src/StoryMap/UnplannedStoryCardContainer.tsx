@@ -5,7 +5,6 @@ import StoryCard from "./StoryCard";
 import StoryForm from "./StoryForm";
 import { store } from "../store";
 import { useDrop } from "react-dnd";
-import { guid } from "../Kanban/store";
 import ProjectContext from "../common/contexts/ProjectContext";
 
 const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[], visible: boolean}> = ({unplannedStories, visible = true}) => {
@@ -20,7 +19,7 @@ const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[], v
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={{id: guid()}}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={{}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {

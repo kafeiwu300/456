@@ -1,11 +1,10 @@
-import React, { CSSProperties, useState, useEffect } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { Row, Col, Icon, Modal, Layout, Affix, PageHeader } from 'antd';
 import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
 import { IState } from '../interfaces';
 import IterationForm from './IterationForm';
-import { guid } from '../Kanban/store';
 import { store } from '../store';
 import IterationCard from './IterationCard';
 import EpicCard from './EpicCard';
@@ -51,7 +50,7 @@ const StoryMap: React.FC<{
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <IterationForm wrappedComponentRef={(form: any) => iterationForm = form} iteration={{id: guid(), index: 4, isActive: false}}/>,
+      content: <IterationForm wrappedComponentRef={(form: any) => iterationForm = form} iteration={{isActive: false}}/>,
       centered: true,
       onOk: () => {
         if (iterationForm && iterationForm.props) {

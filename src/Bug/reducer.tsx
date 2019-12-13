@@ -27,7 +27,7 @@ export const bugReducer: Reducer<IBug[], IBugAction> = (prevState, action) => {
       break;
     case "bug-removeBug":
       // state = state.filter((s: IBug) => s.id !== action.bug.id);
-      removeBug(action.bug.id).then(() => getBugData(action.projectId));
+      removeBug(action.bug.id!).then(() => getBugData(action.projectId));
       break;
     case "bug-modifyBug":
       // state = state.map((b: IBug) => (b.id === action.bug.id ? action.bug : b));

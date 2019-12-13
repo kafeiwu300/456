@@ -4,7 +4,7 @@ import { DragObjectWithType } from "react-dnd";
 import { FormComponentProps } from "antd/lib/form/Form";
 
 export interface IBug {
-  id: string;
+  id?: string;
   title?: string;
   status?: BugState;
   description?: string;

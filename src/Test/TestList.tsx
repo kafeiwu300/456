@@ -5,19 +5,19 @@ import { IStoryWithCase, ITestCase } from './interface';
 
 const TestList: React.FC = () => {
   return (
-    <Tree switcherIcon={<Icon type="folder"/>} showLine>
-      <Tree.TreeNode title="测试计划">
+    <Tree.DirectoryTree>
+      <Tree.TreeNode title="用例包">
         {
           data.map((story: IStoryWithCase) => (
             <Tree.TreeNode title={story.title}>
               {
-                story.testCases.map((testCase: ITestCase) => <Tree.TreeNode title={testCase.title}/>)
+                story.testCases.map((testCase: ITestCase) => <Tree.TreeNode title={testCase.title} isLeaf={true}/>)
               }
             </Tree.TreeNode>
           ))
         }
       </Tree.TreeNode>
-    </Tree>
+    </Tree.DirectoryTree>
   );
 }
 

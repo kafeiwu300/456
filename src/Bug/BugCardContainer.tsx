@@ -2,11 +2,10 @@ import { BugState } from "../enums";
 import { IBug, IDragObject, IPage } from "./interfaces";
 import { useDrop } from "react-dnd";
 import { store } from "../store";
-import React, { CSSProperties, useEffect, useReducer, useState, useContext } from "react";
+import React, { CSSProperties, useEffect, useReducer, useContext } from "react";
 import BugCard from "./BugCard";
 import { Icon, Modal, Pagination, Form } from "antd";
 import BugForm from "./BugForm";
-import { guid } from "../Kanban/store";
 import useRouter from "use-react-router";
 import ProjectContext from "../common/contexts/ProjectContext";
 
@@ -78,7 +77,7 @@ const BugCardContainer: React.FC<{
         <BugForm
           bugStatus={project.bugStatusList!}
           wrappedComponentRef={(form: Form) => (bugForm = form)}
-          bug={{ id: guid(), status }}
+          bug={{ status }}
         />
       ),
       centered: true,

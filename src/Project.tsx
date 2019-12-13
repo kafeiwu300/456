@@ -69,10 +69,15 @@ const Project: React.FC = () => {
           <Menu.Item>
             <Link to={`/project/${projectId}/bug`}>缺陷看板</Link>
           </Menu.Item>
+          <Menu.SubMenu title='测试'>
+            <Menu.Item>
+              <Link to={`/project/${projectId}/test-case`}>测试用例</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to={`/project/${projectId}/test-plan`}>测试计划</Link>
+            </Menu.Item>
+          </Menu.SubMenu>
           {/* <Menu.Item>
-            <Link to={`/project/${projectId}/test-case`}>test cases</Link>
-          </Menu.Item>
-          <Menu.Item>
             <Link to={`/project/${projectId}/burn-down`}>burn down</Link>
           </Menu.Item>
           <Menu.Item>
