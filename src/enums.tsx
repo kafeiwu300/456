@@ -13,3 +13,4 @@ export type KanbanState = string
 //   | "accepted"
 //   | "closed";
 export type BugState = string
+export type StoryState = string

@@ -1,14 +1,17 @@
 import { IStory, IStoryInfo } from "./interfaces";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button, Icon } from "antd";
-import StoryForm from "./StoryForm";
 import { store } from "../store";
 import useRouter from "use-react-router";
+import StoryForm from "../StoryMap/StoryForm";
+import ProjectContext from "../common/contexts/ProjectContext";
 
 const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: boolean}> = ({story, editable = true, deletable = true}) => {
   let storyForm: any = undefined;
 
   const [ghost, setGhost] = useState<boolean>(true);
+
+  const project = useContext(ProjectContext);
 
   const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
@@ -37,7 +40,7 @@ const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: bo
       icon: <Icon type="edit" />,
       width: 600,
       centered: true,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={story}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={story}/>,
       onOk: () => {
         if (storyForm && storyForm.props) {
           const s: IStory = {

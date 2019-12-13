@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useContext } from 'react';
 import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
@@ -7,6 +7,7 @@ import { KanbanState } from "../enums";
 import TaskForm from './TaskForm';
 import { store } from '../store';
 import useRouter from 'use-react-router';
+import ProjectContext from '../common/contexts/ProjectContext';
 
 const TaskCardContainer: React.FC<{
   status: KanbanState,
@@ -58,6 +59,8 @@ const TaskCardContainer: React.FC<{
   }>();
   const { projectId, iterationId } = match.params;
 
+  const project = useContext(ProjectContext);
+
   const addTask = () => {
     Modal.confirm({
       title: '添加任务',
@@ -65,7 +68,7 @@ const TaskCardContainer: React.FC<{
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={{status}}/>,
+      content: <TaskForm taskStatus={project.taskStatusList} wrappedComponentRef={(form: any) => taskForm = form} task={{status}}/>,
       centered: true,
       onOk: () => {
         if (taskForm && taskForm.props) {

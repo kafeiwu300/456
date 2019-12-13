@@ -1,13 +1,16 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useContext } from 'react';
 import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
 import StoryCard from './StoryCard';
 import { store } from '../store';
-import StoryForm from '../Kanban/StoryForm';
+import StoryForm from './StoryForm';
 import useRouter from 'use-react-router';
+import ProjectContext from '../common/contexts/ProjectContext';
 
 const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = ({epic, iteration}) => {
+  const project = useContext(ProjectContext);
+  
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#FFFFFF',
@@ -54,7 +57,7 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{}}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={{}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {

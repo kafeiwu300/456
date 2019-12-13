@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button, Icon } from 'antd';
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
 import TaskForm from './TaskForm';
 import { store } from '../store';
 import useRouter from 'use-react-router';
+import ProjectContext from '../common/contexts/ProjectContext';
 
 const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   const dragObject: IDragObject = {
@@ -13,6 +14,8 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   };
 
   const [ghost, setGhost] = useState<boolean>(true);
+
+  const project = useContext(ProjectContext);
 
   let taskForm: any = undefined;
 
@@ -24,7 +27,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
       cancelText: '取消',
       icon: <Icon type="edit"/>,
       width: 600,
-      content: <TaskForm wrappedComponentRef={(form: any) => taskForm = form} task={task}/>,
+      content: <TaskForm taskStatus={project.taskStatusList} wrappedComponentRef={(form: any) => taskForm = form} task={task}/>,
       centered: true,
       onOk: () => {
         if (taskForm && taskForm.props) {

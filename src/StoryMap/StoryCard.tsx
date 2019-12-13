@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Descriptions, Tag, Badge, Avatar, Button, Icon, Collapse } from "antd";
 import { store } from "../store";
-import StoryForm from "../Kanban/StoryForm";
+import StoryForm from "./StoryForm";
 import { IDragObject, IStoryInEpic } from "./interfaces";
 import { useDrag } from "react-dnd";
 import useRouter from "use-react-router";
+import ProjectContext from "../common/contexts/ProjectContext";
 
 const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
   let storyForm: any = undefined;
 
   const [ghost, setGhost] = useState<boolean>(true);
+
+  const project = useContext(ProjectContext);
 
   const dragObject: IDragObject = {
     type: 'storyCard',
@@ -51,7 +54,7 @@ const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
       icon: <Icon type="edit"/>,
       width: 600,
       centered: true,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={story}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={story}/>,
       onOk: () => {
         if (storyForm && storyForm.props) {
           const s: IStoryInEpic = {

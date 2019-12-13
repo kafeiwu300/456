@@ -4,12 +4,12 @@ import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';
 import { IStory } from './interfaces';
 import StoryCard from './StoryCard';
-import StoryForm from './StoryForm';
 import { store } from '../store';
 import { IState } from '../interfaces';
 import useRouter from 'use-react-router';
 import { KanbanState } from '../enums';
 import ProjectContext from '../common/contexts/ProjectContext';
+import StoryForm from '../StoryMap/StoryForm';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const project = useContext(ProjectContext);
@@ -45,7 +45,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <StoryForm wrappedComponentRef={(form: any) => storyForm = form} story={{description: '作为……，\n我希望……，\n以便于……'}}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={{description: '作为……，\n我希望……，\n以便于……'}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {
