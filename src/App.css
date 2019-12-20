@@ -3,3 +3,8 @@
 .App {
   text-align: center;
 }
+
+.ant-layout-sider-light .ant-layout-sider-zero-width-trigger {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}

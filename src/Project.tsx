@@ -7,7 +7,8 @@ import Bug from './Bug/Bug';
 import IterationTable from './IterationTable/IterationTable';
 import Iteration from './IterationTable/Iteration';
 import Log from './Log/Log';
-import TestList from './Test/TestList';
+import TestCaseList from './Test/TestCaseList';
+import TestPlanList from './Test/TestPlanList';
 import BurnDown from './BurnDown/BurnDown';
 import CFD from './CFD/CFD';
 import { Provider } from 'react-redux';
@@ -55,7 +56,7 @@ const Project: React.FC = () => {
 
   return (
     <Layout style={{height: '100%'}}>
-      <Layout.Sider theme='light'>
+      <Layout.Sider theme='light' breakpoint='lg' collapsedWidth="0" style={{zIndex: 1}}>
         <Menu mode='inline'>
           <Menu.Item>
             <Link to={`/project/${projectId}/story-map`}>故事地图</Link>
@@ -94,7 +95,8 @@ const Project: React.FC = () => {
                 <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
                 <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
                 <LayoutRoute title='项目日志' exact path={`${match.path}/log`} component={Log}/>
-                <LayoutRoute title='测试' exact path={`${match.path}/test-case`} component={TestList}/>
+                <LayoutRoute title='测试用例' exact path={`${match.path}/test-case`} component={TestCaseList}/>
+                <LayoutRoute title='测试计划' exact path={`${match.path}/test-plan`} component={TestPlanList}/>
                 <LayoutRoute title='燃尽图' exact path={`${match.path}/burn-down`} component={BurnDown}/>
                 <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
                 <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>

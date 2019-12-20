@@ -1,6 +1,6 @@
 import { Reducer } from "react";
 import { IStoryAction, IIterationAction, IIteration, IEpicAction, IStoryInEpic, IStoryMapAction } from "./interfaces";
-import { IEpicInfo, IIterationInfo } from "./interfaces";
+import { IEpicInfo } from "./interfaces";
 import { getIterations } from "../agent/agileAgent";
 import { store } from "../store";
 import { getEpics, removeEpic, addEpic, modifyEpic } from "../agent/epicAgent";

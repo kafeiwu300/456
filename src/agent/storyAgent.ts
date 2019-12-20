@@ -34,3 +34,7 @@ export function removeStory(storyId: string) {
 export function getStories(iterationId: string) {
   return agent.get(`${BASE_URL}/stories`).query({iteration_id: iterationId, detail: true});
 }
+
+export function getProjectStories(projectId: string) {
+  return agent.get(`${BASE_URL}/stories`).query({project_id: projectId});
+}
