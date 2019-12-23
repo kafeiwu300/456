@@ -28,7 +28,7 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div style={{ textAlign: "center", marginTop: "30px" }}>
+      <div style={{ textAlign: "center" }}>
         <div style={{ width: "100%", textAlign: "left", margin: "0 auto" }}>
           <Row>
             {
