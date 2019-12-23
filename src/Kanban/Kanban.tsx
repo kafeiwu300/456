@@ -45,7 +45,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={{description: '作为……，\n我希望……，\n以便于……'}}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} initialValue={{description: '作为……，\n我希望……，\n以便于……'}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {
@@ -108,7 +108,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
             {
               project.taskStatusList!.map((value: KanbanState, index: number) => (
                 <Col style={{flex: '0 0 260px', width: '260px'}}>
-                  <TaskCardContainer canAddTask={index === 0} story={story} status={value}/>
+                  <TaskCardContainer canAddTask={index === 0} story={story} status={value} finished={index === project.taskStatusList.length - 1}/>
                 </Col>    
               ))
             }

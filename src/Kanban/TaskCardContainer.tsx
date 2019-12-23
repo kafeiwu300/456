@@ -12,8 +12,9 @@ import ProjectContext from '../common/contexts/ProjectContext';
 const TaskCardContainer: React.FC<{
   status: KanbanState,
   story: IStory,
-  canAddTask: boolean
-}> = ({status, story, canAddTask}) => {
+  canAddTask: boolean,
+  finished: boolean
+}> = ({status, story, canAddTask, finished}) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: '#FFFFFF',
@@ -68,7 +69,7 @@ const TaskCardContainer: React.FC<{
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <TaskForm taskStatus={project.taskStatusList} wrappedComponentRef={(form: any) => taskForm = form} task={{status}}/>,
+      content: <TaskForm taskStatus={project.taskStatusList} wrappedComponentRef={(form: any) => taskForm = form} initialValue={{status}}/>,
       centered: true,
       onOk: () => {
         if (taskForm && taskForm.props) {
@@ -78,6 +79,7 @@ const TaskCardContainer: React.FC<{
             task: {
               ...taskForm.props.task,
               ...taskForm.props.form.getFieldsValue(),
+              isFinished: finished,
               story: story.id ? {id: story.id} : null,
               status,
               project: projectId ? {id: projectId} : null

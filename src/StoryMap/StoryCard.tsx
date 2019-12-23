@@ -54,7 +54,7 @@ const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
       icon: <Icon type="edit"/>,
       width: 600,
       centered: true,
-      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={story}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} initialValue={story}/>,
       onOk: () => {
         if (storyForm && storyForm.props) {
           const s: IStoryInEpic = {

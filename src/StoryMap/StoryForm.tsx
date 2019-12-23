@@ -101,13 +101,13 @@ class StoryForm extends React.Component<IStoryFormComponentProps> {
 const formCreateOption: FormCreateOption<IStoryFormComponentProps> = {
   mapPropsToFields (props) {
     return {
-      title: Form.createFormField({value: props.story && props.story.title}),
-      status: Form.createFormField({value: props.story && props.story.status}),
-      description: Form.createFormField({value: props.story && props.story.description}),
-      priority: Form.createFormField({value: props.story && props.story.priority}),
-      estimatedHours: Form.createFormField({value: props.story && props.story.estimatedHours}),
-      storyPoint: Form.createFormField({value: props.story && props.story.storyPoint}),
-      leader: Form.createFormField({value: props.story && props.story.leader})
+      title: Form.createFormField({value: props.initialValue && props.initialValue.title}),
+      status: Form.createFormField({value: props.initialValue && props.initialValue.status}),
+      description: Form.createFormField({value: props.initialValue && props.initialValue.description}),
+      priority: Form.createFormField({value: props.initialValue && props.initialValue.priority}),
+      estimatedHours: Form.createFormField({value: props.initialValue && props.initialValue.estimatedHours}),
+      storyPoint: Form.createFormField({value: props.initialValue && props.initialValue.storyPoint}),
+      leader: Form.createFormField({value: props.initialValue && props.initialValue.leader})
     }
   }
 }

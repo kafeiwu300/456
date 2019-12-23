@@ -77,7 +77,7 @@ const BugCardContainer: React.FC<{
         <BugForm
           bugStatus={project.bugStatusList!}
           wrappedComponentRef={(form: Form) => (bugForm = form)}
-          bug={{ status }}
+          initialValue={{ status }}
         />
       ),
       centered: true,

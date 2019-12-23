@@ -57,7 +57,7 @@ const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = (
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} story={{}}/>,
+      content: <StoryForm storyStatus={project.storyStatusList} wrappedComponentRef={(form: any) => storyForm = form} initialValue={{}}/>,
       centered: true,
       onOk: () => {
         if (storyForm && storyForm.props) {

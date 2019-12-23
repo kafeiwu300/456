@@ -101,13 +101,13 @@ class TaskForm extends React.Component<ITaskFormComponentProps> {
 const formCreateOption: FormCreateOption<ITaskFormComponentProps> = {
   mapPropsToFields (props) {
     return {
-      title: Form.createFormField({value: props.task && props.task.title}),
-      status: Form.createFormField({value: props.task && props.task.status}),
-      description: Form.createFormField({value: props.task && props.task.description}),
-      priority: Form.createFormField({value: props.task && props.task.priority}),
-      estimatedHours: Form.createFormField({value: props.task && props.task.estimatedHours}),
-      taskPoint: Form.createFormField({value: props.task && props.task.taskPoint}),
-      leader: Form.createFormField({value: props.task && props.task.leader})
+      title: Form.createFormField({value: props.initialValue && props.initialValue.title}),
+      status: Form.createFormField({value: props.initialValue && props.initialValue.status}),
+      description: Form.createFormField({value: props.initialValue && props.initialValue.description}),
+      priority: Form.createFormField({value: props.initialValue && props.initialValue.priority}),
+      estimatedHours: Form.createFormField({value: props.initialValue && props.initialValue.estimatedHours}),
+      taskPoint: Form.createFormField({value: props.initialValue && props.initialValue.taskPoint}),
+      leader: Form.createFormField({value: props.initialValue && props.initialValue.leader})
     }
   }
 }

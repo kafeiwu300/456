@@ -48,7 +48,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       content: (
         <BugForm
           bugStatus={project.bugStatusList!}
-          bug={bug}
+          initialValue={bug}
           wrappedComponentRef={(form: Form) => (bugForm = form)}
         />
       ),

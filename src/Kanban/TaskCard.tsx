@@ -27,7 +27,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
       cancelText: '取消',
       icon: <Icon type="edit"/>,
       width: 600,
-      content: <TaskForm taskStatus={project.taskStatusList} wrappedComponentRef={(form: any) => taskForm = form} task={task}/>,
+      content: <TaskForm taskStatus={project.taskStatusList} wrappedComponentRef={(form: any) => taskForm = form} initialValue={task}/>,
       centered: true,
       onOk: () => {
         if (taskForm && taskForm.props) {
