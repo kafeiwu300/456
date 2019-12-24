@@ -42,7 +42,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           <Col span={12}>
             <Form.Item label='优先级' labelCol={{span: 6}} wrapperCol={{span: 10}}>
               {
-                this.props.form.getFieldDecorator('priority', {})(
+                this.props.form.getFieldDecorator('level', {})(
                   <Select>
                     <Select.Option value={1}>1</Select.Option>
                     <Select.Option value={2}>2</Select.Option>
