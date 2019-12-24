@@ -33,7 +33,7 @@ const TestPlanList: React.FC = () => {
       okText: '保存',
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
-      width: 1200,
+      width: 600,
       content: <TestPlanForm wrappedComponentRef={(form: Form) => testPlanForm = form} testCases={cases}/>,
       centered: true,
       onOk: () => {
@@ -51,7 +51,7 @@ const TestPlanList: React.FC = () => {
       okText: '保存',
       cancelText: '取消',
       icon: <Icon type="edit" />,
-      width: 1200,
+      width: 600,
       content: <TestPlanForm wrappedComponentRef={(form: Form) => testPlanForm = form} testCases={cases} initialValue={plan}/>,
       centered: true,
       onOk: () => {
