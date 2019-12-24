@@ -5,6 +5,8 @@ import TestCaseInfo from './TestCaseInfo';
 import useRouter from 'use-react-router';
 import { getTestCases, addTestCase } from '../agent/testCaseAgent';
 import TestCaseForm from './TestCaseForm';
+import { IStoryInfo } from '../Kanban/interfaces';
+import { getProjectStories } from '../agent/storyAgent';
 
 const TestList: React.FC = () => {
   const { match } = useRouter<{
@@ -13,9 +15,11 @@ const TestList: React.FC = () => {
   const { projectId } = match.params;
 
   const [testCases, setTestCases] = useState<ITestCase[]>([]);
-  const [selectedCase, setSelectedCase] = useState<ITestCase>({});
+  const [selectedCase, setSelectedCase] = useState<ITestCase>();
+  const [stories, setStories] = useState<IStoryInfo[]>([]);
 
   useEffect(() => {
+    getProjectStories(projectId).then(res => setStories(res.body));
     getTestCases(projectId).then(res => setTestCases(res.body));
   }, [projectId]);
 
@@ -43,6 +47,15 @@ const TestList: React.FC = () => {
     <Layout style={{height: '100%'}}>
       <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
         <Menu>
+          {/* {
+            stories.map((story: IStoryInfo) => (
+              <Menu.SubMenu title={story.title}>
+                {
+                  testCases.filter((c: ITestCase) => )
+                }
+              </Menu.SubMenu>
+            ))
+          } */}
           {
             testCases.map((c: ITestCase) => <Menu.Item onClick={() => setSelectedCase(c)}>{c.title}</Menu.Item>)
           }

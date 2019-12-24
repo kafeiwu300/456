@@ -50,7 +50,7 @@ class TaskForm extends React.Component<ITaskFormComponentProps> {
         </Row>
         <Row>
           <Col span={12}>
-            <Form.Item label='负责人' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='负责人' labelCol={{span: 8}} wrapperCol={{span: 12}}>
               {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
@@ -63,7 +63,7 @@ class TaskForm extends React.Component<ITaskFormComponentProps> {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label='优先级' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='优先级' labelCol={{span: 6}} wrapperCol={{span: 10}}>
               {
                 this.props.form.getFieldDecorator('priority', {})(
                   <Select>
@@ -79,14 +79,14 @@ class TaskForm extends React.Component<ITaskFormComponentProps> {
         </Row>
         <Row>
           <Col span={12}>
-            <Form.Item label='任务点' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='任务点' labelCol={{span: 8}} wrapperCol={{span: 12}}>
               {
                 this.props.form.getFieldDecorator('taskPoint', {})(<InputNumber/>)
               }
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label='预估工时' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='预估工时' labelCol={{span: 7}} wrapperCol={{span: 10}}>
               {
                 this.props.form.getFieldDecorator('estimatedHours', {})(<InputNumber/>)
               }

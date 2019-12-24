@@ -51,11 +51,11 @@ export interface ITaskAction extends IKanbanAction {
 }
 
 export interface ITaskFormComponentProps extends FormComponentProps<ITask> {
-  task?: ITask;
+  initialValue?: ITask;
   taskStatus: KanbanState[];
 }
 
 export interface IStoryFormComponentProps extends FormComponentProps<IStory> {
-  story?: IStoryInfo;
+  initialValue?: IStoryInfo;
   storyStatus: StoryState[];
 }

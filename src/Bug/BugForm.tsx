@@ -70,7 +70,7 @@ class BugForm extends React.Component<IBugFormComponentProps> {
             <Form.Item
               label="负责人"
               labelCol={{ span: 8 }}
-              wrapperCol={{ span: 8 }}
+              wrapperCol={{ span: 12 }}
             >
               {this.props.form.getFieldDecorator(
                 "leader",
@@ -87,8 +87,8 @@ class BugForm extends React.Component<IBugFormComponentProps> {
           <Col span={12}>
             <Form.Item
               label="优先级"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 8 }}
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 10 }}
             >
               {this.props.form.getFieldDecorator(
                 "level",

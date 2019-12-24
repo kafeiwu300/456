@@ -37,7 +37,7 @@ class TestPlanForm extends React.Component<ITestPlanFormComponentProps, {selecte
                     listStyle={{width: 'calc(50% - 20px)'}}
                     dataSource={this.props.testCases.map((c: ITestCase) => ({key: c.id!, ...c, title: c.title!}))}
                     targetKeys={this.state.selectedCaseIds}
-                    render={item => item.title}
+                    render={item => item.title!}
                   />
                 )
               }

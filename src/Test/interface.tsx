@@ -12,7 +12,8 @@ export interface ITestCase {
   procedure?: string,
   precondition?: string,
   expectation?: string,
-  level?: number
+  level?: number,
+  leader?: string
 }
 
 export interface ITestPlanFormComponentProps extends FormComponentProps<ITestPlanDTO> {
@@ -34,5 +35,15 @@ export interface ITestPlanDTO {
 export interface ITestPlan {
   id?: string;
   title?: string;
-  
+}
+
+export interface ITestResult {
+  id: string;
+  result: string;
+  note: string;
+  testCase: ITestCase;
+}
+
+export interface IDetailedTestPlan extends ITestPlan {
+  testResultList: ITestResult[];
 }

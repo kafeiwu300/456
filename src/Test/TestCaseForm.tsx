@@ -27,7 +27,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
         </Row>
         <Row>
           <Col span={12}>
-            <Form.Item label='负责人' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='负责人' labelCol={{span: 8}} wrapperCol={{span: 12}}>
               {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
@@ -40,7 +40,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label='优先级' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='优先级' labelCol={{span: 6}} wrapperCol={{span: 10}}>
               {
                 this.props.form.getFieldDecorator('priority', {})(
                   <Select>
@@ -66,7 +66,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           <Col>
             <Form.Item label='前置条件' labelCol={{span: 4}} wrapperCol={{span: 16}}>
               {
-                this.props.form.getFieldDecorator('precondition', {})(<Input/>)
+                this.props.form.getFieldDecorator('precondition', {})(<Input.TextArea rows={5}/>)
               }
             </Form.Item>
           </Col>
@@ -84,7 +84,7 @@ const formCreateOption: FormCreateOption<ITestCaseFormComponentProps> = {
       level: Form.createFormField({value: props.initialValue && props.initialValue.level}),
       expectation: Form.createFormField({value: props.initialValue && props.initialValue.expectation}),
       precondition: Form.createFormField({value: props.initialValue && props.initialValue.precondition}),
-      // leader: Form.createFormField({value: props.initialValue && props.initialValue.leader})
+      leader: Form.createFormField({value: props.initialValue && props.initialValue.leader})
     }
   }
 }

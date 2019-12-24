@@ -50,7 +50,7 @@ class StoryForm extends React.Component<IStoryFormComponentProps> {
         </Row>
         <Row>
           <Col span={12}>
-            <Form.Item label='负责人' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='负责人' labelCol={{span: 8}} wrapperCol={{span: 12}}>
               {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
@@ -63,7 +63,7 @@ class StoryForm extends React.Component<IStoryFormComponentProps> {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label='优先级' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='优先级' labelCol={{span: 6}} wrapperCol={{span: 10}}>
               {
                 this.props.form.getFieldDecorator('priority', {})(
                   <Select>
@@ -79,14 +79,14 @@ class StoryForm extends React.Component<IStoryFormComponentProps> {
         </Row>
         <Row>
           <Col span={12}>
-            <Form.Item label='故事点' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='故事点' labelCol={{span: 8}} wrapperCol={{span: 12}}>
               {
                 this.props.form.getFieldDecorator('storyPoint', {})(<InputNumber/>)
               }
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label='预估工时' labelCol={{span: 8}} wrapperCol={{span: 8}}>
+            <Form.Item label='预估工时' labelCol={{span: 7}} wrapperCol={{span: 10}}>
               {
                 this.props.form.getFieldDecorator('estimatedHours', {})(<InputNumber/>)
               }
