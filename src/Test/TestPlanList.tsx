@@ -6,6 +6,7 @@ import TestPlanForm from "./TestPlanForm";
 import { getTestCases } from "../agent/testCaseAgent";
 import { ITestCase, ITestPlanDTO, IDetailedTestPlan, ITestResult } from "./interface";
 import TestCaseInfo from "./TestCaseInfo";
+import moment from 'moment';
 
 const TestPlanList: React.FC = () => {
   const { match } = useRouter<{
@@ -110,6 +111,7 @@ const TestPlanList: React.FC = () => {
               content: <TestCaseInfo testCase={record.testCase} />
             })}>{text}</Button>
           )} />
+          <Table.Column dataIndex='modifyTime' title='最后修改时间' render={(text: string) => moment(text).format('YYYY-MM-DD HH:mm:ss')}/>
           <Table.Column dataIndex='result' title='测试结果' render={(text, record: ITestResult) => (
             <Dropdown overlay={(
               <Menu>
