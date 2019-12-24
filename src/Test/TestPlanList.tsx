@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Menu, Icon, Modal, Form, Button, Table, Dropdown, Col, Row } from "antd";
+import { Menu, Icon, Modal, Form, Button, Table, Dropdown, Col, Row, Layout } from "antd";
 import useRouter from "use-react-router";
 import { getTestPlan, addTestPlan, deleteTestPlan, setTestResult, modifyTestPlan } from "../agent/testPlanAgent";
 import TestPlanForm from "./TestPlanForm";
@@ -80,10 +80,33 @@ const TestPlanList: React.FC = () => {
     });
   }
   
+  //TODO: 等待antdesign更新
+
   return (
-    <Row gutter={16}>
-      <Col span={8}>
-        <Table 
+    <Layout>
+      <Layout.Sider theme='light'>
+        <Menu>
+          {
+            planList.map((plan: IDetailedTestPlan, index: number) => (
+              <Menu.Item onClick={() => setSelectedIndex(index)}>
+                <span>{plan.title}</span>
+                <span style={{float: 'right'}}>
+                  <Icon type='edit' onClick={() => {
+                    editPlan({
+                      id: plan.id,
+                      title: plan.title,
+                      caseIds: plan.testResultList.map((result: ITestResult) => result.testCase.id!)
+                    });
+                  }}/>
+                  <Icon type='delete' onClick={() => {
+                    deletePlan(plan.id!);
+                  }}/>
+                </span>
+              </Menu.Item>
+            ))
+          }
+        </Menu>
+        {/* <Table 
           dataSource={planList} 
           footer={() => (
             <Button type='link' onClick={newTestPlan} size='small'><Icon type='plus'/>新建计划</Button>
@@ -102,9 +125,9 @@ const TestPlanList: React.FC = () => {
               <Button type='ghost' size='small' shape='circle' icon='delete' className='' onClick={() => deletePlan(item.id!)}/>
             </>
           )}/>
-        </Table>
-      </Col>
-      <Col span={16}>
+        </Table> */}
+      </Layout.Sider>
+      <Layout.Content>
         <Table dataSource={selectedIndex >= 0 && selectedIndex < planList.length ? planList[selectedIndex].testResultList : undefined}>
           <Table.Column dataIndex='testCase.title' title='用例名' render={(text, record: ITestResult) => (
             <Button type='link' onClick={() => Modal.info({
@@ -133,8 +156,8 @@ const TestPlanList: React.FC = () => {
             </Button.Group>
           )} />
         </Table>
-      </Col>
-    </Row>
+      </Layout.Content>
+    </Layout>
   );
 }
 

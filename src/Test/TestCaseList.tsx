@@ -78,6 +78,8 @@ const TestList: React.FC = () => {
     });
   }
 
+  //TODO: 等待antdesign更新
+
   return (
     <Layout style={{height: '100%'}}>
       <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
@@ -95,7 +97,7 @@ const TestList: React.FC = () => {
             testCases.map((c: ITestCase) => (
               <Menu.Item onClick={() => setSelectedCase(c)}>
                 <span>{c.title}</span>
-                <span style={{float: 'right', minWidth: 14}}>
+                <span style={{float: 'right'}}>
                   <Icon type='edit' onClick={() => {
                     modifyCase(c);
                   }}/>
