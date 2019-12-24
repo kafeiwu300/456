@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Icon, Modal, Form, Button, Table, Dropdown, Col, Row } from "antd";
+import { Menu, Icon, Modal, Form, Button, Table, Dropdown, Col, Row } from "antd";
 import useRouter from "use-react-router";
-import { getTestPlan, addTestPlan, deleteTestPlan, setTestResult, getDetailedTestPlan, modifyTestPlan } from "../agent/testPlanAgent";
+import { getTestPlan, addTestPlan, deleteTestPlan, setTestResult, modifyTestPlan } from "../agent/testPlanAgent";
 import TestPlanForm from "./TestPlanForm";
 import { getTestCases } from "../agent/testCaseAgent";
 import { ITestCase, ITestPlanDTO, IDetailedTestPlan, ITestResult } from "./interface";

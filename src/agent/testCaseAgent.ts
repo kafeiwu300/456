@@ -12,3 +12,11 @@ export function addTestCase (projectId: string, testCase: ITestCase) {
     project: {id: projectId}
   })
 }
+
+export function modifyTestCase (projectId: string, testCase: ITestCase) {
+  return agent.put(`${BASE_URL}/test-cases/${testCase.id}`).send({project: {id: projectId}, ...testCase});
+}
+
+export function deleteTestCase (caseId: string) {
+  return agent.delete(`${BASE_URL}/test-cases/${caseId}`)
+}
