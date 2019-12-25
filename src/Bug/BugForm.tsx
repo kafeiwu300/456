@@ -95,10 +95,13 @@ class BugForm extends React.Component<IBugFormComponentProps> {
                 {}
               )(
                 <Select>
-                  <Select.Option value="very high">very high</Select.Option>
+                  {/* <Select.Option value="very high">very high</Select.Option>
                   <Select.Option value="high">high</Select.Option>
                   <Select.Option value="middle">middle</Select.Option>
-                  <Select.Option value="low">low</Select.Option>
+                  <Select.Option value="low">low</Select.Option> */}
+                  <Select.Option value={1}>1</Select.Option>
+                  <Select.Option value={2}>2</Select.Option>
+                  <Select.Option value={3}>3</Select.Option>
                 </Select>
               )}
             </Form.Item>
