@@ -12,7 +12,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           <Col>
             <Form.Item label='标题' labelCol={{span: 4}} wrapperCol={{span: 16}}>
               {
-                this.props.form.getFieldDecorator('title', {})(<Input/>)
+                this.props.form.getFieldDecorator('title', {})(<Input readOnly={this.props.readonly}/>)
               }
             </Form.Item>
           </Col>
@@ -23,9 +23,9 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
               {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
-                    <Select.Option value='Lucy'>Lucy</Select.Option>
-                    <Select.Option value='Joe'>Joe</Select.Option>
-                    <Select.Option value='John'>John</Select.Option>
+                    <Select.Option value='Lucy' disabled={this.props.readonly}>Lucy</Select.Option>
+                    <Select.Option value='Joe' disabled={this.props.readonly}>Joe</Select.Option>
+                    <Select.Option value='John' disabled={this.props.readonly}>John</Select.Option>
                   </Select>
                 )
               }
@@ -36,9 +36,9 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
               {
                 this.props.form.getFieldDecorator('level', {})(
                   <Select>
-                    <Select.Option value={1}>1</Select.Option>
-                    <Select.Option value={2}>2</Select.Option>
-                    <Select.Option value={3}>3</Select.Option>
+                    <Select.Option value={1} disabled={this.props.readonly}>1</Select.Option>
+                    <Select.Option value={2} disabled={this.props.readonly}>2</Select.Option>
+                    <Select.Option value={3} disabled={this.props.readonly}>3</Select.Option>
                   </Select>
                 )
               }
@@ -53,7 +53,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
                   <Select>
                     {
                       this.props.stories && this.props.stories.map((story: IStoryInfo) => (
-                        <Select.Option value={story.id!}>{story.title}</Select.Option>
+                        <Select.Option value={story.id!} disabled={this.props.readonly}>{story.title}</Select.Option>
                       ))
                     }
                   </Select>
@@ -66,7 +66,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           <Col>
             <Form.Item label='前置条件' labelCol={{span: 4}} wrapperCol={{span: 16}}>
               {
-                this.props.form.getFieldDecorator('precondition', {})(<Input.TextArea rows={5}/>)
+                this.props.form.getFieldDecorator('precondition', {})(<Input.TextArea rows={5} readOnly={this.props.readonly}/>)
               }
             </Form.Item>
           </Col>
@@ -75,7 +75,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           <Col>
             <Form.Item label='步骤' labelCol={{span: 4}} wrapperCol={{span: 16}}>
               {
-                this.props.form.getFieldDecorator('procedure', {})(<Input.TextArea rows={5}/>)
+                this.props.form.getFieldDecorator('procedure', {})(<Input.TextArea rows={5} readOnly={this.props.readonly}/>)
               }
             </Form.Item>
           </Col>
@@ -84,7 +84,7 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           <Col>
             <Form.Item label='预期结果' labelCol={{span: 4}} wrapperCol={{span: 16}}>
               {
-                this.props.form.getFieldDecorator('expectation', {})(<Input/>)
+                this.props.form.getFieldDecorator('expectation', {})(<Input readOnly={this.props.readonly}/>)
               }
             </Form.Item>
           </Col>
