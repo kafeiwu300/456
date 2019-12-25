@@ -13,7 +13,8 @@ export interface ITestCase {
   precondition?: string,
   expectation?: string,
   level?: number,
-  leader?: string
+  leader?: string,
+  storyId?: string
 }
 
 export interface ITestPlanFormComponentProps extends FormComponentProps<ITestPlanDTO> {

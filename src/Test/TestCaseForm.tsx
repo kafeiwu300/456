@@ -18,15 +18,6 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Form.Item label='步骤' labelCol={{span: 4}} wrapperCol={{span: 16}}>
-              {
-                this.props.form.getFieldDecorator('procedure', {})(<Input.TextArea rows={5}/>)
-              }
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
           <Col span={12}>
             <Form.Item label='负责人' labelCol={{span: 8}} wrapperCol={{span: 12}}>
               {
@@ -55,10 +46,18 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Form.Item label='预期结果' labelCol={{span: 4}} wrapperCol={{span: 16}}>
+          <Col span={12}>
+            <Form.Item label='所属故事' labelCol={{span: 8}} wrapperCol={{span: 12}}>
               {
-                this.props.form.getFieldDecorator('expectation', {})(<Input/>)
+                this.props.form.getFieldDecorator('storyId', {})(
+                  <Select>
+                    {
+                      this.props.stories && this.props.stories.map((story: IStoryInfo) => (
+                        <Select.Option value={story.id!}>{story.title}</Select.Option>
+                      ))
+                    }
+                  </Select>
+                )
               }
             </Form.Item>
           </Col>
@@ -73,18 +72,19 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
-            <Form.Item label='所属故事' labelCol={{span: 8}} wrapperCol={{span: 12}}>
+          <Col>
+            <Form.Item label='步骤' labelCol={{span: 4}} wrapperCol={{span: 16}}>
               {
-                this.props.form.getFieldDecorator('story', {})(
-                  <Select>
-                    {
-                      this.props.stories && this.props.stories.map((story: IStoryInfo) => (
-                        <Select.Option value={story.id!}>{story.title}</Select.Option>
-                      ))
-                    }
-                  </Select>
-                )
+                this.props.form.getFieldDecorator('procedure', {})(<Input.TextArea rows={5}/>)
+              }
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Item label='预期结果' labelCol={{span: 4}} wrapperCol={{span: 16}}>
+              {
+                this.props.form.getFieldDecorator('expectation', {})(<Input/>)
               }
             </Form.Item>
           </Col>
@@ -102,7 +102,8 @@ const formCreateOption: FormCreateOption<ITestCaseFormComponentProps> = {
       level: Form.createFormField({value: props.initialValue && props.initialValue.level}),
       expectation: Form.createFormField({value: props.initialValue && props.initialValue.expectation}),
       precondition: Form.createFormField({value: props.initialValue && props.initialValue.precondition}),
-      leader: Form.createFormField({value: props.initialValue && props.initialValue.leader})
+      leader: Form.createFormField({value: props.initialValue && props.initialValue.leader}),
+      storyId: Form.createFormField({value: props.initialValue && props.initialValue.storyId})
     }
   }
 }
