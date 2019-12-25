@@ -84,7 +84,18 @@ const TestPlanList: React.FC = () => {
 
   return (
     <Table dataSource={planList} title={() => <Button onClick={newTestPlan}>新建测试计划</Button>}>
-      <Table.Column title='标题' dataIndex='title' render={(text: string, plan: IDetailedTestPlan) => <Link to={`${match.url}/${plan.id}`}>{text}</Link>}/>
+      <Table.Column title='标题' dataIndex='title' render={(text: string, plan: IDetailedTestPlan) => 
+        <>
+          <Link to={`${match.url}/${plan.id}`}>
+            {text}
+          </Link>
+          {plan.referredProject ? (
+            <Link to={`#`}>
+              <Icon type="link" />
+            </Link>
+          ) : <></>}
+        </>
+      }/>
       <Table.Column title='最后修改时间' dataIndex='modifyTime' render={(text: string) => moment(text).format('YYYY-MM-DD HH:mm:ss')}/>
       <Table.Column title='通过率' dataIndex='passRate'/>
       <Table.Column title='操作' render={(text, plan: IDetailedTestPlan) => (

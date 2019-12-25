@@ -38,6 +38,7 @@ export interface ITestPlanDTO {
 export interface ITestPlan {
   id?: string;
   title?: string;
+  referredProject?: any;
 }
 
 export interface ITestResult {
