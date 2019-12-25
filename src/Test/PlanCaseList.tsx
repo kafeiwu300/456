@@ -39,7 +39,7 @@ const PlanCaseList: React.FC = () => {
       <Layout style={{height: '100%', margin: '0 24px'}}>
         {results.length > 0 ? (
           <>
-            <Layout.Sider theme='light' style={{height: '100%'}}>
+            <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
               <Menu selectedKeys={[selectedIndex.toString()]}>
                 {
                   results.map((result: ITestResult, index: number) => (
@@ -53,7 +53,7 @@ const PlanCaseList: React.FC = () => {
                 }
               </Menu>
             </Layout.Sider>
-            <Layout.Content style={{height: '100%'}}>
+            <Layout.Content style={{height: '100%', overflow: 'auto'}}>
               <ResultfulTestCaseInfo testResult={results[selectedIndex]}/>
               <Row>
                 <Col span={20} style={{textAlign: 'right'}}>
