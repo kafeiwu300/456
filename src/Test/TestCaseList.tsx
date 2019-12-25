@@ -13,7 +13,7 @@ const TestCaseList: React.FC = () => {
   const { projectId } = match.params;
 
   const [testCases, setTestCases] = useState<ITestCase[]>([]);
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   
   useEffect(() => {
     // getProjectStories(projectId).then(res => setStories(res.body));

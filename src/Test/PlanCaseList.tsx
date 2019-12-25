@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ITestResult } from './interface';
 import useRouter from 'use-react-router';
 import { getDetailedTestPlan } from '../agent/testPlanAgent';
-import { Layout, PageHeader, Menu } from 'antd';
+import { Layout, PageHeader, Menu, Button } from 'antd';
 import TestCaseInfo from './TestCaseInfo';
 
 const PlanCaseList: React.FC = () => {
@@ -14,7 +14,7 @@ const PlanCaseList: React.FC = () => {
 
   const [results, setResults] = useState<ITestResult[]>([]);
   const [title, setTitle] = useState<string>();
-  const [selectedResult, setSelectedResult] = useState<ITestResult>();
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   useEffect(() => {
     getDetailedTestPlan(planId).then(res => {
@@ -30,8 +30,8 @@ const PlanCaseList: React.FC = () => {
           <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
             <Menu>
               {
-                results.map((result: ITestResult) => (
-                  <Menu.Item onClick={() => setSelectedResult(result)}>
+                results.map((result: ITestResult, index: number) => (
+                  <Menu.Item onClick={() => setSelectedIndex(index)}>
                     {result.testCase.title}
                   </Menu.Item>
                 ))
@@ -39,7 +39,13 @@ const PlanCaseList: React.FC = () => {
             </Menu>
           </Layout.Sider>
           <Layout.Content>
-            <TestCaseInfo testCase={selectedResult && selectedResult.testCase}/>
+            <TestCaseInfo testCase={selectedIndex >= 0 && selectedIndex < results.length ? results[selectedIndex].testCase : undefined}/>
+            {selectedIndex >= 0 && selectedIndex < results.length ? '测试结果：' + results[selectedIndex].result : undefined}
+            <Button.Group>
+              <Button type='danger'>失败</Button>
+              <Button>通过</Button>
+              <Button>通过并下一条</Button>
+            </Button.Group>
           </Layout.Content>
         </Layout>
     </Layout>
