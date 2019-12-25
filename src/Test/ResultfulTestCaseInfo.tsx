@@ -1,9 +1,9 @@
 import { ITestResult } from "./interface";
 import React from "react";
 import TestCaseInfo from "./TestCaseInfo";
-import { Row, Col } from "antd";
+import { Row, Col, Icon } from "antd";
 
-const ResultfulTestCaseInfo: React.FC<{testResult: ITestResult}> = ({testResult}) => {
+const ResultfulTestCaseInfo: React.FC<{ testResult: ITestResult }> = ({ testResult }) => {
   return (
     // <Descriptions title={testCase.title} bordered>
     //   <Descriptions.Item label='等级'>{testCase.level}</Descriptions.Item>
@@ -12,10 +12,24 @@ const ResultfulTestCaseInfo: React.FC<{testResult: ITestResult}> = ({testResult}
     //   <Descriptions.Item label='步骤' span={3}>{testCase.procedure}</Descriptions.Item>
     // </Descriptions>
     <>
-      <TestCaseInfo testCase={testResult.testCase}/>
+      <TestCaseInfo testCase={testResult.testCase} />
       <Row>
-        <Col span={4} style={{textAlign: 'right'}}>测试结果：</Col>
-        <Col>{testResult.result ? '通过' : testResult.result === null ? '无' : '失败'}</Col>
+        <Col span={4} style={{ textAlign: 'right' }}>测试结果：</Col>
+        <Col>
+          {
+            testResult.result ? <><Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" /> 通过</> : (
+              testResult.result === null ? (
+                <>
+                  <Icon type="question-circle" theme='twoTone' twoToneColor='#faad14' /> 无
+                </>
+              ) : (
+                <>
+                  <Icon type="close-circle" theme='twoTone' twoToneColor='#f5222d' /> 失败
+                </>
+              )
+            )
+          }
+        </Col>
       </Row>
     </>
   );
