@@ -1,5 +1,4 @@
 import { ITestCase } from "./interface";
-import { Descriptions } from "antd";
 import React from "react";
 import TestCaseForm from "./TestCaseForm";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, Modal, Form, Layout, Menu } from 'antd';
+import { Icon, Modal, Form, Layout, Menu, Empty, Button } from 'antd';
 import { ITestCase } from './interface';
 import useRouter from 'use-react-router';
 import { getTestCases, addTestCase, modifyTestCase, deleteTestCase } from '../agent/testCaseAgent';
@@ -79,29 +79,37 @@ const TestCaseList: React.FC = () => {
 
   return (
     <Layout style={{height: '100%'}}>
-      <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
-        <Menu>
-          {
-            testCases.map((c: ITestCase, index: number) => (
-              <Menu.Item onClick={() => setSelectedIndex(index)}>
-                <span>{c.title}</span>
-                <span style={{float: 'right'}}>
-                  <Icon type='edit' onClick={() => {
-                    modifyCase(c);
-                  }}/>
-                  <Icon type='delete' onClick={() => {
-                    deleteCase(c.id!);
-                  }}/>
-                </span>
-              </Menu.Item>
-            ))
-          }
-          {newCase ? <Menu.Item onClick={newCase}><Icon type='plus'/>新建用例</Menu.Item> : <></>}
-        </Menu>
-      </Layout.Sider>
-      <Layout.Content>
-        <TestCaseInfo testCase={selectedIndex >= 0 && selectedIndex < testCases.length ? testCases[selectedIndex] : undefined}/>
-      </Layout.Content>
+      {testCases.length > 0 ? (
+        <>
+          <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
+            <Menu>
+              {
+                testCases.map((c: ITestCase, index: number) => (
+                  <Menu.Item onClick={() => setSelectedIndex(index)}>
+                    <span>{c.title}</span>
+                    <span style={{float: 'right'}}>
+                      <Icon type='edit' onClick={() => {
+                        modifyCase(c);
+                      }}/>
+                      <Icon type='delete' onClick={() => {
+                        deleteCase(c.id!);
+                      }}/>
+                    </span>
+                  </Menu.Item>
+                ))
+              }
+              {newCase ? <Menu.Item onClick={newCase}><Icon type='plus'/>新建用例</Menu.Item> : <></>}
+            </Menu>
+          </Layout.Sider>
+          <Layout.Content>
+            <TestCaseInfo testCase={testCases[selectedIndex]}/>
+          </Layout.Content>
+        </>
+      ) : (
+        <Empty>
+          <Button onClick={newCase}>新建用例</Button>
+        </Empty>
+      )}
     </Layout>
   );
 }

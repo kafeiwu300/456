@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ITestResult } from './interface';
 import useRouter from 'use-react-router';
 import { getDetailedTestPlan } from '../agent/testPlanAgent';
-import { Layout, PageHeader, Menu, Button } from 'antd';
+import { Layout, PageHeader, Menu, Button, Empty } from 'antd';
 import TestCaseInfo from './TestCaseInfo';
 
 const PlanCaseList: React.FC = () => {
@@ -27,26 +27,30 @@ const PlanCaseList: React.FC = () => {
     <Layout>
       <PageHeader title={title} onBack={history.goBack}/>
         <Layout style={{height: '100%', margin: '0 24px'}}>
-          <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
-            <Menu>
-              {
-                results.map((result: ITestResult, index: number) => (
-                  <Menu.Item onClick={() => setSelectedIndex(index)}>
-                    {result.testCase.title}
-                  </Menu.Item>
-                ))
-              }
-            </Menu>
-          </Layout.Sider>
-          <Layout.Content>
-            <TestCaseInfo testCase={selectedIndex >= 0 && selectedIndex < results.length ? results[selectedIndex].testCase : undefined}/>
-            {selectedIndex >= 0 && selectedIndex < results.length ? '测试结果：' + results[selectedIndex].result : undefined}
-            <Button.Group>
-              <Button type='danger'>失败</Button>
-              <Button>通过</Button>
-              <Button>通过并下一条</Button>
-            </Button.Group>
-          </Layout.Content>
+          {results.length > 0 ? (
+            <>
+              <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
+                <Menu>
+                  {
+                    results.map((result: ITestResult, index: number) => (
+                      <Menu.Item onClick={() => setSelectedIndex(index)}>
+                        {result.testCase.title}
+                      </Menu.Item>
+                    ))
+                  }
+                </Menu>
+              </Layout.Sider>
+              <Layout.Content>
+                <TestCaseInfo testCase={results[selectedIndex].testCase}/>
+                {selectedIndex >= 0 && selectedIndex < results.length ? '测试结果：' + results[selectedIndex].result : undefined}
+                <Button.Group>
+                  <Button type='danger'>失败</Button>
+                  <Button>通过</Button>
+                  <Button>通过并下一条</Button>
+                </Button.Group>
+              </Layout.Content>
+            </>
+          ) : <Empty/>}
         </Layout>
     </Layout>
   );
