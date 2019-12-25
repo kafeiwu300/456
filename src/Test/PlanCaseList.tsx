@@ -1,78 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, Modal, Form } from 'antd';
-import { ITestCase } from './interface';
+import { ITestCase, ITestResult } from './interface';
 import useRouter from 'use-react-router';
-import { getTestCases, addTestCase, modifyTestCase, deleteTestCase } from '../agent/testCaseAgent';
-import TestCaseForm from './TestCaseForm';
+import { getDetailedTestPlan } from '../agent/testPlanAgent';
 import VisibleTestCaseList from './VisibleTestCaseList';
+import { Layout, PageHeader } from 'antd';
 
-const TestCaseList: React.FC = () => {
-  const { match } = useRouter<{
-    projectId: string
+const PlanCaseList: React.FC = () => {
+  const { history, match } = useRouter<{
+    projectId: string;
+    planId: string;
   }>();
-  const { projectId } = match.params;
+  const { projectId, planId } = match.params;
 
   const [testCases, setTestCases] = useState<ITestCase[]>([]);
-  
+  const [title, setTitle] = useState<string>();
+
   useEffect(() => {
     // getProjectStories(projectId).then(res => setStories(res.body));
-    getTestCases(projectId).then(res => setTestCases(res.body));
+    // getTestCases(projectId).then(res => setTestCases(res.body));
+    getDetailedTestPlan(planId).then(res => {
+      setTitle(res.body.title);
+      setTestCases(res.body.testResultList.map((result: ITestResult) => result.testCase))
+    });
   }, [projectId]);
-
-  let testCaseForm: Form;
-
-  const newCase = () => {
-    Modal.confirm({
-      title: '添加测试用例',
-      okText: '保存',
-      cancelText: '取消',
-      icon: <Icon type="plus-circle"/>,
-      width: 600,
-      content: <TestCaseForm wrappedComponentRef={(form: Form) => testCaseForm = form}/>,
-      centered: true,
-      onOk: () => {
-        (async () => {
-          await addTestCase(projectId, testCaseForm.props.form!.getFieldsValue());
-          await getTestCases(projectId).then(res => setTestCases(res.body));
-        })()
-      }
-    });
-  }
-
-  const modifyCase = (testCase: ITestCase) => {
-    Modal.confirm({
-      title: '修改测试用例',
-      okText: '保存',
-      cancelText: '取消',
-      icon: <Icon type="plus-circle"/>,
-      width: 600,
-      content: <TestCaseForm wrappedComponentRef={(form: Form) => testCaseForm = form} initialValue={testCase}/>,
-      centered: true,
-      onOk: () => {
-        (async () => {
-          await modifyTestCase(projectId, {...testCase, ...testCaseForm.props.form!.getFieldsValue()});
-          await getTestCases(projectId).then(res => setTestCases(res.body));
-        })()
-      }
-    });
-  }
-
-  const deleteCase = (caseId: string) => {
-    Modal.confirm({
-      title: "删除测试用例",
-      content: "确定要删除这个测试用例吗？",
-      okText: "确定",
-      cancelText: "取消",
-      width: 600,
-      icon: <Icon type="delete" />,
-      onOk: () => {
-        (async () => {
-          await deleteTestCase(caseId);
-          await getTestCases(projectId).then(res => setTestCases(res.body));
-        })();
-      }
-    });
-  }
 
   //TODO: 等待antdesign更新
 
@@ -127,8 +77,13 @@ const TestCaseList: React.FC = () => {
     //     <TestCaseInfo testCase={selectedCase}/>
     //   </Layout.Content>
     // </Layout>
-    <VisibleTestCaseList testCases={testCases} newCase={newCase} modifyCase={modifyCase} deleteCase={deleteCase}/>
+    <Layout>
+      <PageHeader title={title} onBack={history.goBack}/>
+      <div style={{margin: '0 24px'}}>
+        <VisibleTestCaseList testCases={testCases}/>
+      </div>
+    </Layout>
   );
 }
 
-export default TestCaseList;
+export default PlanCaseList;

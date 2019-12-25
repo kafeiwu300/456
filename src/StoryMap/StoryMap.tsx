@@ -100,7 +100,6 @@ const StoryMap: React.FC<{
 
   return (
     <Layout>
-      <PageHeader title='故事地图'/>
       <Layout.Content style={{overflowX: 'scroll'}}>
         <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
           <Col style={{flex: '0 0 260px', width: 260}}><div style={headerStyle}>Iteration</div></Col>

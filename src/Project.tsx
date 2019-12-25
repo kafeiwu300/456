@@ -19,6 +19,7 @@ import LayoutRoute from './LayoutRoute';
 import { getProject } from './agent/projectAgent';
 import { IProject } from './interfaces';
 import ProjectContext from './common/contexts/ProjectContext';
+import PlanCaseList from './Test/PlanCaseList';
 
 const Project: React.FC = () => {
   const { match } = useRouter<{
@@ -91,7 +92,7 @@ const Project: React.FC = () => {
           <ProjectContext.Provider value={project}>
             <DndProvider backend={HTML5Backend}>
               <Switch>
-                <Route title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
+                <LayoutRoute title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
                 <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
                 <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
                 <LayoutRoute title='项目日志' exact path={`${match.path}/log`} component={Log}/>
@@ -100,6 +101,7 @@ const Project: React.FC = () => {
                 <LayoutRoute title='燃尽图' exact path={`${match.path}/burn-down`} component={BurnDown}/>
                 <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
                 <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>
+                <Route exact path={`${match.path}/test-plan/:planId`} component={PlanCaseList}/>
               </Switch>
             </DndProvider>
           </ProjectContext.Provider>
