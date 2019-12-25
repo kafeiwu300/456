@@ -39,7 +39,7 @@ export interface ITestPlan {
 
 export interface ITestResult {
   id: string;
-  result: string;
+  result: boolean;
   note: string;
   testCase: ITestCase;
 }

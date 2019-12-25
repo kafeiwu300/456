@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ITestResult } from './interface';
 import useRouter from 'use-react-router';
 import { getDetailedTestPlan, setTestResult } from '../agent/testPlanAgent';
-import { Layout, PageHeader, Menu, Button, Empty, Row, Col } from 'antd';
+import { Layout, PageHeader, Menu, Button, Empty, Row, Col, Icon } from 'antd';
 import ResultfulTestCaseInfo from './ResultfulTestCaseInfo';
 
 const PlanCaseList: React.FC = () => {
@@ -44,6 +44,9 @@ const PlanCaseList: React.FC = () => {
                   {
                     results.map((result: ITestResult, index: number) => (
                       <Menu.Item onClick={() => setSelectedIndex(index)} key={index.toString()}>
+                        {result.result === false ? <Icon type="close-circle" theme='twoTone' twoToneColor='#f5222d' /> : (
+                          result.result === true ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" /> : <></>
+                        )} 
                         {result.testCase.title}
                       </Menu.Item>
                     ))
