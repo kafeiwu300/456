@@ -10,7 +10,7 @@ const TestCaseInfo: React.FC<{testCase: ITestCase}> = ({testCase}) => {
     //   <Descriptions.Item label='前置条件' span={3}>{testCase.precondition}</Descriptions.Item>
     //   <Descriptions.Item label='步骤' span={3}>{testCase.procedure}</Descriptions.Item>
     // </Descriptions>
-    <TestCaseForm initialValue={testCase}/>
+    <TestCaseForm initialValue={testCase} stories={[]}/>
   );
 };
 

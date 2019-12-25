@@ -5,6 +5,8 @@ import useRouter from 'use-react-router';
 import { getTestCases, addTestCase, modifyTestCase, deleteTestCase } from '../agent/testCaseAgent';
 import TestCaseForm from './TestCaseForm';
 import TestCaseInfo from './TestCaseInfo';
+import { IStoryInfo } from '../Kanban/interfaces';
+import { getProjectStories } from '../agent/storyAgent';
 
 const TestCaseList: React.FC = () => {
   const { match } = useRouter<{
@@ -14,10 +16,12 @@ const TestCaseList: React.FC = () => {
 
   const [testCases, setTestCases] = useState<ITestCase[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [stories, setStories] = useState<IStoryInfo[]>([]);
   
   useEffect(() => {
     // getProjectStories(projectId).then(res => setStories(res.body));
     getTestCases(projectId).then(res => setTestCases(res.body));
+    getProjectStories(projectId).then(res => setStories(res.body));
   }, [projectId]);
 
   let testCaseForm: Form;
@@ -29,7 +33,7 @@ const TestCaseList: React.FC = () => {
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <TestCaseForm wrappedComponentRef={(form: Form) => testCaseForm = form}/>,
+      content: <TestCaseForm wrappedComponentRef={(form: Form) => testCaseForm = form} stories={stories}/>,
       centered: true,
       onOk: () => {
         (async () => {
@@ -47,7 +51,7 @@ const TestCaseList: React.FC = () => {
       cancelText: '取消',
       icon: <Icon type="plus-circle"/>,
       width: 600,
-      content: <TestCaseForm wrappedComponentRef={(form: Form) => testCaseForm = form} initialValue={testCase}/>,
+      content: <TestCaseForm wrappedComponentRef={(form: Form) => testCaseForm = form} initialValue={testCase} stories={stories}/>,
       centered: true,
       onOk: () => {
         (async () => {
@@ -101,7 +105,7 @@ const TestCaseList: React.FC = () => {
               {newCase ? <Menu.Item onClick={newCase}><Icon type='plus'/>新建用例</Menu.Item> : <></>}
             </Menu>
           </Layout.Sider>
-          <Layout.Content>
+          <Layout.Content style={{height: '100%', overflow: 'auto'}}>
             <TestCaseInfo testCase={testCases[selectedIndex]}/>
           </Layout.Content>
         </>

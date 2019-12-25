@@ -23,7 +23,8 @@ export interface ITestPlanFormComponentProps extends FormComponentProps<ITestPla
 }
 
 export interface ITestCaseFormComponentProps extends FormComponentProps<ITestCase> {
-  initialValue?: ITestCase; 
+  initialValue?: ITestCase;
+  stories: IStoryInfo[];
 }
 
 export interface ITestPlanDTO {

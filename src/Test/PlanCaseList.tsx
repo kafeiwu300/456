@@ -36,41 +36,41 @@ const PlanCaseList: React.FC = () => {
   return (
     <Layout style={{height: '100%'}}>
       <PageHeader title={title} onBack={history.goBack}/>
-        <Layout style={{height: '100%', margin: '0 24px'}}>
-          {results.length > 0 ? (
-            <>
-              <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
-                <Menu selectedKeys={[selectedIndex.toString()]}>
-                  {
-                    results.map((result: ITestResult, index: number) => (
-                      <Menu.Item onClick={() => setSelectedIndex(index)} key={index.toString()}>
-                        {result.result === false ? <Icon type="close-circle" theme='twoTone' twoToneColor='#f5222d' /> : (
-                          result.result === true ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" /> : <></>
-                        )} 
-                        {result.testCase.title}
-                      </Menu.Item>
-                    ))
-                  }
-                </Menu>
-              </Layout.Sider>
-              <Layout.Content style={{height: '100%'}}>
-                <ResultfulTestCaseInfo testResult={results[selectedIndex]}/>
-                <Row>
-                  <Col span={20} style={{textAlign: 'right'}}>
-                    <Button.Group>
-                      <Button type='danger' onClick={() => {setCaseResult(results[selectedIndex].id, false)}}>失败</Button>
-                      <Button onClick={() => {setCaseResult(results[selectedIndex].id, true)}}>通过</Button>
-                      <Button onClick={() => {
-                        setCaseResult(results[selectedIndex].id, true)
-                        setSelectedIndex(selectedIndex + 1);
-                      }} disabled={selectedIndex === results.length - 1}>通过并下一条</Button>
-                    </Button.Group>
-                  </Col>
-                </Row>
-              </Layout.Content>
-            </>
-          ) : <Empty/>}
-        </Layout>
+      <Layout style={{height: '100%', margin: '0 24px'}}>
+        {results.length > 0 ? (
+          <>
+            <Layout.Sider theme='light' style={{height: '100%'}}>
+              <Menu selectedKeys={[selectedIndex.toString()]}>
+                {
+                  results.map((result: ITestResult, index: number) => (
+                    <Menu.Item onClick={() => setSelectedIndex(index)} key={index.toString()}>
+                      {result.result === false ? <Icon type="close-circle" theme='twoTone' twoToneColor='#f5222d' /> : (
+                        result.result === true ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" /> : <></>
+                      )} 
+                      {result.testCase.title}
+                    </Menu.Item>
+                  ))
+                }
+              </Menu>
+            </Layout.Sider>
+            <Layout.Content style={{height: '100%'}}>
+              <ResultfulTestCaseInfo testResult={results[selectedIndex]}/>
+              <Row>
+                <Col span={20} style={{textAlign: 'right'}}>
+                  <Button.Group>
+                    <Button type='danger' onClick={() => {setCaseResult(results[selectedIndex].id, false)}}>失败</Button>
+                    <Button onClick={() => {setCaseResult(results[selectedIndex].id, true)}}>通过</Button>
+                    <Button onClick={() => {
+                      setCaseResult(results[selectedIndex].id, true)
+                      setSelectedIndex(selectedIndex + 1);
+                    }} disabled={selectedIndex === results.length - 1}>通过并下一条</Button>
+                  </Button.Group>
+                </Col>
+              </Row>
+            </Layout.Content>
+          </>
+        ) : <Empty/>}
+      </Layout>
     </Layout>
   );
 }

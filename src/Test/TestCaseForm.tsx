@@ -2,6 +2,7 @@ import { Form, Row, Col, Input, Select } from 'antd';
 import { FormCreateOption } from 'antd/lib/form/Form';
 import React from 'react';
 import { ITestCaseFormComponentProps } from './interface';
+import { IStoryInfo } from '../Kanban/interfaces';
 
 class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
   render () {
@@ -67,6 +68,23 @@ class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
             <Form.Item label='前置条件' labelCol={{span: 4}} wrapperCol={{span: 16}}>
               {
                 this.props.form.getFieldDecorator('precondition', {})(<Input.TextArea rows={5}/>)
+              }
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <Form.Item label='所属故事' labelCol={{span: 8}} wrapperCol={{span: 12}}>
+              {
+                this.props.form.getFieldDecorator('story', {})(
+                  <Select>
+                    {
+                      this.props.stories && this.props.stories.map((story: IStoryInfo) => (
+                        <Select.Option value={story.id!}>{story.title}</Select.Option>
+                      ))
+                    }
+                  </Select>
+                )
               }
             </Form.Item>
           </Col>
