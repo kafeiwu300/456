@@ -2,8 +2,8 @@ import { ITestCase } from "./interface";
 import React from "react";
 import TestCaseForm from "./TestCaseForm";
 
-const TestCaseInfo: React.FC<{testCase?: ITestCase}> = ({testCase}) => {
-  return testCase ? (
+const TestCaseInfo: React.FC<{testCase: ITestCase}> = ({testCase}) => {
+  return (
     // <Descriptions title={testCase.title} bordered>
     //   <Descriptions.Item label='等级'>{testCase.level}</Descriptions.Item>
     //   <Descriptions.Item label='预期结果'>{testCase.expectation}</Descriptions.Item>
@@ -11,7 +11,7 @@ const TestCaseInfo: React.FC<{testCase?: ITestCase}> = ({testCase}) => {
     //   <Descriptions.Item label='步骤' span={3}>{testCase.procedure}</Descriptions.Item>
     // </Descriptions>
     <TestCaseForm initialValue={testCase}/>
-  ) : <></>;
+  );
 };
 
 export default TestCaseInfo;

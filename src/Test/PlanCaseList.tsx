@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ITestResult } from './interface';
 import useRouter from 'use-react-router';
-import { getDetailedTestPlan } from '../agent/testPlanAgent';
-import { Layout, PageHeader, Menu, Button, Empty } from 'antd';
-import TestCaseInfo from './TestCaseInfo';
+import { getDetailedTestPlan, setTestResult } from '../agent/testPlanAgent';
+import { Layout, PageHeader, Menu, Button, Empty, Row, Col } from 'antd';
+import ResultfulTestCaseInfo from './ResultfulTestCaseInfo';
 
 const PlanCaseList: React.FC = () => {
   const { history, match } = useRouter<{
@@ -23,31 +23,47 @@ const PlanCaseList: React.FC = () => {
     });
   }, [projectId]);
 
+  const setCaseResult = (resultId: string, result?: boolean) => {
+    (async () => {
+      await setTestResult(resultId, result);
+      await getDetailedTestPlan(planId).then(res => {
+        setTitle(res.body.title);
+        setResults(res.body.testResultList);
+      });
+    })();
+  }
+
   return (
-    <Layout>
+    <Layout style={{height: '100%'}}>
       <PageHeader title={title} onBack={history.goBack}/>
         <Layout style={{height: '100%', margin: '0 24px'}}>
           {results.length > 0 ? (
             <>
               <Layout.Sider theme='light' style={{height: '100%', overflow: 'auto'}}>
-                <Menu>
+                <Menu selectedKeys={[selectedIndex.toString()]}>
                   {
                     results.map((result: ITestResult, index: number) => (
-                      <Menu.Item onClick={() => setSelectedIndex(index)}>
+                      <Menu.Item onClick={() => setSelectedIndex(index)} key={index.toString()}>
                         {result.testCase.title}
                       </Menu.Item>
                     ))
                   }
                 </Menu>
               </Layout.Sider>
-              <Layout.Content>
-                <TestCaseInfo testCase={results[selectedIndex].testCase}/>
-                {selectedIndex >= 0 && selectedIndex < results.length ? '测试结果：' + results[selectedIndex].result : undefined}
-                <Button.Group>
-                  <Button type='danger'>失败</Button>
-                  <Button>通过</Button>
-                  <Button>通过并下一条</Button>
-                </Button.Group>
+              <Layout.Content style={{height: '100%'}}>
+                <ResultfulTestCaseInfo testResult={results[selectedIndex]}/>
+                <Row>
+                  <Col span={20} style={{textAlign: 'right'}}>
+                    <Button.Group>
+                      <Button type='danger' onClick={() => {setCaseResult(results[selectedIndex].id, false)}}>失败</Button>
+                      <Button onClick={() => {setCaseResult(results[selectedIndex].id, true)}}>通过</Button>
+                      <Button onClick={() => {
+                        setCaseResult(results[selectedIndex].id, true)
+                        setSelectedIndex(selectedIndex + 1);
+                      }} disabled={selectedIndex === results.length - 1}>通过并下一条</Button>
+                    </Button.Group>
+                  </Col>
+                </Row>
               </Layout.Content>
             </>
           ) : <Empty/>}
