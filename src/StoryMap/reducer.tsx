@@ -84,7 +84,7 @@ const iterationReducer: Reducer<{
       break;
     case 'storyMap-modifyIteration':
       // state.iterations = state.iterations.map((iteration: IIteration) => action.iteration.id === iteration.id ? action.iteration : iteration);
-      modifyIteration(action.iteration).then(() => getStoryMapData(action.projectId));
+      modifyIteration(action.iteration, action.projectId).then(() => getStoryMapData(action.projectId));
       break;
   }
   return state;
