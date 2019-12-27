@@ -139,7 +139,7 @@ const BugCardContainer: React.FC<{
     } else {
       dispatchList(listState.pageNumber);
     }
-  }, [list.length]);
+  }, [list.length, listState.pageNumber]);
 
   // 显示当前页的list
   const showCurrentList = () => {

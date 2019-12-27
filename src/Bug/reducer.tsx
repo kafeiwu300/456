@@ -13,7 +13,6 @@ const getBugData = async (projectId: string) => {
 
 export const bugReducer: Reducer<IBug[], IBugAction> = (prevState, action) => {
   let state: IBug[] = prevState ? [...prevState] : [];
-  let bug: IBug | undefined;
   switch (action.type) {
     case "bug-setData":
       state = action.data!;

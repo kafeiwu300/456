@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Row, Col } from 'antd';
+import { Card, Row, Col, Layout } from 'antd';
 
 const Home: React.FC = () => {
   const projects = [
@@ -13,17 +13,19 @@ const Home: React.FC = () => {
   ]
 
   return (
-    <Row gutter={8}>
-      {
-        projects.map(((project: {id: number}) => (
-          <Col span={6}>
-            <Link to={`/project/${project.id}`}>
-              <Card title={project.id}/>
-            </Link>
-          </Col>
-        )))
-      }
-    </Row>
+    <Layout style={{margin: 24}}>
+      <Row gutter={8}>
+        {
+          projects.map(((project: {id: number}) => (
+            <Col span={6}>
+              <Link to={`/project/${project.id}`}>
+                <Card title={project.id}/>
+              </Link>
+            </Col>
+          )))
+        }
+      </Row>
+    </Layout>
   );
 }
 

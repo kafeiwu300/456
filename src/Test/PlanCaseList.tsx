@@ -21,7 +21,7 @@ const PlanCaseList: React.FC = () => {
       setTitle(res.body.title);
       setResults(res.body.testResultList);
     });
-  }, [projectId]);
+  }, [planId, projectId]);
 
   const setCaseResult = (resultId: string, result?: boolean) => {
     (async () => {

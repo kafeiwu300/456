@@ -1,5 +1,5 @@
 import { Form, Row, Col, Input, Select, InputNumber } from 'antd';
-import { FormCreateOption, FormComponentProps } from 'antd/lib/form/Form';
+import { FormCreateOption } from 'antd/lib/form/Form';
 import React from 'react';
 import { IStoryFormComponentProps } from '../Kanban/interfaces';
 import { StoryState } from '../enums';

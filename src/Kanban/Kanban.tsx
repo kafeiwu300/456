@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useContext } from 'react';
+import React, { CSSProperties, useContext } from 'react';
 import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { connect } from 'react-redux';

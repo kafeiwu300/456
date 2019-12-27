@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Button, Tag, Avatar, Descriptions, Modal, Icon } from 'antd';
+import { Collapse, Button, Avatar, Descriptions, Modal, Icon } from 'antd';
 import { IIterationInfo } from './interfaces';
 import IterationForm from './IterationForm';
 import { store } from '../store';
