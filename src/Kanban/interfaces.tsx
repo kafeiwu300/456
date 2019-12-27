@@ -22,7 +22,8 @@ export interface IStoryInfo {
   priority?: number,
   estimatedHours?: number,
   storyPoint?: number,
-  status?: string
+  status?: string,
+  isFinished?: boolean
 }
 
 export interface IStory extends IStoryInfo {

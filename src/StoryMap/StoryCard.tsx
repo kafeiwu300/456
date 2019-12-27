@@ -60,7 +60,8 @@ const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
           const s: IStoryInEpic = {
             id: story.id,
             epicId: story.epicId,
-            ...storyForm.props.form.getFieldsValue()
+            ...storyForm.props.form.getFieldsValue(),
+            isFinished: storyForm.props.form.getFieldsValue().status === project.storyStatusList[project.storyStatusList.length - 1]
           };
           store.dispatch({
             type: 'storyMap-modifyStory',

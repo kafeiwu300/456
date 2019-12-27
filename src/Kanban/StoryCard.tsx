@@ -45,7 +45,8 @@ const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: bo
         if (storyForm && storyForm.props) {
           const s: IStory = {
             id: story.id,
-            ...storyForm.props.form.getFieldsValue()
+            ...storyForm.props.form.getFieldsValue(),
+            isFinished: storyForm.props.form.getFieldsValue().status === project.storyStatusList[project.storyStatusList.length - 1]
           };
           store.dispatch({
             type: 'kanban-modifyStory',
