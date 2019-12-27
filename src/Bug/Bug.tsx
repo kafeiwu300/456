@@ -62,7 +62,7 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
               project.bugStatusList!.map((value: BugState, index: number) => (
                 <Col span={4}>
                   <BugCardContainer canAddBug={index === 0} bugs={bugs} status={value} />
-                </Col>    
+                </Col>
               ))
             }
             {/* <Col span={4}>

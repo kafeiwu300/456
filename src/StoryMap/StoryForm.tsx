@@ -3,6 +3,7 @@ import { FormCreateOption } from 'antd/lib/form/Form';
 import React from 'react';
 import { IStoryFormComponentProps } from '../Kanban/interfaces';
 import { StoryState } from '../enums';
+import { users } from '../common/consts';
 
 class StoryForm extends React.Component<IStoryFormComponentProps> {
   render () {
@@ -54,9 +55,9 @@ class StoryForm extends React.Component<IStoryFormComponentProps> {
               {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
-                    <Select.Option value='Lucy'>Lucy</Select.Option>
-                    <Select.Option value='Joe'>Joe</Select.Option>
-                    <Select.Option value='John'>John</Select.Option>
+                    {
+                      users.map((user: string) => <Select.Option value={user}>user</Select.Option>)
+                    }
                   </Select>
                 )
               }

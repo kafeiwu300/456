@@ -3,6 +3,7 @@ import { FormCreateOption } from 'antd/lib/form/Form';
 import { ITaskFormComponentProps } from './interfaces';
 import React from 'react';
 import { KanbanState } from '../enums';
+import { users } from '../common/consts';
 
 class TaskForm extends React.Component<ITaskFormComponentProps> {
   render () {
@@ -54,9 +55,9 @@ class TaskForm extends React.Component<ITaskFormComponentProps> {
               {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
-                    <Select.Option value='Lucy'>Lucy</Select.Option>
-                    <Select.Option value='Joe'>Joe</Select.Option>
-                    <Select.Option value='John'>John</Select.Option>
+                    {
+                      users.map((user: string) => <Select.Option value={user}>user</Select.Option>)
+                    }
                   </Select>
                 )
               }
