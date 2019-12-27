@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react';
-import { Row, Col, Icon, Modal, Layout, Affix } from 'antd';
+import { Row, Col, Icon, Modal, Layout } from 'antd';
 import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
 import StoryCardContainer from './StoryCardContainer';
 import { connect } from 'react-redux';
