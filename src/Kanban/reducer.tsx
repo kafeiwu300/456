@@ -1,8 +1,8 @@
 import { Reducer } from "redux";
-import { IStory, ITask, IStoryAction, ITaskAction, IKanbanAction } from "./interfaces";
+import { IStory, IStoryAction, ITaskAction, IKanbanAction } from "./interfaces";
 import { getStories, removeStory, modifyStory, addStory } from "../agent/storyAgent";
 import { store } from "../store";
-import { removeTask, modifyTask, moveTask, addTask } from "../agent/taskAgent";
+import { removeTask, modifyTask, addTask } from "../agent/taskAgent";
 
 const getKanbanData = async (iterationId: string) => {
   const stories = await getStories(iterationId).then(res => res.body);
@@ -20,7 +20,8 @@ const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
       // story = state.find((s: IStory) => s.id === action.story.id);
       // task = story!.taskList.find((t: ITask) => t.id === action.task.id);
       // task!.status = action.status;
-      moveTask(action.task.id!, action.status, action.isFinished).then(() => getKanbanData(action.iterationId));
+      modifyTask(action.task).then(() => getKanbanData(action.iterationId));
+      // moveTask(action.task.id!, action.status, action.isFinished).then(() => getKanbanData(action.iterationId));
       break;
     case 'kanban-addTask':
       // story = state.find((s: IStory) => s.id === action.story.id);

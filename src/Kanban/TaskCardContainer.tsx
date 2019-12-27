@@ -41,10 +41,8 @@ const TaskCardContainer: React.FC<{
       store.dispatch({
         type: 'kanban-moveTask',
         story,
-        task: {...item.task, finished},
-        status,
+        task: {...item.task, isFinished: finished, status},
         iterationId,
-        isFinished: finished
       })
     },
     collect: monitor => ({
