@@ -67,10 +67,10 @@ class TaskForm extends React.Component<ITaskFormComponentProps> {
               {
                 this.props.form.getFieldDecorator('priority', {})(
                   <Select>
-                    <Select.Option value='very high'>very high</Select.Option>
-                    <Select.Option value='high'>high</Select.Option>
-                    <Select.Option value='middle'>middle</Select.Option>
-                    <Select.Option value='low'>low</Select.Option>
+                    <Select.Option value='VeryHigh'>very high</Select.Option>
+                    <Select.Option value='High'>high</Select.Option>
+                    <Select.Option value='Middle'>middle</Select.Option>
+                    <Select.Option value='Low'>low</Select.Option>
                   </Select>
                 )
               }

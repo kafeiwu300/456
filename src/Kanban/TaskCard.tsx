@@ -33,13 +33,13 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
         if (taskForm && taskForm.props) {
           const t: ITask = {
             id: task.id,
-            ...taskForm.props.form.getFieldsValue()
+            ...taskForm.props.form.getFieldsValue(),
+            isFinished: taskForm.props.form.getFieldsValue().status === project.taskStatusList[project.taskStatusList.length - 1]
           };
           store.dispatch({
             type: 'kanban-modifyTask',
             story,
             task: t,
-            status: task.status,
             iterationId
           })
         }
