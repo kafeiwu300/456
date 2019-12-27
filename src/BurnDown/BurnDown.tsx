@@ -1,39 +1,61 @@
 import React from "react";
 import { Chart, Axis, Tooltip, Geom, View } from 'bizcharts';
+import { IIterationInfo } from "../StoryMap/interfaces";
+import moment from "moment";
 
-const BurnDown: React.FC = () => {
+const BurnDown: React.FC<{ iteration: IIterationInfo }> = ({ iteration }) => {
   const data = [
-    {date: 1, point: 30},
-    {date: 2, point: 28},
-    {date: 3, point: 24},
-    {date: 4, point: 19},
-    {date: 5, point: 15},
-    {date: 6, point: 10},
-    {date: 7, point: 3},
+    { date: moment('2019-11-18', 'YYYY-MM-DD').valueOf(), point: 33 },
+    { date: moment('2019-11-19', 'YYYY-MM-DD').valueOf(), point: 33 },
+    { date: moment('2019-11-20', 'YYYY-MM-DD').valueOf(), point: 28 },
+    { date: moment('2019-11-21', 'YYYY-MM-DD').valueOf(), point: 24 },
+    { date: moment('2019-11-22', 'YYYY-MM-DD').valueOf(), point: 19 },
+    { date: moment('2019-11-23', 'YYYY-MM-DD').valueOf(), point: 15 },
+    { date: moment('2019-11-24', 'YYYY-MM-DD').valueOf(), point: 10 },
+    { date: moment('2019-11-25', 'YYYY-MM-DD').valueOf(), point: 3 },
   ];
-  const calcPlan = (data: {point: number}[]) => {
-    const start = data[0].point;
-    return data.map((d: {point: number}, index: number) => ({...d, point: start * index / (1 - data.length) + start}));
-  }
+
+  const calcPlan = (start: number, end: number) => {
+    const length = moment(end).diff(moment(start), 'd');
+    const total = data[0].point;
+
+    const result = [];
+    for (let m = moment(data[0].date).isBefore(moment(start), 'd') ? moment(data[0].date) : moment(start); m.isSameOrBefore(end, 'd'); m.add(1, 'd')) {
+      const date = {
+        date: moment(m)
+      };
+      
+      result.push(date);
+    }
+    console.log(result);
+
+    // console.log(moment(start).format('YYYY-MM-DD'), moment(data[0].date).format('YYYY-MM-DD'));
+    return data.map(({ date, point }, index: number) => ({
+      date,
+      point,
+      planPoint: moment(date).isBefore(moment(start), 'd') ? total : (moment(date).isAfter(moment(end), 'd') ? 0 : total * (length - index + 1) / length)
+    }));
+  };
+
   const scale = {
-    date: {alias: 'date'},
-    point: {alias: 'point'},
+    date: { alias: '日期', type: 'time' },
+    point: { alias: '实际剩余工作量', min: 0 },
+    planPoint: { alias: '计划剩余工作量', min: 0 },
   };
 
   return (
     <Chart height={400} scale={scale} forceFit>
       <Tooltip crosshairs={{ type: 'rect' }} />
       <View data={data}>
-        <Axis title name="date" />
-        <Axis title name="point" />
-        <Geom type="line" position="date*point"/>  
+        <Axis name="date" />
+        <Axis name="point" />
+        <Geom type="line" position="date*point" />
       </View>
-      <View data={calcPlan(data)}>
-        <Axis title name="date" />
-        <Axis title name="point" />
+      <View data={calcPlan(iteration.startTime!, iteration.endTime!)}>
+        <Axis name="planPoint" />
         <Geom type="line" style={{
-          lineDash: [4, 4]
-        }} position="date*point"/>  
+          lineDash: [4, 4],
+        }} color='#54cb72' position="date*planPoint" />
       </View>
     </Chart>
   );

@@ -8,7 +8,7 @@ import useRouter from "use-react-router";
 import BurnDown from "../BurnDown/BurnDown";
 import { store } from "../store";
 
-const Iteration: React.FC<{iteration?: IIterationInfo}> = ({iteration}) => {
+const Iteration: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
   const [content, setContent] = useState<string>('kanban');
   
   const { match, history } = useRouter<{
@@ -35,14 +35,16 @@ const Iteration: React.FC<{iteration?: IIterationInfo}> = ({iteration}) => {
       }/>
       <Layout style={{height: '100%'}}>
         <Layout.Content style={{margin: '0 24px', overflow: 'auto'}}>
-          {content === 'kanban' ? <Kanban/> : <BurnDown/>}
+          {content === 'kanban' ? <Kanban/> : <BurnDown iteration={iteration}/>}
         </Layout.Content>
       </Layout>
     </Layout>
   );
 };
 
-const I = connect((state: IState, ownProps: {iterationId: string}) => ({iteration: state.storyMapData.iterations.find((iteration: IIterationInfo) => iteration.id === ownProps.iterationId)}))(Iteration);
+const I = connect(
+  (state: IState, ownProps: {iterationId: string}) => ({iteration: state.storyMapData.iterations.find((iteration: IIterationInfo) => iteration.id === ownProps.iterationId)!})
+)(Iteration);
 
 const A: React.FC = () => {
   const { match } = useRouter<{
