@@ -79,7 +79,7 @@ class BugForm extends React.Component<IBugFormComponentProps> {
               )(
                 <Select>
                   {
-                    users.map((user: string) => <Select.Option value={user}>user</Select.Option>)
+                    users.map((user: string) => <Select.Option value={user}>{user}</Select.Option>)
                   }
                 </Select>
               )}

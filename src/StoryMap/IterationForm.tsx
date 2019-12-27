@@ -3,6 +3,7 @@ import { FormComponentProps, FormCreateOption } from 'antd/lib/form';
 import { Form, Row, Col, Input, Select, DatePicker } from 'antd';
 import { IIterationFormComponentProps } from './interfaces';
 import moment from 'moment';
+import { users } from '../common/consts';
 
 class IterationForm extends React.Component<FormComponentProps> {
   render () {
@@ -53,9 +54,9 @@ class IterationForm extends React.Component<FormComponentProps> {
               {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
-                    <Select.Option value='Lucy'>Lucy</Select.Option>
-                    <Select.Option value='Joe'>Joe</Select.Option>
-                    <Select.Option value='John'>John</Select.Option>
+                    {
+                      users.map((user: string) => <Select.Option value={user}>{user}</Select.Option>)
+                    }
                   </Select>
                 )
               }

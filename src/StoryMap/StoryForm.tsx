@@ -56,7 +56,7 @@ class StoryForm extends React.Component<IStoryFormComponentProps> {
                 this.props.form.getFieldDecorator('leader', {})(
                   <Select>
                     {
-                      users.map((user: string) => <Select.Option value={user}>user</Select.Option>)
+                      users.map((user: string) => <Select.Option value={user}>{user}</Select.Option>)
                     }
                   </Select>
                 )
