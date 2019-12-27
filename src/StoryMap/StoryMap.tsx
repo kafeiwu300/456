@@ -98,9 +98,11 @@ const StoryMap: React.FC<{
   }>();
   const { projectId } = match.params;
 
+  //TODO: 修复未规划故事的展示效果
+  
   return (
-    <Layout>
-      <Layout.Content>
+    <Layout style={{height: '100%'}}>
+      <Layout.Content style={{height: '100%'}}>
         <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
           <Col style={{flex: '0 0 260px', width: 260}}><div style={headerStyle}>Iteration</div></Col>
           {
@@ -132,12 +134,12 @@ const StoryMap: React.FC<{
           </Col>
         </Row>
       </Layout.Content>
-      <Affix offsetBottom={1}>
+      <Layout.Footer style={{padding: '0 50px'}}>
         <div style={{textAlign: 'center'}}>
           <Row style={{margin: 'auto', display: 'inline-block', marginTop: -30, lineHeight: '30px', textAlign: 'center', width: 120, height: 0, borderRadius: '4px 4px 0 0', borderBottom: '30px solid rgb(135, 208, 104)', cursor: 'pointer'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
           <UnplannedStoryCardContainer visible={showUnplanned} unplannedStories={unplannedStories}/>
         </div>
-      </Affix>
+      </Layout.Footer>
     </Layout>
   )
 }
