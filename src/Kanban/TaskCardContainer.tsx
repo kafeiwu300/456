@@ -41,9 +41,10 @@ const TaskCardContainer: React.FC<{
       store.dispatch({
         type: 'kanban-moveTask',
         story,
-        task: item.task,
+        task: {...item.task, finished},
         status,
-        iterationId
+        iterationId,
+        isFinished: finished
       })
     },
     collect: monitor => ({
@@ -79,7 +80,6 @@ const TaskCardContainer: React.FC<{
             task: {
               ...taskForm.props.task,
               ...taskForm.props.form.getFieldsValue(),
-              isFinished: finished,
               story: story.id ? {id: story.id} : null,
               status,
               project: projectId ? {id: projectId} : null

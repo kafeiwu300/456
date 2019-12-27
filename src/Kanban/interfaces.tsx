@@ -47,7 +47,8 @@ export interface IStoryAction extends IKanbanAction {
 export interface ITaskAction extends IKanbanAction {
   task: ITask,
   story: IStoryInfo,
-  status?: KanbanState
+  status: KanbanState,
+  isFinished: boolean
 }
 
 export interface ITaskFormComponentProps extends FormComponentProps<ITask> {

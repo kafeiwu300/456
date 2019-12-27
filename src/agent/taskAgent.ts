@@ -10,11 +10,12 @@ export function modifyTask(task: ITask) {
   return agent.put(`${BASE_URL}/tasks/${task.id}`).send(task);
 }
 
-export function moveTask(taskId: string, status?: string, storyId?: string) {
+export function moveTask(taskId: string, status: string, isFinished: boolean, storyId?: string) {
   return agent.put(`${BASE_URL}/tasks/${taskId}`).send({
     id: taskId,
     story: storyId ? { id: storyId } : null,
     status,
+    isFinished
   });
 }
 

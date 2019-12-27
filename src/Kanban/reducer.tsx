@@ -20,7 +20,7 @@ const taskReducer: Reducer<IStory[], ITaskAction> = (prevState, action) => {
       // story = state.find((s: IStory) => s.id === action.story.id);
       // task = story!.taskList.find((t: ITask) => t.id === action.task.id);
       // task!.status = action.status;
-      moveTask(action.task.id!, action.status).then(() => getKanbanData(action.iterationId));
+      moveTask(action.task.id!, action.status, action.isFinished).then(() => getKanbanData(action.iterationId));
       break;
     case 'kanban-addTask':
       // story = state.find((s: IStory) => s.id === action.story.id);
