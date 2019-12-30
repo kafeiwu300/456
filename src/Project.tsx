@@ -60,6 +60,9 @@ const Project: React.FC = () => {
       <Layout.Sider theme='light' breakpoint='lg' collapsedWidth="0" style={{zIndex: 1}}>
         <Menu mode='inline'>
           <Menu.Item>
+            <Link to={`/project/${projectId}`}>项目日志</Link>
+          </Menu.Item>
+          <Menu.Item>
             <Link to={`/project/${projectId}/story-map`}>故事地图</Link>
           </Menu.Item>
           <Menu.Item>
@@ -102,6 +105,7 @@ const Project: React.FC = () => {
                 <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
                 <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>
                 <Route exact path={`${match.path}/test-plan/:planId`} component={PlanCaseList}/>
+                <LayoutRoute title='项目日志' path={`${match.path}`} component={Log}/>
               </Switch>
             </DndProvider>
           </ProjectContext.Provider>
