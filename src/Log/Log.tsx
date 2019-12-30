@@ -1,4 +1,4 @@
-import { Timeline, List, Typography } from "antd";
+import { Timeline, List, Typography, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import useRouter from "use-react-router";
 import { getActivities } from "../agent/activityAgent";
@@ -53,14 +53,13 @@ const L: React.FC = () => {
   }>();
   const { projectId } = match.params;
 
-  const [dateActivities, setDateActivities] = useState<
-    { date: number; activities: IActivity[] }[]
-  >([]);
+  const [activities, setActivities] = useState<IActivity[]>([]);
+  const [isLast, setIsLast] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(0);
 
-  useEffect(() => {
-    getActivities(projectId, {}, {}).then(res => {
-      const activities: IActivity[] = res.body.content;
-      const dates = activities.reduce(
+  const getDateActivities = () => {
+    const dates = activities
+      .reduce(
         (d: number[], activity: IActivity) =>
           d.includes(
             moment(activity.createTime)
@@ -75,25 +74,39 @@ const L: React.FC = () => {
                 ...d
               ],
         []
-      );
-      setDateActivities(
-        dates.reduce(
-          (d: { date: number; activities: IActivity[] }[], date: number) => [
-            ...d,
-            {
-              date,
-              activities: activities.filter((activity: IActivity) =>
-                moment(activity.createTime).isSame(moment(date), "d")
-              )
-            }
-          ],
-          []
-        )
-      );
-    });
-  }, [dateActivities, projectId]);
+      )
+      .sort((a: number, b: number) => b - a);
+    return dates.map((date: number) => ({
+      date,
+      activities: activities.filter((activity: IActivity) =>
+        moment(activity.createTime).isSame(moment(date), "d")
+      )
+    }));
+  };
 
-  return <Log dateActivities={dateActivities} />;
+  useEffect(() => {
+    setPage(0);
+  }, [projectId]);
+
+  useEffect(() => {
+    getActivities(projectId, { page }, {}).then(res => {
+      setIsLast(res.body.last);
+      setActivities(activities => [...activities, ...res.body.content]);
+    });
+  }, [page, projectId]);
+
+  return (
+    <>
+      <Log dateActivities={getDateActivities()} />
+      {activities.length === 0 ? (
+        <></>
+      ) : isLast ? (
+        "没有更多内容了"
+      ) : (
+        <Button onClick={() => setPage(page + 1)}>loading more</Button>
+      )}
+    </>
+  );
 };
 
 export default L;
