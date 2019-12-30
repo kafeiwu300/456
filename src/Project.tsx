@@ -105,7 +105,7 @@ const Project: React.FC = () => {
                 <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
                 <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>
                 <Route exact path={`${match.path}/test-plan/:planId`} component={PlanCaseList}/>
-                <LayoutRoute title='项目日志' path={`${match.path}`} component={Log}/>
+                <Route title='项目日志' path={`${match.path}`} component={Log}/>
               </Switch>
             </DndProvider>
           </ProjectContext.Provider>
