@@ -8,6 +8,34 @@ import moment from "moment";
 const Log: React.FC<{
   dateActivities: { date: number; activities: IActivity[] }[];
 }> = ({ dateActivities }) => {
+  const actionType = (type: string) => {
+    switch (type) {
+      case "CREATE":
+        return "创建";
+      case "MODIFY":
+        return "修改";
+      case "DELETE":
+        return "删除";
+      default:
+        return "";
+    }
+  };
+
+  const objectType = (type: string) => {
+    switch (type) {
+      case "iteration":
+        return "迭代";
+      case "story":
+        return "故事";
+      case "task":
+        return "任务";
+      case "bug":
+        return "缺陷";
+      default:
+        return "";
+    }
+  };
+
   return (
     <List
       dataSource={dateActivities}
@@ -27,13 +55,9 @@ const Log: React.FC<{
                       " 于 " +
                       moment(activity.createTime).format("HH:mm:ss") +
                       " " +
-                      (activity.action === "CREATE"
-                        ? "创建"
-                        : activity.action === "MODIFY"
-                        ? "修改"
-                        : "删除") +
+                      actionType(activity.action) +
                       " " +
-                      activity.foreignType +
+                      objectType(activity.foreignType) +
                       " " +
                       activity.foreignTitle}
                   </Timeline.Item>
