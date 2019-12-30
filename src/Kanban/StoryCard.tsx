@@ -79,7 +79,7 @@ const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: bo
         }>
           {story.priority ? <Tag color='#fa8c16' title="优先级">{story.priority}</Tag> : <></>}
           {story.status ? <Tag color='#2db7f5' title="状态">{story.status}</Tag> : <></>}
-          {story.leader ? <span title={story.leader}><Avatar shape="square" icon="user"/></span> : <></>}
+          {story.leader ? <span title={story.leader}><Avatar shape="square">{story.leader[story.leader.length - 1]}</Avatar></span> : <></>}
           {story.storyPoint ? <Badge title="故事点" count={story.storyPoint} style={{backgroundColor: '#bfbfbf'}} offset={story.leader ? [8, 0] : [0, 0]}/> : <></>}
           <Descriptions size='small' colon={false}>
             <Descriptions.Item label='' span={4}>{story.description}</Descriptions.Item>

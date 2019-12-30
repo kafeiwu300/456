@@ -90,7 +90,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
           </>
         }>
           {task.priority ? <Tag color='#fa8c16' title="优先级">{task.priority}</Tag> : <></>}
-          {task.leader ? <span title={task.leader}><Avatar shape="square" icon="user"/></span> : <></>}
+          {task.leader ? <span title={task.leader}><Avatar shape="square">{task.leader[task.leader.length - 1]}</Avatar></span> : <></>}
           {task.taskPoint ? <Badge count={task.taskPoint} title="任务点" style={{backgroundColor: '#bfbfbf'}} offset={task.leader ? [8, 0] : [0, 0]}/> : <></>}
           <Descriptions size='small' colon={false}>
             <Descriptions.Item label='' span={4}>{task.description}</Descriptions.Item>

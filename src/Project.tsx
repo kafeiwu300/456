@@ -92,7 +92,7 @@ const Project: React.FC = () => {
           <ProjectContext.Provider value={project}>
             <DndProvider backend={HTML5Backend}>
               <Switch>
-                <LayoutRoute title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
+                <Route title='故事地图' exact path={`${match.path}/story-map`} component={StoryMap}/>
                 <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
                 <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
                 <LayoutRoute title='项目日志' exact path={`${match.path}/log`} component={Log}/>

@@ -7,7 +7,7 @@ import { store } from "../store";
 import { useDrop } from "react-dnd";
 import ProjectContext from "../common/contexts/ProjectContext";
 
-const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[], visible: boolean}> = ({unplannedStories, visible = true}) => {
+const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[]}> = ({unplannedStories}) => {
   const project = useContext(ProjectContext);
   
   let storyForm: any = undefined;
@@ -63,22 +63,20 @@ const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[], v
   }
   
   return (
-    visible ? (
-      <div ref={drop}>
-        <Row style={{borderTop: '4px #87d068 solid', minHeight: '50px', backgroundColor: 'white'}}>
-          {
-            unplannedStories.map((story: IStoryInEpic) => (
-              <Col span={4} style={{padding: '0 4px'}}>
-                <StoryCard story={story}/>
-              </Col>
-            ))
-          }
-          <Col span={4} style={{padding: '0 4px'}}>
-            <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
-          </Col>
-        </Row>
-      </div>
-    ) : <></>
+    <div ref={drop}>
+      <Row>
+        {
+          unplannedStories.map((story: IStoryInEpic) => (
+            <Col span={4} style={{padding: '0 4px'}}>
+              <StoryCard story={story}/>
+            </Col>
+          ))
+        }
+        <Col span={4} style={{padding: '0 4px'}}>
+          <div style={addUnplannedStoryStyle} onClick={addUnplannedStory}><Icon type="plus"/>添加故事</div>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

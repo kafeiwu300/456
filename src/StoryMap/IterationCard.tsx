@@ -74,7 +74,7 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
             <Button onClick={removeIteration} size='small' icon='delete' ghost={ghost} style={{border: 'none', backgroundColor: 'transparent'}}/>
           </>
         }>
-          {iteration.leader ? <span title={iteration.leader}><Avatar shape="square" icon="user"/></span> : <></>}
+          {iteration.leader ? <span title={iteration.leader}><Avatar shape="square">{iteration.leader[iteration.leader.length - 1]}</Avatar></span> : <></>}
           <Descriptions size='small' colon={false}>
             <Descriptions.Item label='' span={4}>{iteration.target}</Descriptions.Item>
             {/* <Descriptions.Item label='状态' span={4}>{task.state}</Descriptions.Item> */}

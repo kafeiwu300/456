@@ -1,147 +1,188 @@
-import React, { CSSProperties, useState } from 'react';
-import { Row, Col, Icon, Modal, Layout } from 'antd';
-import { IEpicInfo, IIteration, IStoryInEpic } from './interfaces';
-import StoryCardContainer from './StoryCardContainer';
-import { connect } from 'react-redux';
-import { IState } from '../interfaces';
-import IterationForm from './IterationForm';
-import { store } from '../store';
-import IterationCard from './IterationCard';
-import EpicCard from './EpicCard';
-import EpicForm from './EpicForm';
-import UnplannedStoryCardContainer from './UnplannedStoryCardContainer';
-import useRouter from 'use-react-router';
+import React, { CSSProperties, useState } from "react";
+import {
+  Row,
+  Col,
+  Icon,
+  Modal,
+  Layout,
+  PageHeader,
+  Drawer,
+  Button
+} from "antd";
+import { IEpicInfo, IIteration, IStoryInEpic } from "./interfaces";
+import StoryCardContainer from "./StoryCardContainer";
+import { connect } from "react-redux";
+import { IState } from "../interfaces";
+import IterationForm from "./IterationForm";
+import { store } from "../store";
+import IterationCard from "./IterationCard";
+import EpicCard from "./EpicCard";
+import EpicForm from "./EpicForm";
+import UnplannedStoryCardContainer from "./UnplannedStoryCardContainer";
+import useRouter from "use-react-router";
 
 const StoryMap: React.FC<{
   epics: IEpicInfo[];
   iterations: IIteration[];
   unplannedStories: IStoryInEpic[];
-}> = ({epics, iterations, unplannedStories}) => {
+}> = ({ epics, iterations, unplannedStories }) => {
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
-    backgroundColor: '#fafafa',
-    padding: '12px 16px 12px 12px',
-    borderRadius: '4px',
-    border: '1px solid #d9d9d9',
-    lineHeight: '22px',
-  }
-  
+    backgroundColor: "#fafafa",
+    padding: "12px 16px 12px 12px",
+    borderRadius: "4px",
+    border: "1px solid #d9d9d9",
+    lineHeight: "22px"
+  };
+
   const headerStyle: CSSProperties = {
     ...outerStyle,
-    fontSize: '18px',
-    fontWeight: 'bold',
-    borderRadius: '4px'
-  }
+    fontSize: "18px",
+    fontWeight: "bold",
+    borderRadius: "4px"
+  };
 
   const addIterationStyle: CSSProperties = {
     ...outerStyle,
-    textAlign: 'center',
-    border: '1px solid #d9d9d9',
-    cursor: 'pointer'
-  }
+    textAlign: "center",
+    border: "1px solid #d9d9d9",
+    cursor: "pointer"
+  };
 
   let iterationForm: any = undefined;
   let epicForm: any = undefined;
 
   const addIteration = () => {
     Modal.confirm({
-      title: '添加迭代',
-      okText: '保存',
-      cancelText: '取消',
-      icon: <Icon type="plus-circle"/>,
+      title: "添加迭代",
+      okText: "保存",
+      cancelText: "取消",
+      icon: <Icon type="plus-circle" />,
       width: 600,
-      content: <IterationForm wrappedComponentRef={(form: any) => iterationForm = form} iteration={{isActive: false}}/>,
+      content: (
+        <IterationForm
+          wrappedComponentRef={(form: any) => (iterationForm = form)}
+          iteration={{ isActive: false }}
+        />
+      ),
       centered: true,
       onOk: () => {
         if (iterationForm && iterationForm.props) {
           store.dispatch({
-            type: 'storyMap-addIteration',
+            type: "storyMap-addIteration",
             projectId,
             iteration: {
               ...iterationForm.props.iteration,
               ...iterationForm.props.form.getFieldsValue()
             }
-          })
+          });
         }
       }
     });
-  }
+  };
 
   const addEpic = () => {
     Modal.confirm({
-      title: '添加史诗故事',
-      okText: '保存',
-      cancelText: '取消',
-      icon: <Icon type="plus-circle"/>,
+      title: "添加史诗故事",
+      okText: "保存",
+      cancelText: "取消",
+      icon: <Icon type="plus-circle" />,
       width: 600,
-      content: <EpicForm wrappedComponentRef={(form: any) => epicForm = form} epic={{}}/>,
+      content: (
+        <EpicForm
+          wrappedComponentRef={(form: any) => (epicForm = form)}
+          epic={{}}
+        />
+      ),
       centered: true,
       onOk: () => {
         if (epicForm && epicForm.props) {
           store.dispatch({
-            type: 'storyMap-addEpic',
+            type: "storyMap-addEpic",
             projectId,
             epic: {
               ...epicForm.props.epic,
               ...epicForm.props.form.getFieldsValue()
             }
-          })
+          });
         }
       }
     });
-  }
+  };
 
   const [showUnplanned, setShowUnplanned] = useState<boolean>(false);
-  
+
   const { match } = useRouter<{
-    projectId: string
+    projectId: string;
   }>();
   const { projectId } = match.params;
 
   //TODO: 修复未规划故事的展示效果
-  
+
   return (
-    <Layout style={{height: '100%'}}>
-      <Layout.Content style={{height: '100%'}}>
-        <Row style={{marginBottom: '8px', display:'flex'}} gutter={8}>
-          <Col style={{flex: '0 0 260px', width: 260}}><div style={headerStyle}>Iteration</div></Col>
-          {
-            epics.map((epic: IEpicInfo) => <Col style={{flex: '0 0 260px', width: 260}}><EpicCard epic={epic}/></Col>)
-          }
-          <Col style={{flex: '0 0 260px', width: 260}}><div style={addIterationStyle} onClick={addEpic}><Icon type="plus"/>添加史诗故事</div></Col>
-        </Row>
-        {
-          iterations
+    <Layout style={{ height: "100%" }}>
+      <PageHeader
+        title="故事地图"
+        extra={
+          <Button onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Button>
+        }
+      />
+      <Layout style={{ height: "100%" }}>
+        <Layout.Content style={{ margin: "0 24px", overflow: 'auto', marginBottom: showUnplanned ? 256 : 0 }}>
+          <Row style={{ marginBottom: "8px", display: "flex" }} gutter={8}>
+            <Col style={{ flex: "0 0 260px", width: 260 }}>
+              <div style={headerStyle}>Iteration</div>
+            </Col>
+            {epics.map((epic: IEpicInfo) => (
+              <Col style={{ flex: "0 0 260px", width: 260 }}>
+                <EpicCard epic={epic} />
+              </Col>
+            ))}
+            <Col style={{ flex: "0 0 260px", width: 260 }}>
+              <div style={addIterationStyle} onClick={addEpic}>
+                <Icon type="plus" />
+                添加史诗故事
+              </div>
+            </Col>
+          </Row>
+          {iterations
             .sort((a: IIteration, b: IIteration) => a.index! - b.index!)
             .map((iteration: IIteration) => (
-              <Row style={{marginBottom: '8px', display: 'flex'}} gutter={8}>
-                <Col style={{flex: '0 0 260px', width: 260}}>
-                  <IterationCard iteration={iteration}/>
+              <Row style={{ marginBottom: "8px", display: "flex" }} gutter={8}>
+                <Col style={{ flex: "0 0 260px", width: 260 }}>
+                  <IterationCard iteration={iteration} />
                 </Col>
-                {
-                  epics.map((epic: IEpicInfo) => (
-                    <Col style={{flex: '0 0 260px', width: 260}}>
-                      <StoryCardContainer epic={epic} iteration={iteration}/>
-                    </Col>
-                  ))
-                }
+                {epics.map((epic: IEpicInfo) => (
+                  <Col style={{ flex: "0 0 260px", width: 260 }}>
+                    <StoryCardContainer epic={epic} iteration={iteration} />
+                  </Col>
+                ))}
               </Row>
-            ))
-        }
-        <Row style={{display: 'flex'}} gutter={8}>
-          <Col style={{flex: '0 0 260px', width: 260}}>
-            <div style={addIterationStyle} onClick={addIteration}><Icon type="plus"/>添加迭代</div>
-          </Col>
-        </Row>
-      </Layout.Content>
-      <Layout.Footer style={{padding: '0 50px'}}>
-        <div style={{textAlign: 'center'}}>
-          <Row style={{margin: 'auto', display: 'inline-block', marginTop: -30, lineHeight: '30px', textAlign: 'center', width: 120, height: 0, borderRadius: '4px 4px 0 0', borderBottom: '30px solid rgb(135, 208, 104)', cursor: 'pointer'}} onClick={() => setShowUnplanned(!showUnplanned)}>未规划的故事</Row>
-          <UnplannedStoryCardContainer visible={showUnplanned} unplannedStories={unplannedStories}/>
-        </div>
-      </Layout.Footer>
+            ))}
+          <Row style={{ display: "flex" }} gutter={8}>
+            <Col style={{ flex: "0 0 260px", width: 260 }}>
+              <div style={addIterationStyle} onClick={addIteration}>
+                <Icon type="plus" />
+                添加迭代
+              </div>
+            </Col>
+          </Row>
+        </Layout.Content>
+      </Layout>
+      <Drawer
+        title='未规划的故事'
+        mask={false}
+        getContainer={false}
+        placement="bottom"
+        visible={showUnplanned}
+        onClose={() => setShowUnplanned(false)}
+      >
+        <UnplannedStoryCardContainer unplannedStories={unplannedStories} />
+      </Drawer>
     </Layout>
-  )
-}
+  );
+};
 
-export default connect((state: IState) => ({...state.storyMapData}))(StoryMap);
+export default connect((state: IState) => ({ ...state.storyMapData }))(
+  StoryMap
+);
