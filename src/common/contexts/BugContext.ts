@@ -1,11 +1,13 @@
-import React from "react";
+import { useReducer } from "react";
 import { IBug } from "../../components/Bug/interfaces";
 import { bugReducer } from "../../components/Bug/reducer";
+import { createContainer } from "unstated-next"
 
-const bugs: IBug[] = [];
+const useBugs = (initialState: IBug[] = []) => {
+  const [store, dispatch] = useReducer(bugReducer, initialState);
+  return {
+    store, dispatch
+  };
+};
 
-const BugContext = React.createContext({
-  state: bugs, reducer: bugReducer
-});
-
-export default BugContext;
+export default createContainer(useBugs);

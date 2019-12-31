@@ -1,8 +1,9 @@
-import React from "react";
+import { useReducer } from "react";
 import { storyMapReducer } from "../../components/StoryMap/reducer";
 import { IEpicInfo, IIteration, IStoryInEpic } from "../../components/StoryMap/interfaces";
+import { createContainer } from "unstated-next"
 
-const storyMapData: {
+const useStoryMap = (initialState: {
   epics: IEpicInfo[];
   iterations: IIteration[];
   unplannedStories: IStoryInEpic[];
@@ -10,11 +11,11 @@ const storyMapData: {
   epics: [],
   iterations: [],
   unplannedStories: []
+}) => {
+  const [store, dispatch] = useReducer(storyMapReducer, initialState);
+  return {
+    store, dispatch
+  }
 }
 
-const StoryMapContext = React.createContext({
-  state: storyMapData,
-  reducer: storyMapReducer
-});
-
-export default StoryMapContext;
+export default createContainer(useStoryMap);

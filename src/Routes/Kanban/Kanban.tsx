@@ -1,11 +1,11 @@
 import { IState } from "../../interfaces";
 import VisibleKanban from "../../components/Kanban/Kanban";
 import { connect } from "react-redux";
-import React, { useContext } from "react";
+import React from "react";
 import KanbanContext from "../../common/contexts/KanbanContext";
 
 export const Kanban: React.FC = () => {
-  const {state: stories} = useContext(KanbanContext);
+  const {store: stories} = KanbanContext.useContainer();
 
   return (
     <VisibleKanban stories={stories} />

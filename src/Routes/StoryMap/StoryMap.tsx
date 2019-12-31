@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
 import { IState } from "../../interfaces";
 import VisibleStoryMap from "../../components/StoryMap/StoryMap";
-import React, { useContext } from "react";
+import React from "react";
 import StoryMapContext from "../../common/contexts/StoryMapContext";
 
 export const StoryMap: React.FC = () => {
-  const {state: {
+  const {store: {
     epics, iterations, unplannedStories
-  }} = useContext(StoryMapContext);
+  }} = StoryMapContext.useContainer();
 
   return (
     <VisibleStoryMap epics={epics} iterations={iterations} unplannedStories={unplannedStories} />

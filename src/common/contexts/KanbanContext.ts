@@ -1,11 +1,13 @@
-import React from "react";
+import { useReducer } from "react";
 import { kanbanReducer } from "../../components/Kanban/reducer";
 import { IStory } from "../../components/Kanban/interfaces";
+import { createContainer } from "unstated-next"
 
-const stories: IStory[] = [];
+const useKanban = (initialState: IStory[] = []) => {
+  const [store, dispatch] = useReducer(kanbanReducer, initialState);
+  return {
+    store, dispatch
+  }
+}
 
-const KanbanContext = React.createContext({
-  state: stories, reducer: kanbanReducer
-});
-
-export default KanbanContext;
+export default createContainer(useKanban);
