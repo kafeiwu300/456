@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import useRouter from 'use-react-router';
-import Bug from './Bug/Bug';
 import IterationTable from './IterationTable/IterationTable';
 import Iteration from './IterationTable/Iteration';
 import TestCaseList from './Test/TestCaseList';
@@ -20,6 +19,7 @@ import ProjectContext from './common/contexts/ProjectContext';
 import PlanCaseList from './Test/PlanCaseList';
 import Log from './Routes/Log/Log';
 import StoryMap from './Routes/StoryMap/StoryMap';
+import Bug from './Routes/Bug/Bug';
 
 const Project: React.FC = () => {
   const { match } = useRouter<{

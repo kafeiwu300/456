@@ -1,6 +1,6 @@
 import agent from './agent';
 import {BASE_URL} from '../common/consts';
-import { IBug } from '../Bug/interfaces';
+import { IBug } from '../components/Bug/interfaces';
 import { BugState } from '../enums';
 
 export function getBugs(projectId: string) {

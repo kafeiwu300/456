@@ -1,11 +1,11 @@
 import { IBug, IDragObject } from "./interfaces";
 import React, { CSSProperties, useState, useContext } from "react";
 import { Modal, Icon, Button, Popover, Form } from "antd";
-import { store } from "../store";
+import { store } from "../../store";
 import { useDrag } from "react-dnd";
 import BugForm from "./BugForm";
 import useRouter from "use-react-router";
-import ProjectContext from "../common/contexts/ProjectContext";
+import ProjectContext from "../../common/contexts/ProjectContext";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
   // 设置气泡卡片是否可见，点击气泡上的按钮以后隐藏它

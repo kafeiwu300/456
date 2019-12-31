@@ -1,5 +1,5 @@
 import { IStory } from "./components/Kanban/interfaces";
-import { IBug } from "./Bug/interfaces";
+import { IBug } from "./components/Bug/interfaces";
 import { IEpicInfo, IIteration, IStoryInEpic } from "./components/StoryMap/interfaces";
 import { KanbanState, BugState, ActionType } from "./enums";
 import { Action } from "redux";

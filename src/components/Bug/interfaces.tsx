@@ -1,4 +1,4 @@
-import { BugState, ActionType } from "../enums";
+import { BugState, ActionType } from "../../enums";
 import { Action } from "redux";
 import { DragObjectWithType } from "react-dnd";
 import { FormComponentProps } from "antd/lib/form/Form";

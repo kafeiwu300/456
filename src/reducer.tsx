@@ -5,8 +5,8 @@ import { kanbanReducer } from "./components/Kanban/reducer";
 import { IKanbanAction } from "./components/Kanban/interfaces";
 import { IStoryMapAction } from "./components/StoryMap/interfaces";
 import { storyMapReducer } from "./components/StoryMap/reducer";
-import { bugReducer } from "./Bug/reducer";
-import { IBugAction } from "./Bug/interfaces";
+import { bugReducer } from "./components/Bug/reducer";
+import { IBugAction } from "./components/Bug/interfaces";
 import { store } from "./store";
 import { getProject } from "./agent/projectAgent";
 

@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 import { IBug, IBugAction } from "./interfaces";
-import { store } from "../store";
-import { getBugs, addBug, removeBug, modifyBug, moveBug } from "../agent/bugAgent";
+import { store } from "../../store";
+import { getBugs, addBug, removeBug, modifyBug, moveBug } from "../../agent/bugAgent";
 
 const getBugData = async (projectId: string) => {
   const bugs = await getBugs(projectId).then(res => res.body);

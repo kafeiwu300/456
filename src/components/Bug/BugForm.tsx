@@ -2,8 +2,8 @@ import React from "react";
 import { Form, Select, Input, InputNumber, Row, Col } from "antd";
 import { FormCreateOption } from "antd/lib/form";
 import { IBugFormComponentProps } from "./interfaces";
-import { BugState } from "../enums";
-import { users } from "../common/consts";
+import { BugState } from "../../enums";
+import { users } from "../../common/consts";
 
 class BugForm extends React.Component<IBugFormComponentProps> {
   render() {
