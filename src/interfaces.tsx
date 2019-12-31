@@ -20,7 +20,6 @@ export interface IProjectAction extends Action<ActionType> {
 }
 
 export interface IState {
-  projectInfo: IProject;
   kanbanData: IStory[];
   storyMapData: {
     epics: IEpicInfo[];
