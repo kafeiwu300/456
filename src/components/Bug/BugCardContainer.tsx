@@ -19,7 +19,7 @@ const BugCardContainer: React.FC<{
   }>();
   const { projectId } = match.params;
 
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

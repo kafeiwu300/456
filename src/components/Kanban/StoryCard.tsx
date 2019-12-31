@@ -11,7 +11,7 @@ const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: bo
 
   const [ghost, setGhost] = useState<boolean>(true);
 
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();

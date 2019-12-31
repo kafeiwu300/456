@@ -8,7 +8,7 @@ import { useDrop } from "react-dnd";
 import ProjectContext from "../../common/contexts/ProjectContext";
 
 const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[]}> = ({unplannedStories}) => {
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
   
   let storyForm: any = undefined;
 

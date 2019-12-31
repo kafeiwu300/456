@@ -12,7 +12,7 @@ const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
 
   const [ghost, setGhost] = useState<boolean>(true);
 
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   const dragObject: IDragObject = {
     type: 'storyCard',

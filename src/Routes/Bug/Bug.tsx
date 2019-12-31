@@ -5,7 +5,7 @@ import React from 'react';
 import BugContext from "../../common/contexts/BugContext";
 
 export const Bug: React.FC = () => {
-  const {store: bugs} = BugContext.useContainer();
+  const {bugs} = BugContext.useContainer();
 
   return (
     <VisibleBug bugs={bugs}/>

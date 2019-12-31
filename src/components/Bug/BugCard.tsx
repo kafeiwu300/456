@@ -16,7 +16,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
   }>();
   const { projectId } = match.params;
 
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();

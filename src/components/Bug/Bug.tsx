@@ -8,7 +8,7 @@ import { BugState, KanbanState } from "../../enums";
 import ProjectContext from "../../common/contexts/ProjectContext";
 
 const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

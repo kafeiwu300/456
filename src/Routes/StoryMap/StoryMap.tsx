@@ -5,14 +5,18 @@ import React from "react";
 import StoryMapContext from "../../common/contexts/StoryMapContext";
 
 export const StoryMap: React.FC = () => {
-  const {store: {
-    epics, iterations, unplannedStories
-  }} = StoryMapContext.useContainer();
+  const {
+    storyMapData: { epics, iterations, unplannedStories }
+  } = StoryMapContext.useContainer();
 
   return (
-    <VisibleStoryMap epics={epics} iterations={iterations} unplannedStories={unplannedStories} />
+    <VisibleStoryMap
+      epics={epics}
+      iterations={iterations}
+      unplannedStories={unplannedStories}
+    />
   );
-}
+};
 
 export default connect((state: IState) => ({ ...state.storyMapData }))(
   VisibleStoryMap

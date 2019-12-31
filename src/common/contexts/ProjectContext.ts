@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { getProject } from "../../agent/projectAgent";
 
 const useProject = (projectId?: string) => {
-  const [project, setProject] = useState<IProject>({
+  const emptyProject: IProject = {
     id: '',
     name: '',
     description: '',
@@ -12,24 +12,21 @@ const useProject = (projectId?: string) => {
     storyStatusList: [],
     taskStatusList: [],
     bugStatusList: []
-  });
+  };
+
+  const [project, setProject] = useState<IProject>(emptyProject);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (projectId)
-      getProject(projectId).then(res => setProject(res.body));
+    if (projectId) {
+      setLoading(true);
+      getProject(projectId).then(res => setProject(res.body)).finally(() => setLoading(false));
+    }
     else
-      setProject({
-        id: '',
-        name: '',
-        description: '',
-        teamId: '',
-        storyStatusList: [],
-        taskStatusList: [],
-        bugStatusList: []
-      });
-  }, [projectId]);
+      setProject(emptyProject);
+  }, [emptyProject, projectId]);
 
-  return project;
+  return {project, loading};
 }
 
 export default createContainer(useProject);

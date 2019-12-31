@@ -59,7 +59,7 @@ const TaskCardContainer: React.FC<{
   }>();
   const { projectId, iterationId } = match.params;
 
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   const addTask = () => {
     Modal.confirm({

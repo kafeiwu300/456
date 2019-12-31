@@ -10,7 +10,7 @@ import ProjectContext from '../../common/contexts/ProjectContext';
 import StoryForm from '../StoryMap/StoryForm';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

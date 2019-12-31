@@ -9,7 +9,7 @@ import useRouter from 'use-react-router';
 import ProjectContext from '../../common/contexts/ProjectContext';
 
 const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = ({epic, iteration}) => {
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
   
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

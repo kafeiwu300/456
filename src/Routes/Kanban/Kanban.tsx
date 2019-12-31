@@ -5,7 +5,7 @@ import React from "react";
 import KanbanContext from "../../common/contexts/KanbanContext";
 
 export const Kanban: React.FC = () => {
-  const {store: stories} = KanbanContext.useContainer();
+  const {stories} = KanbanContext.useContainer();
 
   return (
     <VisibleKanban stories={stories} />

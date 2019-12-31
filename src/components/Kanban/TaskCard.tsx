@@ -15,7 +15,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
 
   const [ghost, setGhost] = useState<boolean>(true);
 
-  const project = ProjectContext.useContainer();
+  const {project} = ProjectContext.useContainer();
 
   let taskForm: any = undefined;
 
