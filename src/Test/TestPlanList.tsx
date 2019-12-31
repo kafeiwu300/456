@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Icon, Modal, Form, Button, Table } from "antd";
 import useRouter from "use-react-router";
-import { getTestPlan, addTestPlan, deleteTestPlan, modifyTestPlan } from "../agent/testPlanAgent";
+import {
+  getTestPlan,
+  addTestPlan,
+  deleteTestPlan,
+  modifyTestPlan
+} from "../agent/testPlanAgent";
 import TestPlanForm from "./TestPlanForm";
 import { getTestCases } from "../agent/testCaseAgent";
-import { ITestCase, ITestPlanDTO, IDetailedTestPlan, ITestResult } from "./interface";
-import moment from 'moment';
+import {
+  ITestCase,
+  ITestPlanDTO,
+  IDetailedTestPlan,
+  ITestResult
+} from "./interface";
+import moment from "moment";
 import { Link } from "react-router-dom";
 
 const TestPlanList: React.FC = () => {
   const { match } = useRouter<{
-    projectId: string
+    projectId: string;
   }>();
   const { projectId } = match.params;
 
@@ -26,44 +36,63 @@ const TestPlanList: React.FC = () => {
 
   const newTestPlan = () => {
     Modal.confirm({
-      title: '新建测试计划',
-      okText: '保存',
-      cancelText: '取消',
-      icon: <Icon type="plus-circle"/>,
+      title: "新建测试计划",
+      okText: "保存",
+      cancelText: "取消",
+      icon: <Icon type="plus-circle" />,
       width: 600,
-      content: <TestPlanForm wrappedComponentRef={(form: Form) => testPlanForm = form} testCases={cases}/>,
+      content: (
+        <TestPlanForm
+          wrappedComponentRef={(form: Form) => (testPlanForm = form)}
+          testCases={cases}
+        />
+      ),
       centered: true,
       onOk: () => {
         (async () => {
-          await addTestPlan(projectId, testPlanForm.props.form!.getFieldsValue());
+          await addTestPlan(
+            projectId,
+            testPlanForm.props.form!.getFieldsValue()
+          );
           await getTestPlan(projectId).then(res => setPlanList(res.body));
         })();
       }
     });
-  }
+  };
 
   const editPlan = (plan: IDetailedTestPlan) => {
     const planDto: ITestPlanDTO = {
       id: plan.id,
       title: plan.title,
-      caseIds: plan.testResultList.map((result: ITestResult) => result.testCase.id!)
+      caseIds: plan.testResultList.map(
+        (result: ITestResult) => result.testCase.id!
+      )
     };
     Modal.confirm({
-      title: '修改测试计划',
-      okText: '保存',
-      cancelText: '取消',
+      title: "修改测试计划",
+      okText: "保存",
+      cancelText: "取消",
       icon: <Icon type="edit" />,
       width: 600,
-      content: <TestPlanForm wrappedComponentRef={(form: Form) => testPlanForm = form} testCases={cases} initialValue={planDto}/>,
+      content: (
+        <TestPlanForm
+          wrappedComponentRef={(form: Form) => (testPlanForm = form)}
+          testCases={cases}
+          initialValue={planDto}
+        />
+      ),
       centered: true,
       onOk: () => {
         (async () => {
-          await modifyTestPlan(plan.id!, testPlanForm.props.form!.getFieldsValue());
+          await modifyTestPlan(
+            plan.id!,
+            testPlanForm.props.form!.getFieldsValue()
+          );
           await getTestPlan(projectId).then(res => setPlanList(res.body));
         })();
       }
     });
-  }
+  };
 
   const deletePlan = (planId: string) => {
     Modal.confirm({
@@ -80,32 +109,48 @@ const TestPlanList: React.FC = () => {
         })();
       }
     });
-  }
+  };
 
   return (
-    <Table dataSource={planList} title={() => <Button onClick={newTestPlan}>新建测试计划</Button>}>
-      <Table.Column title='标题' dataIndex='title' render={(text: string, plan: IDetailedTestPlan) => 
-        <>
-          <Link to={`${match.url}/${plan.id}`}>
-            {text}
-          </Link>
-          {plan.referredProject ? (
-            <Link to={`#`}>
-              <Icon type="link" />
-            </Link>
-          ) : <></>}
-        </>
-      }/>
-      <Table.Column title='最后修改时间' dataIndex='modifyTime' render={(text: string) => moment(text).format('YYYY-MM-DD HH:mm:ss')}/>
-      <Table.Column title='通过率' dataIndex='passRate'/>
-      <Table.Column title='操作' render={(text, plan: IDetailedTestPlan) => (
-        <Button.Group>
-          <Button onClick={() => editPlan(plan)}>修改</Button>
-          <Button type='danger' onClick={() => deletePlan(plan.id!)}>删除</Button>
-        </Button.Group>
-      )}/>
+    <Table
+      dataSource={planList}
+      title={() => <Button onClick={newTestPlan}>新建测试计划</Button>}
+    >
+      <Table.Column
+        title="标题"
+        dataIndex="title"
+        render={(text: string, plan: IDetailedTestPlan) => (
+          <>
+            <Link to={`${match.url}/${plan.id}`}>{text}</Link>
+            {plan.referredProject ? (
+              <Link to={`#`}>
+                <Icon type="link" />
+              </Link>
+            ) : (
+              <></>
+            )}
+          </>
+        )}
+      />
+      <Table.Column
+        title="最后修改时间"
+        dataIndex="modifyTime"
+        render={(text: string) => moment(text).format("YYYY-MM-DD HH:mm:ss")}
+      />
+      <Table.Column title="进度" dataIndex="passRate" />
+      <Table.Column
+        title="操作"
+        render={(_, plan: IDetailedTestPlan) => (
+          <Button.Group>
+            <Button onClick={() => editPlan(plan)}>修改</Button>
+            <Button type="danger" onClick={() => deletePlan(plan.id!)}>
+              删除
+            </Button>
+          </Button.Group>
+        )}
+      />
     </Table>
   );
-}
+};
 
 export default TestPlanList;
