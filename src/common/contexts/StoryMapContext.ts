@@ -6,11 +6,11 @@ import {
   IIterationInfo
 } from "../../components/StoryMap/interfaces";
 import { createContainer } from "unstated-next";
-import { getIterations } from "../../agent/agileAgent";
 import {
   modifyIteration as originalModifyIteration,
   addIteration as originalAddIteration,
-  removeIteration as originalRemoveIteration
+  removeIteration as originalRemoveIteration,
+  getIterations
 } from "../../agent/iterationAgent";
 import {
   getEpics,

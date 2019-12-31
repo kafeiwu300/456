@@ -1,11 +1,10 @@
 import { Reducer } from "react";
 import { IStoryAction, IIterationAction, IIteration, IEpicAction, IStoryInEpic, IStoryMapAction } from "./interfaces";
 import { IEpicInfo } from "./interfaces";
-import { getIterations } from "../../agent/agileAgent";
 import { store } from "../../store";
 import { getEpics, removeEpic, addEpic, modifyEpic } from "../../agent/epicAgent";
 import { getIterationOrphan, removeStory, modifyStory, moveStory, addStory } from "../../agent/storyAgent";
-import { modifyIteration, addIteration, removeIteration } from "../../agent/iterationAgent";
+import { modifyIteration, addIteration, removeIteration, getIterations } from "../../agent/iterationAgent";
 
 const getStoryMapData = async (projectId: string) => {
   const iterations = await getIterations(projectId).then(res => res.body);
