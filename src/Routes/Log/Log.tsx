@@ -74,7 +74,7 @@ const Log: React.FC = () => {
             />
             <DatePicker
               onChange={(date: Moment | null) =>
-                date ? setEndTime(date.valueOf()) : setEndTime(undefined)
+                date ? setEndTime(date.clone().add(1, 'd').valueOf()) : setEndTime(undefined)
               }
               placeholder="结束日期"
             />
