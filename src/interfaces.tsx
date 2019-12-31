@@ -1,4 +1,4 @@
-import { IStory } from "./Kanban/interfaces";
+import { IStory } from "./components/Kanban/interfaces";
 import { IBug } from "./Bug/interfaces";
 import { IEpicInfo, IIteration, IStoryInEpic } from "./StoryMap/interfaces";
 import { KanbanState, BugState, ActionType } from "./enums";

@@ -1,6 +1,6 @@
 import { BASE_URL } from "../common/consts";
 import agent from "./agent";
-import { ITask } from "../Kanban/interfaces";
+import { ITask } from "../components/Kanban/interfaces";
 
 export function removeTask(taskId: string) {
   return agent.delete(`${BASE_URL}/tasks/${taskId}`);

@@ -1,8 +1,8 @@
 import { Reducer, Action } from "redux";
 import { IState, IProject, IProjectAction } from "./interfaces";
 import { ActionType } from "./enums";
-import { kanbanReducer } from "./Kanban/reducer";
-import { IKanbanAction } from "./Kanban/interfaces";
+import { kanbanReducer } from "./components/Kanban/reducer";
+import { IKanbanAction } from "./components/Kanban/interfaces";
 import { IStoryMapAction } from "./StoryMap/interfaces";
 import { storyMapReducer } from "./StoryMap/reducer";
 import { bugReducer } from "./Bug/reducer";

@@ -5,7 +5,7 @@ import useRouter from 'use-react-router';
 import { getTestCases, addTestCase, modifyTestCase, deleteTestCase } from '../agent/testCaseAgent';
 import TestCaseForm from './TestCaseForm';
 import TestCaseInfo from './TestCaseInfo';
-import { IStoryInfo } from '../Kanban/interfaces';
+import { IStoryInfo } from '../components/Kanban/interfaces';
 import { getProjectStories } from '../agent/storyAgent';
 
 const TestCaseList: React.FC = () => {

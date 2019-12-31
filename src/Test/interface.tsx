@@ -1,4 +1,4 @@
-import { IStoryInfo } from "../Kanban/interfaces";
+import { IStoryInfo } from "../components/Kanban/interfaces";
 import { FormComponentProps } from "antd/lib/form";
 
 export interface IStoryWithCase extends IStoryInfo {

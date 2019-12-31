@@ -1,6 +1,6 @@
 import agent from "./agent";
 import { BASE_URL } from "../common/consts";
-import { IStoryInfo } from "../Kanban/interfaces";
+import { IStoryInfo } from "../components/Kanban/interfaces";
 
 export function getIterationOrphan(projectId: string) {
   return agent.get(`${BASE_URL}/stories/iteration-orphans`).query({project_id: projectId});

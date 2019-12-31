@@ -2,7 +2,7 @@ import { ITestCase } from "./interface";
 import React, { useState, useEffect } from "react";
 import TestCaseForm from "./TestCaseForm";
 import useRouter from "use-react-router";
-import { IStoryInfo } from "../Kanban/interfaces";
+import { IStoryInfo } from "../components/Kanban/interfaces";
 import { getProjectStories } from "../agent/storyAgent";
 
 const TestCaseInfo: React.FC<{testCase: ITestCase}> = ({testCase}) => {

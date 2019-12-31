@@ -1,10 +1,10 @@
 import { IStory, IStoryInfo } from "./interfaces";
 import React, { useState, useContext } from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button, Icon } from "antd";
-import { store } from "../store";
+import { store } from "../../store";
 import useRouter from "use-react-router";
-import StoryForm from "../StoryMap/StoryForm";
-import ProjectContext from "../common/contexts/ProjectContext";
+import StoryForm from "../../StoryMap/StoryForm";
+import ProjectContext from "../../common/contexts/ProjectContext";
 
 const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: boolean}> = ({story, editable = true, deletable = true}) => {
   let storyForm: any = undefined;

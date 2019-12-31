@@ -3,9 +3,9 @@ import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button, Icon } from 
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
 import TaskForm from './TaskForm';
-import { store } from '../store';
+import { store } from '../../store';
 import useRouter from 'use-react-router';
-import ProjectContext from '../common/contexts/ProjectContext';
+import ProjectContext from '../../common/contexts/ProjectContext';
 
 const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
   const dragObject: IDragObject = {

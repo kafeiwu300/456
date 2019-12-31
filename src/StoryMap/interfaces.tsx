@@ -1,4 +1,4 @@
-import { IStoryInfo } from "../Kanban/interfaces";
+import { IStoryInfo } from "../components/Kanban/interfaces";
 import { DragObjectWithType } from "react-dnd";
 import { Action } from "dnd-core";
 import { ActionType } from "../enums";

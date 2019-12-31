@@ -3,11 +3,11 @@ import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
 import { IStory, IDragObject, ITask } from './interfaces';
-import { KanbanState } from "../enums";
+import { KanbanState } from "../../enums";
 import TaskForm from './TaskForm';
-import { store } from '../store';
+import { store } from '../../store';
 import useRouter from 'use-react-router';
-import ProjectContext from '../common/contexts/ProjectContext';
+import ProjectContext from '../../common/contexts/ProjectContext';
 
 const TaskCardContainer: React.FC<{
   status: KanbanState,

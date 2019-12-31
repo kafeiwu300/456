@@ -3,11 +3,11 @@ import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { IStory } from './interfaces';
 import StoryCard from './StoryCard';
-import { store } from '../store';
+import { store } from '../../store';
 import useRouter from 'use-react-router';
-import { KanbanState } from '../enums';
-import ProjectContext from '../common/contexts/ProjectContext';
-import StoryForm from '../StoryMap/StoryForm';
+import { KanbanState } from '../../enums';
+import ProjectContext from '../../common/contexts/ProjectContext';
+import StoryForm from '../../StoryMap/StoryForm';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const project = useContext(ProjectContext);

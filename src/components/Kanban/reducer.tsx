@@ -1,8 +1,8 @@
 import { Reducer } from "redux";
 import { IStory, IStoryAction, ITaskAction, IKanbanAction } from "./interfaces";
-import { getStories, removeStory, modifyStory, addStory } from "../agent/storyAgent";
-import { store } from "../store";
-import { removeTask, modifyTask, addTask } from "../agent/taskAgent";
+import { getStories, removeStory, modifyStory, addStory } from "../../agent/storyAgent";
+import { store } from "../../store";
+import { removeTask, modifyTask, addTask } from "../../agent/taskAgent";
 
 const getKanbanData = async (iterationId: string) => {
   const stories = await getStories(iterationId).then(res => res.body);

@@ -2,8 +2,8 @@ import { Form, Row, Col, Input, Select, InputNumber } from 'antd';
 import { FormCreateOption } from 'antd/lib/form/Form';
 import { ITaskFormComponentProps } from './interfaces';
 import React from 'react';
-import { KanbanState } from '../enums';
-import { users } from '../common/consts';
+import { KanbanState } from '../../enums';
+import { users } from '../../common/consts';
 
 class TaskForm extends React.Component<ITaskFormComponentProps> {
   render () {

@@ -1,6 +1,6 @@
 import { DragObjectWithType } from "react-dnd";
 import { Action } from "redux";
-import { ActionType, KanbanState, StoryState } from "../enums";
+import { ActionType, KanbanState, StoryState } from "../../enums";
 import { FormComponentProps } from "antd/lib/form/Form";
 
 export interface ITask {

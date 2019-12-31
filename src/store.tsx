@@ -1,5 +1,5 @@
 import { createStore, Action } from "redux";
-import { kanbanData } from "./Kanban/store";
+import { kanbanData } from "./components/Kanban/store";
 import { storyMapData } from "./StoryMap/store";
 import { bugData } from "./Bug/store";
 import { reducer } from "./reducer";

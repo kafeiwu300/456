@@ -2,7 +2,7 @@ import { Form, Row, Col, Input, Select } from 'antd';
 import { FormCreateOption } from 'antd/lib/form/Form';
 import React from 'react';
 import { ITestCaseFormComponentProps } from './interface';
-import { IStoryInfo } from '../Kanban/interfaces';
+import { IStoryInfo } from '../components/Kanban/interfaces';
 
 class TestCaseForm extends React.Component<ITestCaseFormComponentProps> {
   render () {
