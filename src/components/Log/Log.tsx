@@ -55,9 +55,9 @@ const Log: React.FC<{
                 {activities.map((activity: IActivity) => (
                   <Timeline.Item>
                     <Avatar shape="square">
-                      {activity.createUser[activity.createUser.length - 1]}
+                      {activity.createUser === 'nobody' ? '系统' : activity.createUser[activity.createUser.length - 1]}
                     </Avatar>
-                    {activity.createUser +
+                    {(activity.createUser === 'nobody' ? '系统' : activity.createUser) +
                       " 于 " +
                       moment(activity.createTime).format("HH:mm:ss") +
                       " " +
