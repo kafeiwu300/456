@@ -1,11 +1,9 @@
 import React, { CSSProperties, useContext } from 'react';
 import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
-import { connect } from 'react-redux';
 import { IStory } from './interfaces';
 import StoryCard from './StoryCard';
 import { store } from '../store';
-import { IState } from '../interfaces';
 import useRouter from 'use-react-router';
 import { KanbanState } from '../enums';
 import ProjectContext from '../common/contexts/ProjectContext';
@@ -141,4 +139,4 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   )
 }
 
-export default connect((state: IState) => ({stories: state.kanbanData}))(Kanban);
+export default Kanban;
