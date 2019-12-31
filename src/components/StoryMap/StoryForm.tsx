@@ -1,9 +1,9 @@
 import { Form, Row, Col, Input, Select, InputNumber } from 'antd';
 import { FormCreateOption } from 'antd/lib/form/Form';
 import React from 'react';
-import { IStoryFormComponentProps } from '../components/Kanban/interfaces';
-import { StoryState } from '../enums';
-import { users } from '../common/consts';
+import { IStoryFormComponentProps } from '../Kanban/interfaces';
+import { StoryState } from '../../enums';
+import { users } from '../../common/consts';
 
 class StoryForm extends React.Component<IStoryFormComponentProps> {
   render () {

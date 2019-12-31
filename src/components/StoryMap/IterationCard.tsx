@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Collapse, Button, Avatar, Descriptions, Modal, Icon } from 'antd';
 import { IIterationInfo } from './interfaces';
 import IterationForm from './IterationForm';
-import { store } from '../store';
+import { store } from '../../store';
 import useRouter from 'use-react-router';
 
 const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {

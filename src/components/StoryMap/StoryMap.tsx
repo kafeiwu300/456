@@ -12,7 +12,7 @@ import {
 import { IEpicInfo, IIteration, IStoryInEpic } from "./interfaces";
 import StoryCardContainer from "./StoryCardContainer";
 import IterationForm from "./IterationForm";
-import { store } from "../store";
+import { store } from "../../store";
 import IterationCard from "./IterationCard";
 import EpicCard from "./EpicCard";
 import EpicForm from "./EpicForm";

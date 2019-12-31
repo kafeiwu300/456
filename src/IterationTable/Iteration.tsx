@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Layout, PageHeader, Radio } from "antd";
-import { IIterationInfo } from "../StoryMap/interfaces";
+import { IIterationInfo } from "../components/StoryMap/interfaces";
 import { connect } from "react-redux";
 import { IState } from "../interfaces";
 import useRouter from "use-react-router";

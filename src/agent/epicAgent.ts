@@ -1,6 +1,6 @@
 import agent from "./agent";
 import { BASE_URL } from "../common/consts";
-import { IEpicInfo } from "../StoryMap/interfaces";
+import { IEpicInfo } from "../components/StoryMap/interfaces";
 
 export function getEpics(projectId: string) {
   return agent.get(`${BASE_URL}/epics`).query({project_id: projectId, detail: false});

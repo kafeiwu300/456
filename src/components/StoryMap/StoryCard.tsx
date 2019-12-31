@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Modal, Descriptions, Tag, Badge, Avatar, Button, Icon, Collapse } from "antd";
-import { store } from "../store";
+import { store } from "../../store";
 import StoryForm from "./StoryForm";
 import { IDragObject, IStoryInEpic } from "./interfaces";
 import { useDrag } from "react-dnd";
 import useRouter from "use-react-router";
-import ProjectContext from "../common/contexts/ProjectContext";
+import ProjectContext from "../../common/contexts/ProjectContext";
 
 const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
   let storyForm: any = undefined;

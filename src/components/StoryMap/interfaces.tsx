@@ -1,7 +1,7 @@
-import { IStoryInfo } from "../components/Kanban/interfaces";
+import { IStoryInfo } from "../Kanban/interfaces";
 import { DragObjectWithType } from "react-dnd";
 import { Action } from "dnd-core";
-import { ActionType } from "../enums";
+import { ActionType } from "../../enums";
 import { FormComponentProps } from "antd/lib/form";
 
 export interface IDragObject extends DragObjectWithType {

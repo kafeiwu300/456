@@ -1,5 +1,5 @@
 import React from "react";
-import { IIterationInfo } from "../StoryMap/interfaces";
+import { IIterationInfo } from "../components/StoryMap/interfaces";
 import { connect } from "react-redux";
 import { IState } from "../interfaces";
 import { Table, Modal, Icon, Button } from "antd";
@@ -7,7 +7,7 @@ import Column from "antd/lib/table/Column";
 import useRouter from "use-react-router";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import IterationForm from "../StoryMap/IterationForm";
+import IterationForm from "../components/StoryMap/IterationForm";
 import { store } from "../store";
 
 const IterationTable: React.FC<{iterations: IIterationInfo[]}> = ({iterations}) => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Collapse, Button, Descriptions, Modal, Icon } from 'antd';
 import { IEpicInfo } from './interfaces';
-import { store } from '../store';
+import { store } from '../../store';
 import EpicForm from './EpicForm';
 import useRouter from 'use-react-router';
 

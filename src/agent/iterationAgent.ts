@@ -1,6 +1,6 @@
 import agent from "./agent";
 import { BASE_URL } from "../common/consts";
-import { IIterationInfo } from "../StoryMap/interfaces";
+import { IIterationInfo } from "../components/StoryMap/interfaces";
 
 export function modifyIteration(iteration: IIterationInfo, projectId: string) {
   return agent.put(`${BASE_URL}/iterations/${iteration.id}`).send({...iteration, project: {id: projectId}});

@@ -7,7 +7,7 @@ import { store } from '../../store';
 import useRouter from 'use-react-router';
 import { KanbanState } from '../../enums';
 import ProjectContext from '../../common/contexts/ProjectContext';
-import StoryForm from '../../StoryMap/StoryForm';
+import StoryForm from '../StoryMap/StoryForm';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
   const project = useContext(ProjectContext);

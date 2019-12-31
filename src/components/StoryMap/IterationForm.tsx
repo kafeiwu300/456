@@ -3,7 +3,7 @@ import { FormComponentProps, FormCreateOption } from 'antd/lib/form';
 import { Form, Row, Col, Input, Select, DatePicker } from 'antd';
 import { IIterationFormComponentProps } from './interfaces';
 import moment from 'moment';
-import { users } from '../common/consts';
+import { users } from '../../common/consts';
 
 class IterationForm extends React.Component<FormComponentProps> {
   render () {

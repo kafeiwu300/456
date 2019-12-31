@@ -3,10 +3,10 @@ import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
 import StoryCard from './StoryCard';
-import { store } from '../store';
+import { store } from '../../store';
 import StoryForm from './StoryForm';
 import useRouter from 'use-react-router';
-import ProjectContext from '../common/contexts/ProjectContext';
+import ProjectContext from '../../common/contexts/ProjectContext';
 
 const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = ({epic, iteration}) => {
   const project = useContext(ProjectContext);

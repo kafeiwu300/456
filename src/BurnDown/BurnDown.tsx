@@ -1,6 +1,6 @@
 import React from "react";
 import { Chart, Axis, Tooltip, Geom, View } from 'bizcharts';
-import { IIterationInfo } from "../StoryMap/interfaces";
+import { IIterationInfo } from "../components/StoryMap/interfaces";
 import moment from "moment";
 
 const BurnDown: React.FC<{ iteration: IIterationInfo }> = ({ iteration }) => {
