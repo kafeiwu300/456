@@ -1,11 +1,11 @@
 import useRouter from "use-react-router";
 import { useState, useEffect } from "react";
-import { IActivity } from "../../Log/interfaces";
+import { IActivity } from "../../components/Log/interfaces";
 import moment, { Moment } from "moment";
 import { getActivities } from "../../agent/activityAgent";
 import React from "react";
 import { Layout, PageHeader, DatePicker, Button } from "antd";
-import VisibleLog from '../../Log/Log';
+import VisibleLog from '../../components/Log/Log';
 
 const Log: React.FC = () => {
   const { match } = useRouter<{
