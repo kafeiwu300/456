@@ -11,8 +11,6 @@ import {
 } from "antd";
 import { IEpicInfo, IIteration, IStoryInEpic } from "./interfaces";
 import StoryCardContainer from "./StoryCardContainer";
-import { connect } from "react-redux";
-import { IState } from "../interfaces";
 import IterationForm from "./IterationForm";
 import { store } from "../store";
 import IterationCard from "./IterationCard";
@@ -183,6 +181,4 @@ const StoryMap: React.FC<{
   );
 };
 
-export default connect((state: IState) => ({ ...state.storyMapData }))(
-  StoryMap
-);
+export default StoryMap;
