@@ -1,5 +1,5 @@
 import { IStory, IStoryInfo } from "./interfaces";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Modal, Collapse, Descriptions, Tag, Badge, Avatar, Button, Icon } from "antd";
 import { store } from "../../store";
 import useRouter from "use-react-router";
@@ -11,7 +11,7 @@ const StoryCard: React.FC<{story: IStoryInfo, editable?: boolean, deletable?: bo
 
   const [ghost, setGhost] = useState<boolean>(true);
 
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
 
   const removeStory = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();

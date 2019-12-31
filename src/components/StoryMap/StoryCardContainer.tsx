@@ -1,4 +1,4 @@
-import React, { CSSProperties, useContext } from 'react';
+import React, { CSSProperties } from 'react';
 import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import { IEpicInfo, IIteration, IStoryInEpic, IDragObject } from './interfaces';
@@ -9,7 +9,7 @@ import useRouter from 'use-react-router';
 import ProjectContext from '../../common/contexts/ProjectContext';
 
 const StoryCardContainer: React.FC<{epic: IEpicInfo, iteration: IIteration}> = ({epic, iteration}) => {
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
   
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

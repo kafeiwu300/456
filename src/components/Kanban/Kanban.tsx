@@ -1,4 +1,4 @@
-import React, { CSSProperties, useContext } from 'react';
+import React, { CSSProperties } from 'react';
 import { Row, Col, Icon, Modal } from 'antd';
 import TaskCardContainer from './TaskCardContainer';
 import { IStory } from './interfaces';
@@ -10,7 +10,7 @@ import ProjectContext from '../../common/contexts/ProjectContext';
 import StoryForm from '../StoryMap/StoryForm';
 
 const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

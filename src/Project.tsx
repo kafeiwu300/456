@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import useRouter from 'use-react-router';
@@ -13,8 +13,6 @@ import { store } from './store';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import LayoutRoute from './LayoutRoute';
-import { getProject } from './agent/projectAgent';
-import { IProject } from './interfaces';
 import ProjectContext from './common/contexts/ProjectContext';
 import PlanCaseList from './Test/PlanCaseList';
 import Log from './Routes/Log/Log';
@@ -29,16 +27,6 @@ const Project: React.FC = () => {
 
   const { projectId } = match.params;
 
-  const [project, setProject] = useState<IProject>({
-    id: '',
-    name: '',
-    description: '',
-    teamId: '',
-    storyStatusList: [],
-    taskStatusList: [],
-    bugStatusList: []
-  });
-
   useEffect(() => {
     // store.dispatch({
     //   type: 'project-getData',
@@ -52,7 +40,6 @@ const Project: React.FC = () => {
       type: 'bug-getData',
       projectId
     });
-    getProject(projectId).then(res => setProject(res.body));
   }, [projectId]);
 
   return (
@@ -89,7 +76,7 @@ const Project: React.FC = () => {
       </Layout.Sider>
       <Layout.Content style={{height: '100%', width: 'calc(100% - 200px)'}}>
         <Provider store={store}>
-          <ProjectContext.Provider value={project}>
+          <ProjectContext.Provider initialState={projectId}>
             <DndProvider backend={HTML5Backend}>
               <Switch>
                 <Route exact path={`${match.path}/story-map`} component={StoryMap}/>

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useContext } from "react";
+import React, { CSSProperties } from "react";
 import { IBug } from "./interfaces";
 import { Row, Col } from "antd";
 import BugCardContainer from "./BugCardContainer";
@@ -8,7 +8,7 @@ import { BugState, KanbanState } from "../../enums";
 import ProjectContext from "../../common/contexts/ProjectContext";
 
 const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',

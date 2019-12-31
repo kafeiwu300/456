@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Modal, Descriptions, Tag, Badge, Avatar, Button, Icon, Collapse } from "antd";
 import { store } from "../../store";
 import StoryForm from "./StoryForm";
@@ -12,7 +12,7 @@ const StoryCard: React.FC<{story: IStoryInEpic}> = ({story}) => {
 
   const [ghost, setGhost] = useState<boolean>(true);
 
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
 
   const dragObject: IDragObject = {
     type: 'storyCard',

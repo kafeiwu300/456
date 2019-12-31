@@ -1,5 +1,5 @@
 import { IBug, IDragObject } from "./interfaces";
-import React, { CSSProperties, useState, useContext } from "react";
+import React, { CSSProperties, useState } from "react";
 import { Modal, Icon, Button, Popover, Form } from "antd";
 import { store } from "../../store";
 import { useDrag } from "react-dnd";
@@ -16,7 +16,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
   }>();
   const { projectId } = match.params;
 
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
 
   const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();

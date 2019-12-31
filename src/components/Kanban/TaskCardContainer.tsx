@@ -1,4 +1,4 @@
-import React, { CSSProperties, useContext } from 'react';
+import React, { CSSProperties } from 'react';
 import { Icon, Modal } from 'antd';
 import { useDrop } from 'react-dnd';
 import TaskCard from './TaskCard';
@@ -59,7 +59,7 @@ const TaskCardContainer: React.FC<{
   }>();
   const { projectId, iterationId } = match.params;
 
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
 
   const addTask = () => {
     Modal.confirm({

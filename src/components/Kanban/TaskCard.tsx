@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Modal, Collapse, Descriptions, Badge, Tag, Avatar, Button, Icon } from 'antd';
 import { useDrag } from 'react-dnd';
 import { ITask, IDragObject, IStory } from './interfaces';
@@ -15,7 +15,7 @@ const TaskCard: React.FC<{story: IStory, task: ITask}> = ({story, task}) => {
 
   const [ghost, setGhost] = useState<boolean>(true);
 
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
 
   let taskForm: any = undefined;
 

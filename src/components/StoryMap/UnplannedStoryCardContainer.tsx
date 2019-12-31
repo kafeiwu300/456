@@ -1,5 +1,5 @@
 import { IStoryInEpic, IDragObject } from "./interfaces";
-import React, { CSSProperties, useContext } from "react";
+import React, { CSSProperties } from "react";
 import { Row, Col, Modal, Icon } from "antd";
 import StoryCard from "./StoryCard";
 import StoryForm from "./StoryForm";
@@ -8,7 +8,7 @@ import { useDrop } from "react-dnd";
 import ProjectContext from "../../common/contexts/ProjectContext";
 
 const UnplannedStoryCardContainer: React.FC<{unplannedStories: IStoryInEpic[]}> = ({unplannedStories}) => {
-  const project = useContext(ProjectContext);
+  const project = ProjectContext.useContainer();
   
   let storyForm: any = undefined;
 
