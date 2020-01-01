@@ -1,32 +1,27 @@
 import { BugState } from "../../enums";
 import { IBug, IDragObject, IPage } from "./interfaces";
 import { useDrop } from "react-dnd";
-import { store } from "../../store";
 import React, { CSSProperties, useEffect, useReducer } from "react";
 import BugCard from "./BugCard";
 import { Icon, Modal, Pagination, Form } from "antd";
 import BugForm from "./BugForm";
-import useRouter from "use-react-router";
 import ProjectContext from "../../common/contexts/ProjectContext";
+import BugContext from "../../common/contexts/BugContext";
 
 const BugCardContainer: React.FC<{
   status: BugState;
   bugs: IBug[];
-  canAddBug: boolean
+  canAddBug: boolean;
 }> = ({ status, bugs, canAddBug }) => {
-  const { match } = useRouter<{
-    projectId: string
-  }>();
-  const { projectId } = match.params;
-
-  const {project} = ProjectContext.useContainer();
+  const { project } = ProjectContext.useContainer();
+  const { addBug: _addBug, moveBug: _moveBug } = BugContext.useContainer();
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: "#FFFFFF",
     padding: "4px 8px",
     height: "700px",
-    border: "1px solid #d9d9d9",
+    border: "1px solid #d9d9d9"
   };
 
   const addTaskStyle: CSSProperties = {
@@ -51,12 +46,7 @@ const BugCardContainer: React.FC<{
   const [, drop] = useDrop({
     accept: "bugCard",
     drop: (item: IDragObject) => {
-      store.dispatch({
-        type: "bug-moveBug",
-        bug: item.bug,
-        status,
-        projectId
-      });
+      _moveBug(item.bug, status);
     },
     collect: monitor => ({
       isOver: monitor.isOver(),
@@ -83,15 +73,9 @@ const BugCardContainer: React.FC<{
       centered: true,
       onOk: () => {
         // (bugForm.props);
-        console.log(bugForm);
-        store.dispatch({
-          type: "bug-addBug",
-          bug: {
-            status,
-            ...bugForm.props.form!.getFieldsValue()
-          },
+        _addBug({
           status,
-          projectId
+          ...bugForm.props.form!.getFieldsValue()
         });
       },
       getContainer: false
@@ -106,19 +90,19 @@ const BugCardContainer: React.FC<{
     .map((bug: IBug) => <BugCard bug={bug} />);
 
   // 切除当前页需要显示的list
-  const slicecurrentList = (pageNumber: number) => {
+  const sliceCurrentList = (pageNumber: number) => {
     return list.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
   };
 
   // 用于处理list的reducer，这样就不用两个state了
   const listReducer = (_state: IPage, action: number) => ({
     pageNumber: action,
-    currentList: slicecurrentList(action)
+    currentList: sliceCurrentList(action)
   });
 
   const [listState, dispatchList] = useReducer(listReducer, {
     pageNumber: 1,
-    currentList: slicecurrentList(1)
+    currentList: sliceCurrentList(1)
   });
 
   // 分页器处理函数
@@ -127,6 +111,7 @@ const BugCardContainer: React.FC<{
     dispatchList(page);
   };
 
+  // 监听拖拽
   useEffect(() => {
     // console.log("list is" + list, listState.pageNumber);
     // dispatchList(Math.ceil(list.length / pageSize));
@@ -139,7 +124,13 @@ const BugCardContainer: React.FC<{
     } else {
       dispatchList(listState.pageNumber);
     }
-  }, [list.length, listState.pageNumber]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [list.length]);
+
+  // 监听修改某个bug
+  useEffect(() => {
+    dispatchList(listState.pageNumber);
+  }, [bugs, listState.pageNumber])
 
   // 显示当前页的list
   const showCurrentList = () => {

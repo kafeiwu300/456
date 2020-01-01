@@ -19,20 +19,20 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
     borderRadius: '4px',
     border: '1px solid #d9d9d9',
     lineHeight: '22px',
-  }
+  };
 
   const addStoryStyle: CSSProperties = {
     ...outerStyle,
     textAlign: 'center',
     border: '1px solid #d9d9d9'
-  }
+  };
 
   const headerStyle: CSSProperties = {
     ...outerStyle,
     fontSize: '18px',
     fontWeight: 'bold',
     borderRadius: '4px'
-  }
+  };
 
   let storyForm: any = undefined;
 
@@ -60,7 +60,7 @@ const Kanban: React.FC<{stories: IStory[]}> = ({stories}) => {
         }
       }
     })
-  }
+  };
 
   const { match } = useRouter<{
     projectId: string,

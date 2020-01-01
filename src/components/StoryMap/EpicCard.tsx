@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Collapse, Button, Descriptions, Modal, Icon } from 'antd';
 import { IEpicInfo } from './interfaces';
-import { store } from '../../store';
 import EpicForm from './EpicForm';
-import useRouter from 'use-react-router';
+import StoryMapContext from '../../common/contexts/StoryMapContext';
 
 const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
   const [ghost, setGhost] = useState<boolean>(true);
+
+  const { modifyEpic: _modifyEpic, removeEpic: _removeEpic } = StoryMapContext.useContainer();
 
   let epicForm: any = undefined;
   
@@ -16,21 +17,16 @@ const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
       title: '修改史诗故事',
       okText: '保存',
       cancelText: '取消',
-      icon: <></>,
+      icon: <Icon type="edit" />,
       width: 600,
       content: <EpicForm wrappedComponentRef={(form: any) => epicForm = form} epic={epic}/>,
       centered: true,
       onOk: () => {
         if (epicForm && epicForm.props) {
-          const t: IEpicInfo = {
+          _modifyEpic({
             ...epic,
             ...epicForm.props.form.getFieldsValue()
-          };
-          store.dispatch({
-            type: 'storyMap-modifyEpic',
-            projectId,
-            epic: t
-          })
+          });
         }
       }
     })
@@ -46,19 +42,10 @@ const EpicCard: React.FC<{epic: IEpicInfo}> = ({epic}) => {
       width: 600,
       content: '确定要删除这个史诗故事吗？',
       onOk: () => {
-        store.dispatch({
-          type: 'storyMap-removeEpic',
-          projectId,
-          epic
-        });
+        _removeEpic(epic.id!);
       }
     })
   }
-
-  const { match } = useRouter<{
-    projectId: string
-  }>();
-  const { projectId } = match.params;
 
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>

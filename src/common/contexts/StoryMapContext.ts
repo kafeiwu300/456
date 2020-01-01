@@ -27,17 +27,17 @@ import {
 } from "../../agent/storyAgent";
 import { IStoryInfo } from "../../components/Kanban/interfaces";
 
-const useStoryMap = (projectId?: string) => {
-  const emptyStoryMap: {
-    epics: IEpicInfo[];
-    iterations: IIteration[];
-    unplannedStories: IStoryInEpic[];
-  } = {
-    epics: [],
-    iterations: [],
-    unplannedStories: []
-  };
+const emptyStoryMap: {
+  epics: IEpicInfo[];
+  iterations: IIteration[];
+  unplannedStories: IStoryInEpic[];
+} = {
+  epics: [],
+  iterations: [],
+  unplannedStories: []
+};
 
+const useStoryMap = (projectId?: string) => {
   const [storyMapData, setStoryMapData] = useState<{
     epics: IEpicInfo[];
     iterations: IIteration[];
@@ -62,12 +62,12 @@ const useStoryMap = (projectId?: string) => {
     } else {
       setStoryMapData(emptyStoryMap);
     }
-  }, [emptyStoryMap, projectId]);
+  }, [projectId]);
 
   const moveStory = (
     story: IStoryInfo,
-    iterationId: string,
-    epicId: string
+    iterationId?: string,
+    epicId?: string
   ) => {
     setLoading(true);
     originalMoveStory(story, iterationId, epicId).then(() =>

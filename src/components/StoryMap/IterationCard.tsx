@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Collapse, Button, Avatar, Descriptions, Modal, Icon } from 'antd';
 import { IIterationInfo } from './interfaces';
 import IterationForm from './IterationForm';
-import { store } from '../../store';
-import useRouter from 'use-react-router';
+import StoryMapContext from '../../common/contexts/StoryMapContext';
 
 const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
   const [ghost, setGhost] = useState<boolean>(true);
+
+  const { modifyIteration: _modifyIteration, removeIteration: _removeIteration } = StoryMapContext.useContainer();
 
   let iterationForm: any = undefined;
   
@@ -22,15 +23,10 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
       centered: true,
       onOk: () => {
         if (iterationForm && iterationForm.props) {
-          const t: IIterationInfo = {
+          _modifyIteration({
             ...iteration,
             ...iterationForm.props.form.getFieldsValue()
-          };
-          store.dispatch({
-            type: 'storyMap-modifyIteration',
-            projectId,
-            iteration: t
-          })
+          });
         }
       }
     })
@@ -46,19 +42,11 @@ const IterationCard: React.FC<{iteration: IIterationInfo}> = ({iteration}) => {
       content: '确定要删除这个迭代吗？',
       icon: <Icon type="delete" />,
       onOk: () => {
-        store.dispatch({
-          type: 'storyMap-removeIteration',
-          projectId,
-          iteration
-        });
+        _removeIteration(iteration.id!);
       }
     })
   }
 
-  const { match } = useRouter<{
-    projectId: string
-  }>();
-  const { projectId } = match.params;
 
   return (
     <div onMouseOverCapture={() => setGhost(false)} onMouseOutCapture={() => setGhost(true)}>

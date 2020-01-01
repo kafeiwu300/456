@@ -12,18 +12,19 @@ import {
 import { IEpicInfo, IIteration, IStoryInEpic } from "./interfaces";
 import StoryCardContainer from "./StoryCardContainer";
 import IterationForm from "./IterationForm";
-import { store } from "../../store";
 import IterationCard from "./IterationCard";
 import EpicCard from "./EpicCard";
 import EpicForm from "./EpicForm";
 import UnplannedStoryCardContainer from "./UnplannedStoryCardContainer";
-import useRouter from "use-react-router";
+import StoryMapContext from "../../common/contexts/StoryMapContext";
 
 const StoryMap: React.FC<{
   epics: IEpicInfo[];
   iterations: IIteration[];
   unplannedStories: IStoryInEpic[];
 }> = ({ epics, iterations, unplannedStories }) => {
+  const { addIteration: _addIteration, addEpic: _addEpic } = StoryMapContext.useContainer();
+
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
     backgroundColor: "#fafafa",
@@ -66,13 +67,9 @@ const StoryMap: React.FC<{
       centered: true,
       onOk: () => {
         if (iterationForm && iterationForm.props) {
-          store.dispatch({
-            type: "storyMap-addIteration",
-            projectId,
-            iteration: {
-              ...iterationForm.props.iteration,
-              ...iterationForm.props.form.getFieldsValue()
-            }
+          _addIteration({
+            ...iterationForm.props.iteration,
+            ...iterationForm.props.form.getFieldsValue()
           });
         }
       }
@@ -95,13 +92,9 @@ const StoryMap: React.FC<{
       centered: true,
       onOk: () => {
         if (epicForm && epicForm.props) {
-          store.dispatch({
-            type: "storyMap-addEpic",
-            projectId,
-            epic: {
-              ...epicForm.props.epic,
-              ...epicForm.props.form.getFieldsValue()
-            }
+          _addEpic({
+            ...epicForm.props.epic,
+            ...epicForm.props.form.getFieldsValue()
           });
         }
       }
@@ -109,11 +102,6 @@ const StoryMap: React.FC<{
   };
 
   const [showUnplanned, setShowUnplanned] = useState<boolean>(false);
-
-  const { match } = useRouter<{
-    projectId: string;
-  }>();
-  const { projectId } = match.params;
 
   //TODO: 修复未规划故事的展示效果
 

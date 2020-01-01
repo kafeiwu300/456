@@ -1,10 +1,9 @@
-import { connect } from "react-redux";
-import { IState } from "../../interfaces";
 import VisibleStoryMap from "../../components/StoryMap/StoryMap";
 import React from "react";
 import StoryMapContext from "../../common/contexts/StoryMapContext";
+import useRouter from "use-react-router";
 
-export const StoryMap: React.FC = () => {
+const StoryMap: React.FC = () => {
   const {
     storyMapData: { epics, iterations, unplannedStories }
   } = StoryMapContext.useContainer();
@@ -18,6 +17,16 @@ export const StoryMap: React.FC = () => {
   );
 };
 
-export default connect((state: IState) => ({ ...state.storyMapData }))(
-  VisibleStoryMap
-);
+export default () => {
+  const { match } = useRouter<{
+    projectId: string;
+  }>();
+
+  const { projectId } = match.params;
+
+  return (
+    <StoryMapContext.Provider initialState={projectId}>
+      <StoryMap />
+    </StoryMapContext.Provider>
+  )
+}

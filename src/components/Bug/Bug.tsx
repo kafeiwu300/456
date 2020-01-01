@@ -8,7 +8,7 @@ import { BugState, KanbanState } from "../../enums";
 import ProjectContext from "../../common/contexts/ProjectContext";
 
 const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
-  const {project} = ProjectContext.useContainer();
+  const { project } = ProjectContext.useContainer();
 
   const outerStyle = {
     // backgroundColor: '#e8e8e8',
@@ -28,22 +28,22 @@ const Bug: React.FC<{ bugs: IBug[] }> = ({ bugs }) => {
       <div style={{ textAlign: "center" }}>
         <div style={{ width: "100%", textAlign: "left", margin: "0 auto" }}>
           <Row>
-            {
-              project.bugStatusList!.map((value: KanbanState) => (
-                <Col span={4}>
-                  <div style={headerStyle}>{value}</div>
-                </Col>
-              ))
-            }
+            {project.bugStatusList!.map((value: KanbanState) => (
+              <Col span={4}>
+                <div style={headerStyle}>{value}</div>
+              </Col>
+            ))}
           </Row>
           <Row style={{ marginBottom: "8px" }}>
-            {
-              project.bugStatusList!.map((value: BugState, index: number) => (
-                <Col span={4}>
-                  <BugCardContainer canAddBug={index === 0} bugs={bugs} status={value} />
-                </Col>
-              ))
-            }
+            {project.bugStatusList!.map((value: BugState, index: number) => (
+              <Col span={4}>
+                <BugCardContainer
+                  canAddBug={index === 0}
+                  bugs={bugs}
+                  status={value}
+                />
+              </Col>
+            ))}
           </Row>
         </div>
       </div>

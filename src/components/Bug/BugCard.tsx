@@ -1,22 +1,21 @@
 import { IBug, IDragObject } from "./interfaces";
 import React, { CSSProperties, useState } from "react";
 import { Modal, Icon, Button, Popover, Form } from "antd";
-import { store } from "../../store";
 import { useDrag } from "react-dnd";
 import BugForm from "./BugForm";
-import useRouter from "use-react-router";
 import ProjectContext from "../../common/contexts/ProjectContext";
+import BugContext from "../../common/contexts/BugContext";
 
 const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
   // 设置气泡卡片是否可见，点击气泡上的按钮以后隐藏它
   const [isPopoverVisible, setPopoverVisible] = useState(false);
 
-  const { match } = useRouter<{
-    projectId: string
-  }>();
-  const { projectId } = match.params;
+  const { project } = ProjectContext.useContainer();
 
-  const {project} = ProjectContext.useContainer();
+  const {
+    removeBug: _removeBug,
+    modifyBug: _modifyBug
+  } = BugContext.useContainer();
 
   const removeBug = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.stopPropagation();
@@ -29,11 +28,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       width: 600,
       icon: <Icon type="delete" />,
       onOk: () => {
-        store.dispatch({
-          type: "bug-removeBug",
-          bug,
-          projectId
-        });
+        _removeBug(bug.id!);
       }
     });
   };
@@ -57,11 +52,7 @@ const BugCard: React.FC<{ bug: IBug }> = ({ bug }) => {
       width: 600,
       icon: <Icon type="edit" />,
       onOk: () => {
-        store.dispatch({
-          type: "bug-modifyBug",
-          bug: { id: bug.id, ...bugForm.props.form!.getFieldsValue() },
-          projectId
-        });
+        _modifyBug({ id: bug.id, ...bugForm.props.form!.getFieldsValue() });
       }
     });
   };
