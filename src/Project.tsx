@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import useRouter from 'use-react-router';
-import IterationTable from './IterationTable/IterationTable';
-import Iteration from './IterationTable/Iteration';
+import IterationTable from './Routes/IterationTable/IterationTable';
+import Iteration from './Routes/Iteration/Iteration';
 import TestCaseList from './Test/TestCaseList';
 import TestPlanList from './Test/TestPlanList';
 import BurnDown from './BurnDown/BurnDown';
 import CFD from './CFD/CFD';
-import { Provider } from 'react-redux';
-import { store } from './store';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from "react-dnd-html5-backend";
 import LayoutRoute from './LayoutRoute';
@@ -26,21 +24,6 @@ const Project: React.FC = () => {
   }>();
 
   const { projectId } = match.params;
-
-  useEffect(() => {
-    // store.dispatch({
-    //   type: 'project-getData',
-    //   projectId
-    // });
-    store.dispatch({
-      type: 'storyMap-getData',
-      projectId
-    });
-    store.dispatch({
-      type: 'bug-getData',
-      projectId
-    });
-  }, [projectId]);
 
   return (
     <Layout style={{height: '100%'}}>
@@ -75,24 +58,22 @@ const Project: React.FC = () => {
         </Menu>
       </Layout.Sider>
       <Layout.Content style={{height: '100%', width: 'calc(100% - 200px)'}}>
-        <Provider store={store}>
-          <ProjectContext.Provider initialState={projectId}>
-            <DndProvider backend={HTML5Backend}>
-              <Switch>
-                <Route exact path={`${match.path}/story-map`} component={StoryMap}/>
-                <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
-                <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
-                <LayoutRoute title='测试用例' exact path={`${match.path}/test-case`} component={TestCaseList}/>
-                <LayoutRoute title='测试计划' exact path={`${match.path}/test-plan`} component={TestPlanList}/>
-                <LayoutRoute title='燃尽图' exact path={`${match.path}/burn-down`} component={BurnDown}/>
-                <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
-                <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>
-                <Route exact path={`${match.path}/test-plan/:planId`} component={PlanCaseList}/>
-                <Route path={`${match.path}`} component={Log}/>
-              </Switch>
-            </DndProvider>
-          </ProjectContext.Provider>
-        </Provider>
+        <ProjectContext.Provider initialState={projectId}>
+          <DndProvider backend={HTML5Backend}>
+            <Switch>
+              <Route exact path={`${match.path}/story-map`} component={StoryMap}/>
+              <LayoutRoute title='缺陷看板' exact path={`${match.path}/bug`} component={Bug}/>
+              <LayoutRoute title='迭代列表' exact path={`${match.path}/iterations`} component={IterationTable}/>
+              <LayoutRoute title='测试用例' exact path={`${match.path}/test-case`} component={TestCaseList}/>
+              <LayoutRoute title='测试计划' exact path={`${match.path}/test-plan`} component={TestPlanList}/>
+              <LayoutRoute title='燃尽图' exact path={`${match.path}/burn-down`} component={BurnDown}/>
+              <LayoutRoute title='累积流图' exact path={`${match.path}/cfd`} component={CFD}/>
+              <Route exact path={`${match.path}/iteration/:iterationId`} component={Iteration}/>
+              <Route exact path={`${match.path}/test-plan/:planId`} component={PlanCaseList}/>
+              <Route path={`${match.path}`} component={Log}/>
+            </Switch>
+          </DndProvider>
+        </ProjectContext.Provider>
       </Layout.Content>
     </Layout>
   );

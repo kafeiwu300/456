@@ -18,7 +18,6 @@ const useProject = (projectId?: string) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(projectId);
     if (projectId) {
       setLoading(true);
       getProject(projectId).then(res => setProject(res.body)).finally(() => setLoading(false));

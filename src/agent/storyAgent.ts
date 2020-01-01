@@ -24,7 +24,6 @@ export function addStory(story: IStoryInfo, projectId: string, iterationId?: str
 }
 
 export function modifyStory(story: IStoryInfo) {
-  console.log(story);
   return agent.put(`${BASE_URL}/stories/${story.id}`).send(story);
 }
 
