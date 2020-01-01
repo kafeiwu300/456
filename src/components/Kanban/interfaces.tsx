@@ -11,7 +11,8 @@ export interface ITask {
   priority?: 'very high' | 'high' | 'middle' | 'low',
   estimatedHours?: number,
   taskPoint?: number,
-  leader?: string
+  leader?: string,
+  isFinished?: boolean
 }
 
 export interface IStoryInfo {
